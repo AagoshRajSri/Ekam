@@ -4,6 +4,8 @@
 >
 > **Timeline assumption:** one developer, ~15–20 focused hours/week. Durations are rough ranges, not promises. Total ≈ **5–7 months** to a hardened, daily-usable Baby; a **talking, interruptible, fast MVP exists after ~3–4 weeks**.
 
+> **Naming:** the project is codenamed *Baby* in these files, but the product name and wake word are config values (`APP_NAME`, `WAKE_WORD`; currently **Ekam**). Never hard-code either; do not rename files or code.
+
 ---
 
 ## Part 1 — What it looks like in the end
@@ -133,8 +135,8 @@ baby/
 | End-of-turn | LiveKit turn-detector model **or** Deepgram Flux's built-in turn detection | Flux exposes early "eager" end-of-turn events that let the LLM start before the turn is confirmed (cost: noticeably more LLM calls on speculative starts) |
 | STT | **Deepgram** (Nova-3 / Flux) baseline; **Sarvam** if you go Indic or code-mixed | LiveKit Inference hosts Deepgram in Mumbai; Sarvam has a first-party LiveKit plugin with broad Indian-language coverage. Decide by your benchmark |
 | TTS | **Cartesia Sonic** or **ElevenLabs Flash**; Sarvam for Indic voices | Vendors claim roughly 40–150 ms time-to-first-audio — treat as marketing until you measure it from Mumbai |
-| Fast LLM | **Groq**-hosted model, or a **Gemini Flash-tier** model with thinking at minimum, or **Claude Haiku 4.5** | TTFT varies enormously by provider, region, and thinking level — pick by measurement |
-| Reasoning LLM | **Claude Sonnet 5 / Opus 5** (or Gemini Pro-tier) | Only for Tier 2 with a spoken hand-off |
+| Fast LLM | **Groq**-hosted model, or a **Gemini Flash-tier** model with thinking at minimum, or **Claude Haiku 5.5** | TTFT varies enormously by provider, region, and thinking level — pick by measurement |
+| Reasoning LLM | **Claude Sonnet 5.5 / Opus 5.5** (or Gemini Pro-tier) | Only for Tier 2 with a spoken hand-off |
 | Gateway | **Node.js + TypeScript + Fastify + Zod** | Fast, typed, great integration ecosystem (OAuth, Google APIs, Stripe later) |
 | ORM / DB | **Prisma + PostgreSQL + pgvector** | One durable store for relational data *and* vectors |
 | Cache / queue | **Redis + BullMQ** | Session state, pub/sub, delayed jobs (reminders), background research |
@@ -162,6 +164,19 @@ baby/
 | 8 | Hardening & launch | ~2 wks | Security review, load test, runbooks |
 
 **Rule:** do not start a phase until the previous phase's exit criteria are met and measured.
+
+---
+
+## Profile A overrides (read before Part 4)
+
+This roadmap describes the **target** build. While in **Profile A (free)** (see `BABY_FREE_TO_PREMIUM.md`), apply these overrides:
+
+- **Accounts (Phase 0):** create only free-tier accounts: LiveKit Build, Groq, Google AI Studio. Skip Deepgram, paid TTS, and Anthropic until Profile B is unlocked. Docker/Postgres/Redis are not needed until Phase 3.
+- **Phase 1 code skeleton:** it names paid providers. Treat it as structure only; wire the free providers (local faster-whisper or LiveKit Inference credits for STT, Piper/Kokoro for TTS, Groq then Gemini then Ollama for the LLM).
+- **Deployment:** run the agent locally. The Mumbai/managed-hosting steps (Phase 1 step 6, Day 6) and managed Postgres/Redis are Profile B.
+- **Latency targets:** under Profile A these are *baselines to record*, not blockers. Functional, safety, and honesty criteria stay blocking; barge-in must work.
+- **Preemptive generation:** off.
+- **Language:** record the corpus in Indian English, plus ~10-20 extra unscored Hindi/code-mixed utterances and ~20 repetitions of the wake word in quiet, noisy, and speakerphone conditions.
 
 ---
 
@@ -231,7 +246,7 @@ if __name__ == "__main__":
 2. **Web client.** A Next.js route handler mints short-lived LiveKit tokens (`livekit-server-sdk`). The page uses the LiveKit React components: room, audio renderer, and the voice-assistant hook for state + visualizer. Start with a plain orb and a transcript; polish later.
 3. **Voice system prompt v1** (spec Appendix A): short answers, no markdown, spoken numbers.
 4. **Telemetry from day one.** LiveKit Agents emits per-component metrics (end-of-utterance delay, LLM TTFT, TTS TTFB). Subscribe and write one JSON line per turn with the trace shape in the spec (§14). Add `cost_usd`.
-5. **Provider bake-off** on your corpus: STT (Deepgram Nova-3 vs Flux vs Sarvam), TTS (Cartesia vs ElevenLabs Flash vs Deepgram Aura-2 vs Sarvam), LLM (Groq vs Gemini Flash-tier with minimal thinking vs Claude Haiku 4.5). Record results in **ADR-003**. Pick primary **and** fallback for each.
+5. **Provider bake-off** on your corpus: STT (Deepgram Nova-3 vs Flux vs Sarvam), TTS (Cartesia vs ElevenLabs Flash vs Deepgram Aura-2 vs Sarvam), LLM (Groq vs Gemini Flash-tier with minimal thinking vs Claude Haiku 5.5). Record results in **ADR-003**. Pick primary **and** fallback for each.
 6. **Deploy early** to LiveKit Cloud `ap-south` (Mumbai) and re-measure — numbers from your laptop or a US region will mislead you.
 7. **Turn-taking tuning:** adjust endpointing delays, adaptive-interruption thresholds, and false-interruption recovery using real recordings of yourself pausing, correcting, and coughing.
 8. **Scripted barge-in test:** play audio at Baby mid-sentence and assert silence within the budget.

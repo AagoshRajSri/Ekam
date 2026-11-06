@@ -48,3 +48,13 @@ Store the audio files in `evals/corpus/wavs/` and map them to their exact ground
 22. `remind me to carry an umbrella at eight AM`
 23. `cancel the umbrella reminder`
 
+### Hindi / Code-Mixed Utterances (Unscored Baseline)
+24. `aaj ka mausam kaisa hai`
+25. `kal barish hogi kya`
+26. `Rahul ko message bhejo ki main dus minute mein pahunch raha hoon`
+27. `ek cup chai banane ka timer laga do`
+28. `mujhe aath baje jagana`
+
+### Wake Word Repetitions (~20 reps of "Ekam")
+29–48. Record ~20 short clips of saying **"Ekam"** in varied tones, speeds, and distances (quiet, noisy, speakerphone).
+

@@ -107,3 +107,4 @@ Below are the raw chronological telemetry records emitted by `livekit-agents` du
 2. **Streaming TTS Speed:** Canopy Labs Orpheus TTS generated audio packets within 194–338 ms.
 3. **Truthfulness Prompt Strength:** The runtime system prompt (Appendix A) proved highly resilient against hallucination out of the box.
 4. **Next Optimization Focus (Phase 1):** Moving from terminal console audio to the WebRTC browser client (`apps/web`) with a real-time latency waterfall dashboard.
+

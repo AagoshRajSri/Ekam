@@ -5,6 +5,8 @@
 >
 > **What changed from v1:** sharper priorities, realistic latency contracts, a hot-path/cold-path rule, a three-tier router (no extra LLM hop), a richer tool contract (verification, undo, idempotency), prompt-injection defenses, a platform-reality table for device control, evals and CI gates, acceptance conversations, and explicit non-goals. Every v1 idea is kept; nothing important was dropped.
 
+> **Naming:** the project is codenamed *Baby* in these files, but the product name and wake word are config values (`APP_NAME`, `WAKE_WORD`; currently **Ekam**). Never hard-code either; do not rename files or code.
+
 ---
 
 ## 0. Working agreement for AI coding agents
@@ -289,7 +291,7 @@ Do not pick vendors by popularity. Build a **benchmark corpus** (50–100 uttera
 
 **Measure from the deployment region**, not your laptop. Re-run quarterly. Keep the decision record in an ADR.
 
-Candidates to include (not a final answer): STT — Deepgram (Nova-3, Flux), Sarvam (Indic + code-mixed), others. TTS — Cartesia, ElevenLabs Flash, Deepgram Aura-2, Sarvam. LLM fast tier — Groq-hosted open models, a Gemini Flash-tier model with minimal thinking, Claude Haiku 4.5. Reasoning tier — Claude Sonnet 5 / Opus 5, Gemini Pro-tier.
+Candidates to include (not a final answer): STT — Deepgram (Nova-3, Flux), Sarvam (Indic + code-mixed), others. TTS — Cartesia, ElevenLabs Flash, Deepgram Aura-2, Sarvam. LLM fast tier — Groq-hosted open models, a Gemini Flash-tier model with minimal thinking, Claude Haiku 5.5. Reasoning tier — Claude Sonnet 5.5 / Opus 5.5, Gemini Pro-tier.
 
 ---
 
@@ -385,7 +387,7 @@ These are engineering targets, not promises; the benchmark harness decides what 
 | Voice agent | Python, `livekit-agents`, Silero VAD, LiveKit turn detector or STT-native EOT | — |
 | STT | Deepgram (Flux or Nova-3) · Sarvam for Indic/code-mixed | Benchmark loses |
 | TTS | Cartesia Sonic or ElevenLabs Flash · Sarvam for Indic | Benchmark loses |
-| LLM fast / reasoning | Groq or Gemini Flash-tier (thinking min) / Claude Sonnet 5 · Opus 5 | Benchmark loses |
+| LLM fast / reasoning | Groq or Gemini Flash-tier (thinking min) / Claude Sonnet 5.5 · Opus 5.5 | Benchmark loses |
 | Gateway | Node.js LTS, TypeScript, Fastify, Zod, Prisma, BullMQ, pino, OpenTelemetry | Express only for ecosystem compatibility |
 | Data | PostgreSQL + pgvector, Redis | FAISS if pgvector misses budget |
 | Embeddings | FastEmbed (local ONNX) | Hosted embeddings if quality demands |

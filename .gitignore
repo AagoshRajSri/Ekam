@@ -49,3 +49,6 @@ evals/corpus/*.wav
 evals/corpus/*.mp3
 # (commit ground_truth.json alongside the WAVs)
 
+# ── Old prompt archives ───────────────────────────────────────────────────────
+prompts/old/
+

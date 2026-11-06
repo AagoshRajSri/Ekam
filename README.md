@@ -10,6 +10,8 @@ Baby is a voice-native personal AI designed from the ground up for sub-second, i
 
 As of **Phase 0 (Foundations)**, the real-time voice pipeline has been built, tested, and validated in live multi-turn conversations.
 
+> 📖 **Full Telemetry Log & Analysis:** See [docs/benchmarks/phase_0_empirical_results.md](docs/benchmarks/phase_0_empirical_results.md) for the complete turn-by-turn records, timestamps, and architectural takeaways.
+
 ### Live Benchmark Results (Empirically Measured)
 
 Measurements taken on local hardware connecting to LiveKit Cloud in **Mumbai (`ap-south`)**:
@@ -192,3 +194,4 @@ Ekam/
 
 ## 📄 License
 ISC © 2026 Ekam Contributors
+

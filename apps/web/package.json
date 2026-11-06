@@ -1,0 +1,7 @@
+{
+  "name": "@ekam/web",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Baby web client — Next.js UI + LiveKit voice + dev telemetry dashboard"
+}
+

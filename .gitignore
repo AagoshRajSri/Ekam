@@ -1,0 +1,51 @@
+# ── Secrets & credentials ─────────────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+
+# ── Node / pnpm ───────────────────────────────────────────────────────────────
+node_modules/
+.pnpm-store/
+dist/
+.turbo/
+.next/
+.vercel/
+out/
+build/
+
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+.uv/
+*.egg-info/
+dist/
+*.whl
+
+# ── Logs & telemetry ──────────────────────────────────────────────────────────
+*.log
+logs/
+traces/
+*.jsonl
+!evals/corpus/**/*.jsonl
+
+# ── OS / editor ───────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/settings.json
+*.swp
+
+# ── Build / infra ─────────────────────────────────────────────────────────────
+*.tfstate
+*.tfstate.backup
+.terraform/
+infra/.env
+
+# ── Eval corpus — keep ground truth JSON, ignore raw audio ────────────────────
+evals/corpus/*.wav
+evals/corpus/*.mp3
+# (commit ground_truth.json alongside the WAVs)
+

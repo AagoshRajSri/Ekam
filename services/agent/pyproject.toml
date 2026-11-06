@@ -1,0 +1,31 @@
+[project]
+name = "baby-agent"
+version = "0.1.0"
+description = "Baby — real-time voice-first personal AI · LiveKit voice agent"
+readme = "README.md"
+authors = [
+    { name = "AagoshRajSri", email = "aagoshrajsrivastava10@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "livekit-agents>=0.8",
+    "python-dotenv>=1.0,<2.0",
+    "simpleeval>=1.0,<2.0",
+    "pint>=0.24,<0.25",
+    "structlog>=24.0,<25.0",
+    "livekit-plugins-silero>=1.8.11",
+    "livekit-plugins-groq>=1.8.11",
+    "livekit-plugins-deepgram>=1.8.11",
+    "livekit-plugins-cartesia>=1.8.11",
+    "livekit-plugins-google>=1.8.11",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+]
+
+[build-system]
+requires = ["uv_build>=0.13.7,<0.14.0"]
+build-backend = "uv_build"

@@ -1,0 +1,17 @@
+{
+  "name": "ekam",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Baby — real-time voice-first personal AI (monorepo root)",
+  "packageManager": "pnpm@10.15.1",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev:web": "pnpm --filter @ekam/web dev",
+    "dev:gateway": "pnpm --filter @ekam/gateway dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "test": "pnpm -r test"
+  }
+}

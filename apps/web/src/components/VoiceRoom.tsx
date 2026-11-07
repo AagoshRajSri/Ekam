@@ -27,7 +27,7 @@ function ActiveVoiceRoom({ onDisconnect }: { onDisconnect: () => void }) {
   const { state: agentState, audioTrack, agentTranscriptions } = useVoiceAssistant();
   const [telemetryPoints, setTelemetryPoints] = useState<TelemetryPoint[]>([]);
   const [currentTurnMs, setCurrentTurnMs] = useState<number | null>(null);
-  const [transcripts, setTranscripts] = useState<TranscriptEntry[]>([]);
+  const [dataChannelTranscripts, setDataChannelTranscripts] = useState<TranscriptEntry[]>([]);
   const [quotaAlert, setQuotaAlert] = useState<boolean>(false);
   const [audioLevel, setAudioLevel] = useState<number>(0);
 
@@ -43,7 +43,7 @@ function ActiveVoiceRoom({ onDisconnect }: { onDisconnect: () => void }) {
       const data = JSON.parse(decoded);
 
       if (data.type === 'transcript') {
-        setTranscripts((prev) => [
+        setDataChannelTranscripts((prev) => [
           ...prev,
           {
             id: `server-${Date.now()}`,
@@ -59,6 +59,24 @@ function ActiveVoiceRoom({ onDisconnect }: { onDisconnect: () => void }) {
       // ignore non-json messages
     }
   });
+
+  // Derived transcript feed combining data channel messages and agent transcriptions
+  const transcripts = React.useMemo<TranscriptEntry[]>(() => {
+    const list = [...dataChannelTranscripts];
+    if (agentTranscriptions && agentTranscriptions.length > 0) {
+      for (const t of agentTranscriptions) {
+        if (t.text && !list.some((existing) => existing.text === t.text)) {
+          list.push({
+            id: `transcription-${t.id || t.text}`,
+            role: 'assistant',
+            text: t.text,
+            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+          });
+        }
+      }
+    }
+    return list;
+  }, [dataChannelTranscripts, agentTranscriptions]);
 
   // Track microphone toggle
   const { enabled: isMicEnabled, toggle: toggleMic } = useTrackToggle({
@@ -98,27 +116,6 @@ function ActiveVoiceRoom({ onDisconnect }: { onDisconnect: () => void }) {
     }
   }, [agentState, send]);
 
-  // Sync official agent transcriptions if provided by LiveKit agents
-  useEffect(() => {
-    if (agentTranscriptions && agentTranscriptions.length > 0) {
-      const latest = agentTranscriptions[agentTranscriptions.length - 1];
-      if (latest?.text) {
-        setTranscripts((prev) => {
-          const exists = prev.some((e) => e.text === latest.text);
-          if (exists) return prev;
-          return [
-            ...prev,
-            {
-              id: `transcription-${latest.id || Date.now()}`,
-              role: 'assistant',
-              text: latest.text,
-              timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
-            },
-          ];
-        });
-      }
-    }
-  }, [agentTranscriptions]);
 
   // Audio level monitoring when agent is speaking
   useEffect(() => {

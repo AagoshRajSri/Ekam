@@ -20,7 +20,7 @@
 - [ ] Benchmark corpus recorded (53 WAVs + wake word repetitions in `evals/corpus/`) — **BLOCKING: Phase 1 Step 5 (Bake-off) & Phase 1 Exit**
 
 ### Phase 1 — Web Client & Telemetry
-- [x] Pinned latest stable Next.js (16.4.5) & React (19.3.1) patched against CVE-2025-55182 floor; `pnpm audit` clean (0 vulnerabilities)
+- [x] Pinned latest stable Next.js (16.4.5) & React (19.3.1) patched against CVE-2025-55182; exact dependency pins (zero `^` ranges), frozen lockfile verified (`pnpm install --frozen-lockfile`), production audit clean (0 vulnerabilities), direct ESLint 9 runner configured (`pnpm lint` 0 errors/warnings)
 - [x] Next.js token route (`apps/web/src/app/api/token/route.ts`) loading root `.env` via `@next/env`, server-only secrets, 10m TTL, random identity, minimal grants
 - [x] Ekam Web UI (`apps/web/src/app/page.tsx`) with animated reactive visualizer orb (`LISTENING`, `THINKING`, `SPEAKING`), live transcript feed, and `<RoomAudioRenderer>`
 - [x] Appendix A v2 prompt integrated with `APP_NAME` ("Ekam"), style settings (`humor 1`, `fillers 0`, `formality 1`, `verbosity 1`), omitting voice tuning until Phase 3

@@ -20,7 +20,9 @@
 - [ ] Benchmark corpus recorded (53 WAVs + wake word repetitions in `evals/corpus/`) — **BLOCKING: Phase 1 Step 5 (Bake-off) & Phase 1 Exit**
 
 ### Phase 1 — Web Client & Telemetry
-- [x] Pinned latest stable Next.js (16.4.5) & React (19.3.1) patched against CVE-2025-55182; exact dependency pins (zero `^` ranges), frozen lockfile verified (`pnpm install --frozen-lockfile`), production audit clean (0 vulnerabilities), direct ESLint 9 runner configured (`pnpm lint` 0 errors/warnings)
+- [x] Pinned latest stable Next.js (16.4.5) & React (19.3.1) patched against CVE-2025-55182; exact dependency pins (zero `^` ranges), frozen lockfile verified (`pnpm install --frozen-lockfile`)
+- [x] Full `pnpm audit` and `pnpm audit --prod` clean (0 vulnerabilities) with pnpm override resolving GHSA-g3hv-75wg-m249 (`minimatch@11.0.5`)
+- [x] Direct ESLint 9 runner configured (`apps/web/eslint.config.mjs`, `pnpm lint` 0 errors/warnings)
 - [x] Next.js token route (`apps/web/src/app/api/token/route.ts`) loading root `.env` via `@next/env`, server-only secrets, 10m TTL, random identity, minimal grants
 - [x] Ekam Web UI (`apps/web/src/app/page.tsx`) with animated reactive visualizer orb (`LISTENING`, `THINKING`, `SPEAKING`), live transcript feed, and `<RoomAudioRenderer>`
 - [x] Appendix A v2 prompt integrated with `APP_NAME` ("Ekam"), style settings (`humor 1`, `fillers 0`, `formality 1`, `verbosity 1`), omitting voice tuning until Phase 3
@@ -45,10 +47,12 @@
 
 ## 3. Open Questions / Blockers
 1. **Blocking for Phase 1 Exit & Step 5 Bake-off:** Benchmark audio corpus must be recorded per `evals/corpus/RECORDING_GUIDE.md` (53 items: 23 Tier 0/context/corrections + 10 Hindi/mixed + 20 "Ekam" wake word repetitions).
+2. **Untested Live Verification:** The `apps/web/src/components/VoiceRoom.tsx` transcript state refactor (deriving merged transcripts from data channel and LiveKit hook via `useMemo` instead of `useEffect` `setState`) compiles cleanly, passes ESLint and Next.js production build, but remains **untested in a live WebRTC audio session** with an active running agent.
 
 ---
 
 ## 4. Next Tasks
 1. Record audio corpus following `evals/corpus/RECORDING_GUIDE.md`.
 2. Run automated provider bake-off (STT, LLM, TTS) once corpus WAVs are present.
-3. Deploy to LiveKit Cloud `ap-south` (Mumbai) and measure production latency.
+3. Live test Web client with running agent (verifying transcript feed updates and visualizer orb animation).
+4. Deploy to LiveKit Cloud `ap-south` (Mumbai) and measure production latency.

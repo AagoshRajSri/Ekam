@@ -244,7 +244,7 @@ if __name__ == "__main__":
 ```
    Run with `python agent.py console`, then `python agent.py dev`.
 2. **Web client.** A Next.js route handler mints short-lived LiveKit tokens (`livekit-server-sdk`). The page uses the LiveKit React components: room, audio renderer, and the voice-assistant hook for state + visualizer. Start with a plain orb and a transcript; polish later.
-3. **Voice system prompt v1** (spec Appendix A): short answers, no markdown, spoken numbers.
+3. **Voice system prompt** (spec Appendix A v2): short answers, no markdown, spoken numbers. Use the fixed default style values and omit the "TUNING THE VOICE" block until Phase 3.
 4. **Telemetry from day one.** LiveKit Agents emits per-component metrics (end-of-utterance delay, LLM TTFT, TTS TTFB). Subscribe and write one JSON line per turn with the trace shape in the spec (§14). Add `cost_usd`.
 5. **Provider bake-off** on your corpus: STT (Deepgram Nova-3 vs Flux vs Sarvam), TTS (Cartesia vs ElevenLabs Flash vs Deepgram Aura-2 vs Sarvam), LLM (Groq vs Gemini Flash-tier with minimal thinking vs Claude Haiku 5.5). Record results in **ADR-003**. Pick primary **and** fallback for each.
 6. **Deploy early** to LiveKit Cloud `ap-south` (Mumbai) and re-measure — numbers from your laptop or a US region will mislead you.
@@ -315,6 +315,7 @@ def tier0(text: str):
 4. **Bootstrap endpoint:** at session start the agent makes **one** call that returns profile, preferences, top-K memories, and the tool manifest. Cache in-process. This is how the hot path stays free of DB queries.
 5. **Redis session state:** conversation window, entity store, action stack, pending confirmations — with TTLs. The agent reads its in-process copy and writes to Redis asynchronously.
 6. **Long-term memory tools:** `remember`, `recall`, `forget`. Embed with FastEmbed → pgvector. Recall runs in parallel with STT finalization under a 50 ms budget; on timeout, continue without.
+6b. **Style preferences (persona tuning):** add `style_preferences` (humor, fillers, formality, verbosity; defaults 1/1/1/1) to the profile and return it in the bootstrap call so it is injected into the system prompt with no hot-path query. Add the `update_style_preferences` tool (risk `LOW`, announced). Switch the agent to Appendix A v2 including the "TUNING THE VOICE" block. The first-session style check fires once; later changes happen only on request or a repeated correction.
 7. **Memory manager UI:** list, edit, delete, provenance. Add "what do you remember about me?" by voice.
 8. **BullMQ worker** for write-behind: memory saves, conversation summaries, analytics.
 9. **Trace propagation:** `traceparent` from agent → gateway → workers.
@@ -323,6 +324,7 @@ def tier0(text: str):
 - Kill and restart the agent mid-session → context restored
 - "Remember I prefer Celsius" persists across sessions; "forget that" deletes it (verify in the database)
 - Traces prove **zero Postgres queries on the hot path**
+- "Fewer ums" / "be more casual" changes style, persists across sessions, and can be read back or reset by voice (golden #9)
 - p50 latency regression **≤ 5 %** vs Phase 2
 
 ---

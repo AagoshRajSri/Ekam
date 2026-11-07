@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 import pytest
 from livekit.plugins import silero, groq
 import agent
-from agent import Baby, prewarm, _SYSTEM_PROMPT
+from agent import Ekam, prewarm, _SYSTEM_PROMPT
 
 
 def test_environment_loads():
@@ -24,9 +24,9 @@ def test_environment_loads():
 
 
 def test_agent_class_instantiation():
-    agent = Baby()
-    assert agent is not None
-    assert "You are Baby" in _SYSTEM_PROMPT
+    bot = Ekam()
+    assert bot is not None
+    assert "You are Ekam" in _SYSTEM_PROMPT
 
 
 def test_silero_vad_loads():

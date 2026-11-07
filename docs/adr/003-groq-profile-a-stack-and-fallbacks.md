@@ -1,0 +1,80 @@
+# ADR-003: Groq Pipeline as Profile A Deviation, Model Pinning, Rate Limits, and Fallback Architecture
+
+**Status:** Accepted  
+**Date:** 2026-11-07  
+**Author:** Ekam Core Team  
+**Scope:** Phase 0–1 Voice Pipeline & Failover Architecture  
+
+---
+
+## Context
+
+The base Profile A specification in `BABY_FREE_TO_PREMIUM.md` originally anticipated:
+- **STT:** LiveKit Inference credits or local `faster-whisper`
+- **LLM:** Groq Llama 3.3 70B → Gemini Flash → local Ollama Qwen
+- **TTS:** Local Piper or Kokoro
+
+During Phase 0 smoke testing:
+1. `llama-3.3-70b-versatile` returned `404 - model not found or no access` on standard free-tier Groq API keys.
+2. Groq's model catalog exposes `qwen/qwen3.8-27b` with ultra-low latency (~129–181 ms TTFT).
+3. Groq also hosts a cloud TTS endpoint (`canopylabs/orpheus-v1-english`, voice `autumn`) with ~194–338 ms TTFB, useful for high-quality demos and benchmarks.
+4. Groq Whisper (`whisper-large-v3-turbo`) delivers fast utterance-based STT with ~0.8s transcript latency. Note: Whisper is utterance-based (processes finalized audio buffers after VAD turn commit), whereas LLM generation and Orpheus TTS stream chunks.
+5. Live test run: The initial 7-turn conversation was an initial **smoke test** verifying plumbing, VAD, and model compatibility. It is **not** an empirical benchmark baseline (benchmarks require the standardized corpus from `evals/corpus/`).
+
+This ADR formalizes adopting Groq for STT, LLM, and demo/benchmark TTS as an authorized Profile A deviation, pins model identifiers, defines provider abstractions, establishes strict rate-limit guardrails, and specifies fallback chains.
+
+---
+
+## Decision
+
+### 1. Pinned Model Identifiers (Exact Provider IDs)
+
+Exact model IDs retrieved from provider catalog APIs:
+
+| Pipeline Layer | Provider | Exact Pinned Model ID / Voice | Mode | Notes |
+|---|---|---|---|---|
+| **STT (Primary)** | Groq | `whisper-large-v3-turbo` | Utterance-based | `language="en"`, 16 kHz mono |
+| **STT (Fallback)** | Local | `faster-whisper` (base.en / small.en) | Utterance-based | Zero network dependency |
+| **Fast LLM (Primary)**| Groq | `qwen/qwen3.8-27b` | Streaming | `temperature=0.4`, `max_tokens=120`, thinking OFF |
+| **Fast LLM (Secondary)**| Google | `gemini-3.8-flash` | Streaming | Failover for Groq 429/5xx |
+| **LLM (Tertiary)** | Local | `ollama/qwen2.5:7b` | Streaming | Local CPU/GPU fallback |
+| **TTS (Demos/Bake-off)**| Groq | `canopylabs/orpheus-v1-english` (voice: `autumn`) | Chunked Stream | Strictly capped: 100 req/hour limit |
+| **TTS (Dev & Tests)** | Local | Piper / Kokoro (`en_US-lessac-medium`) | Local Stream | Default for all automated tests & dev |
+| **VAD** | Local | Silero VAD (ONNX, CPU, 16 kHz) | In-process | < 1 ms |
+| **Turn Detection** | LiveKit | `turn-detector-v1` (multilingual) | In-process/Cloud | ~400 ms endpointing |
+
+### 2. Provider Abstractions (Behind Interfaces)
+
+Per Spec §12 and `AGENTS.md`, no model or provider is hard-coded into business logic:
+- **STT Interface:** Implements LiveKit `stt.STT` protocol.
+- **LLM Interface:** Implements LiveKit `llm.LLM` protocol with automatic fallback chaining.
+- **TTS Interface:** Implements LiveKit `tts.TTS` chunked stream protocol.
+
+### 3. Rate Limits & TTS Dev Isolation
+
+Empirical rate limits observed on Groq free-tier:
+- **Groq Chat / LLM:** 1,000 requests per rolling window, 8,000 tokens/min.
+- **Groq Orpheus TTS:** **100 requests per rolling hour**, 1,200 tokens/min.
+
+**Isolation Rules:**
+1. **Dev & Automated Tests:** Groq Orpheus MUST NOT be invoked during automated test runs (such as the barge-in test suite) or general dev looping. Development defaults to local TTS (Piper/Kokoro) to conserve the 100 req/hour quota.
+2. **Quota Tracking:** An in-memory, rolling per-hour counter tracks TTS requests.
+3. **429 Recovery Line:**
+   - Must NOT use Orpheus to synthesize (Orpheus itself may be 429'd).
+   - Delivered via a pre-recorded WAV or local TTS fallback:
+     > *"I've hit my hourly voice limit. My replies will appear on screen for now."*
+   - Concurrently emits the full text response to the client UI transcript via the data channel.
+
+### 4. Filler Evaluation
+
+- Tested Orpheus on fillers (*"Hmm, I see."*, *"Uh, let me think."*, *"Wait, that changes it."*).
+- Both Orpheus audio and Whisper transcription processed fillers accurately.
+- To prevent synthetic artifacts or awkward latency pauses, **default `style.fillers = 0` (none)** until explicitly customized.
+
+---
+
+## Consequences
+
+- Prevents quota exhaustion: automated testing and local development will never deplete the 100 req/hour Orpheus limit.
+- Zero risk of silent failures: if Groq hits 429, a local/pre-recorded recovery line informs the user and switches output to the on-screen display.
+- Clear distinction maintained between the Phase 0 smoke test and the rigorous Phase 1 benchmark corpus.

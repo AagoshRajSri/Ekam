@@ -1,6 +1,8 @@
 Daimon Benchmark Corpus Recording Guide (v2)
 
-This is a revised version of your guide with the fixes folded in. I can’t save files in this conversation, so the full text is below. File paths (evals/corpus/...) and the roadmap gate come from your guide, and I haven’t verified them against your repo.
+This is a revised version of your guide with the fixes folded in.
+- **Copy-paste Command Reference:** All execution commands are documented in [`evals/corpus/COMMANDS.md`](COMMANDS.md). Every command is runnable copy-paste from the repository root.
+- **Recording Script:** Pre-ordered interactive checklist scripts are generated at [`RECORDING_SCRIPT.md`](RECORDING_SCRIPT.md) and [`RECORDING_SCRIPT.csv`](RECORDING_SCRIPT.csv).
 
 1. Design under test (v1.1)
 State	Listens for	Notes
@@ -17,25 +19,58 @@ Policy items still open. The corpus records them, but the expected action is TBD
 “Hey Daimon, ...” (a carrier prefix)
 “Awaken” with a short pause or right after other speech
 2. Recording specifications
-Capture: 48 kHz, 16-bit or better, mono, with AGC, noise suppression and echo cancellation turned OFF. Keep these masters.
-Derive: 16 kHz, 16-bit mono WAV for the pipeline (evals/corpus/wavs/). Keep the originals so you can re-derive later.
-Levels: peaks between about -12 and -6 dBFS, no clipping. Record about 1 s of room tone before and after each clip.
+Capture: 48 kHz, 24-bit or 16-bit mono WAV, with AGC, noise suppression and echo cancellation turned OFF. Keep these masters in `evals/corpus/masters/`.
+Derive: 16 kHz, 16-bit mono WAV for the pipeline (`evals/corpus/wavs/`). Derived automatically using the polyphase resampler in `check_corpus.py derive`. Keep originals intact.
+Levels: peaks between about -18 and -3 dBFS (nominal target -12 to -6 dBFS), zero digital clipping. Record about 1 s of lead and trail room tone before and after each clip.
 Environments (code in the filename):
 Code	Setup
-Q	Quiet room, headset or close mic
+Q	Quiet room, headset or close mic (15-20 cm)
 D	Desk: laptop built-in mic, speaker 1-2 m away
 N	Noisy: fan, background music or TV running at a realistic volume
-Takes: 2 takes per item unless stated. Don’t delete “bad” takes. Mark them in the metadata (quality_flag) so failures aren’t hidden.
-Filename: {speaker}_{env}_{id}_t{take}.wav, for example s01_D_wake_03_t2.wav.
-Dev/test split: assign takes or speakers to dev (tuning) and test (final report) before any detector runs. Tune only on dev, and report on test once.
+Takes: 2 takes per item. Don’t delete “bad” takes. Mark technical faults in `evals/corpus/quality_flags.json`.
+Filename: {speaker}_{env}_{id}_t{take}.wav, for example `s01_Q_cmd_01_t1.wav`.
+Dev/test split: sealed in `evals/corpus/split.lock` (152 dev clips / 102 test clips). Deterministic split by item.
+
+### Windows 48 kHz Recording Setup Checklist
+Before starting a recording session on Windows:
+1. **Audio Format (48 kHz 24-bit/16-bit):**
+   - Press `Win + R`, type `mmsys.cpl` (or open Windows Sound Settings $\to$ More sound settings).
+   - Go to the **Recording** tab, select your input microphone, and click **Properties**.
+   - Navigate to the **Advanced** tab.
+   - Under **Default Format**, select: **2-channel or 1-channel, 24-bit or 16-bit, 48000 Hz (Studio Quality)**.
+2. **Turn OFF Enhancements, AGC & Noise Suppression:**
+   - In the same Properties dialog, go to **Enhancements** (if present) and check **Disable all enhancements**.
+   - If using OEM audio software (Realtek Audio Console, Waves MaxxAudio Pro, Dell Optimizer, HP Audio Center, Lenovo Vantage, Nahimic), open that control panel and turn OFF all microphone effects: disable "Acoustic Echo Cancellation", "Noise Suppression", "Voice Clarity", "Auto Gain Control / AGC", and "Conference Mode".
+3. **NO Bluetooth Microphones:**
+   - **Do NOT record with Bluetooth headsets or earbuds** (e.g. AirPods, Sony WH/WF, Galaxy Buds). Bluetooth Hands-Free Profile (HFP) drops microphone sampling to 8 kHz or 16 kHz (mSBC/CVSD codec) with extreme dynamic compression and clipping artifacts. Use a USB microphone, XLR audio interface, or analog 3.5mm headset.
+4. **Close Interfering Applications:**
+   - Close Discord, Microsoft Teams, Zoom, Slack, Skype, and all browser tabs with microphone access to prevent background audio ducking or stream hijacking.
+5. **Acoustic Consistency:**
+   - Maintain consistent microphone distance (15–20 cm / 6–8 inches for Block Q; use a pop filter if available).
+   - Lock physical mic gain and Windows recording level slider once set; do not adjust between takes.
+
+### Recommended Recording Order
+Follow the pre-generated interactive scripts in [`RECORDING_SCRIPT.md`](RECORDING_SCRIPT.md):
+1. **Block Q (Quiet Room — 146 clips):**
+   - Record in order: **Section C** (Commands) $\to$ **Section E** (Name pronunciations) $\to$ **Section I** (Hindi/Hinglish) $\to$ **Section G** (Side-talk negatives) $\to$ **Section A** (Awaken wake words).
+   - This records the core conversational and command lines first while vocal energy is fresh, followed by bilingual phrasing, side-talk, and isolated wake words.
+2. **Block D (Desk / Distance — 50 clips):**
+   - Re-record Section C items 16–25 (20 clips), Section E items 11–20 (20 clips), and wake_06–10 (10 clips).
+3. **Block N (Noisy Environment — 58 clips):**
+   - Re-record with fan / background media running: Section C items 26–35 (20 clips), Section E items 21–30 (20 clips), Section G items 09–12 (8 clips), and wake_11–15 (10 clips).
+
 3. Speakers
 s01 (you): records everything in sections A-G (178 items, about 356 clips at 2 takes).
 s02-s05 (at least 3, ideally 4 others): each records the speaker subset (45 items): wake_01-10, wake_neg_01-05, cmd_01-15, name_01-10, sleep_01-05. Include different genders, ages and accents, and at least two with strongly Indian-English speech patterns. Record their metadata (self-described accent or L1, device) with consent.
 If you can’t recruit others, label every result “single-speaker baseline” and don’t generalize.
+
 4. Utterance catalog (speaker s01)
 
 > **Bake-off corpus scope (speaker s01, sections A, C, E, G, I): exactly 127 items / 254 clips at 2 takes** (formalized in `evals/corpus/manifest.json`).
 > Sections B, D, F, H (51 items / 102 clips) belong to the Phase 1b wake-word corpus and are recorded separately.
+>
+> **Phase 1b Note on Sections A & G:**
+> Section A (*Awaken* wake-word variants) and Section G (*Side-talk while AWAKE* negative controls) primarily benchmark the on-device keyword spotting and name-gating architecture defined in **Phase 1b** (ADR-004). However, both sections are included in the Phase 1 recording manifest (127 items / 254 clips) and script so that speaker s01 can record all acoustic environments and control clips in a single sitting while the microphone setup is calibrated. In Phase 1 provider bake-off runs, the harness evaluates available pipeline clips and reports coverage gracefully without blocking on missing sections.
 
 A. Wake “Awaken” (30 items)
 ID	Spoken	Condition	Expected
@@ -247,10 +282,46 @@ Always report results per speaker, per environment and dev versus test, not just
 8. Recording procedure and quality checks
 Record in one environment at a time and keep the setup fixed during a block.
 Read each line as written, once naturally. Don’t rehearse it into an unnaturally clean delivery.
-Don’t re-record clips because the detector failed on them. Re-record only for technical faults (clipping, noise burst, wrong line), and note this in quality_flag.
+Don’t re-record clips because the detector failed on them. Re-record only for technical faults (clipping, noise burst, wrong line), and note this in `quality_flags.json`.
 After each session, spot-check 10% of clips by listening, and confirm the transcript text matches what was actually said.
-Verify the format: ffprobe or soxi each derived file for 16 kHz, mono, 16-bit.
+Verify and derive using `check_corpus.py` (see [`COMMANDS.md`](COMMANDS.md)).
 Don’t tune the detector on the test split.
+
+### Interactive Recorder CLI (`record_session.py`)
+To record masters with automatic level checking, live ASCII meter, and resumable session tracking:
+```powershell
+# 1. List audio input devices to find your mic ID:
+uv run --project services/agent python evals/corpus/tools/record_session.py --list-devices
+
+# 2. Record Block Q (Quiet room):
+uv run --project services/agent python evals/corpus/tools/record_session.py --env Q
+
+# 3. Record specific sections (e.g., Commands & Name pronunciations):
+uv run --project services/agent python evals/corpus/tools/record_session.py --env Q --sections C E
+```
+**Controls & Workflow:**
+- Shows target prompt, delivery note, and filename.
+- Press `Enter` to begin recording $\to$ Speak naturally with $\approx 1\text{ s}$ room tone before and after $\to$ Press `Enter` to finish.
+- Real-time ASCII volume bar warns if signal is clipping ($\ge -0.05\text{ dBFS}$) or outside nominal bounds ($-18$ to $-3\text{ dBFS}$).
+- Clipping errors trigger an immediate retake prompt.
+- After take: press `Enter` to accept, `r` to redo, `p` to listen back, `s` to skip, or `q` to quit (all completed takes are saved safely).
+- Master WAVs are written directly to `evals/corpus/masters/{speaker}_{env}_{id}_t{take}.wav` (48 kHz mono 24-bit PCM).
+
+### Verification and Derivation Workflow
+After recording each block, run:
+```powershell
+# Check missing clips count
+uv run --project services/agent python evals/corpus/tools/check_corpus.py status
+
+# Validate master WAVs for clipping and room tone
+uv run --project services/agent python evals/corpus/tools/check_corpus.py validate --masters
+
+# Derive 16 kHz 16-bit mono pipeline WAVs (polyphase resampler)
+uv run --project services/agent python evals/corpus/tools/check_corpus.py derive
+
+# Validate derived pipeline WAVs
+uv run --project services/agent python evals/corpus/tools/check_corpus.py validate
+```
 9. What changed from your previous guide
 Fixed sleep/abort semantics, and added near-miss controls for them.
 Added speaker spread (s02-s05) and the dev/test split.

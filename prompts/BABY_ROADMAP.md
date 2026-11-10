@@ -4,7 +4,7 @@
 >
 > **Timeline assumption:** one developer, ~15–20 focused hours/week. Durations are rough ranges, not promises. Total ≈ **5–7 months** to a hardened, daily-usable Baby; a **talking, interruptible, fast MVP exists after ~3–4 weeks**.
 
-> **Naming:** the project is codenamed *Baby* in these files, but the product name and wake word are config values (`APP_NAME`, `WAKE_WORD`; currently **Ekam**). Never hard-code either; do not rename files or code.
+> **Naming:** the project is codenamed *Baby* in these files, but the product name is a config value (`APP_NAME` = **Daimon**, pronounced **DAY-mon**; the TTS voice always says it that way, while the detector and name gate accept other pronunciations and spellings). The wake word is **"Awaken"** (config `WAKE_WORD`), with a per-request name gate described in spec §3.7 (Phase 1b, Proposed, ADR-004). Name aliases (Damon, Dayman, Demon) come from real STT output (corpus section E), not guesses. User-defined wake words are **premium-only** (see `BABY_FREE_TO_PREMIUM.md` §8). **Known naming risk, accepted by the owner for now:** Daimon is already used by a live personal-AI app and a pending trademark application covering personalized-guidance and long-term-memory AI software (Prospinity Inc.), plus other AI products and open-source projects. Treat it as a working name; do a full trademark search (including India) and get an attorney's opinion before any public launch. The repo still says Ekam until the config rename (internal `@ekam/*` package names stay until the owner asks to rename). Never hard-code names or wake words; do not rename files or code.
 
 ---
 
@@ -155,6 +155,7 @@ baby/
 |---|---|---|---|
 | 0 | Foundations | 3–5 days | Talk to Baby in your terminal |
 | 1 | Voice core | 2–3 wks | Fast, interruptible voice chat in the browser, deployed in Mumbai |
+| 1b | Wake word, session gate, name addressing (Proposed) | ~2–3 wks | Say "Awaken" to open a session, then address it by name; speech without the name never leaves the device |
 | 2 | Router + deterministic tools | ~2 wks | Instant math/time/timers; weather with follow-ups |
 | 3 | Gateway, data, memory | 2–3 wks | "Remember I prefer Celsius" survives restarts |
 | 4 | Tool ecosystem + permissions | 3–4 wks | Calendar/email/reminders with confirmations and verification |
@@ -172,11 +173,13 @@ baby/
 This roadmap describes the **target** build. While in **Profile A (free)** (see `BABY_FREE_TO_PREMIUM.md`), apply these overrides:
 
 - **Accounts (Phase 0):** create only free-tier accounts: LiveKit Build, Groq, Google AI Studio. Skip Deepgram, paid TTS, and Anthropic until Profile B is unlocked. Docker/Postgres/Redis are not needed until Phase 3.
-- **Phase 1 code skeleton:** it names paid providers. Treat it as structure only; wire the free providers (local faster-whisper or LiveKit Inference credits for STT, Piper/Kokoro for TTS, Groq then Gemini then Ollama for the LLM).
+- **Phase 1 code skeleton:** it names paid providers. Treat it as structure only; wire the Profile A providers: Groq for STT, LLM and TTS as recorded in ADR-003 (a documented deviation), with Gemini then Ollama as LLM fallbacks and local Piper/Kokoro as the TTS fallback.
 - **Deployment:** run the agent locally. The Mumbai/managed-hosting steps (Phase 1 step 6, Day 6) and managed Postgres/Redis are Profile B.
 - **Latency targets:** under Profile A these are *baselines to record*, not blockers. Functional, safety, and honesty criteria stay blocking; barge-in must work.
+- **Name aliases (Phase 1b):** while AWAKE, the name gate accepts Daimon, Damon, Dayman and Demon and normalizes them to "Daimon". Build the alias map from the raw STT output of corpus section E, not from guesses, and measure the match rate. Wake and name detection run on-device before any cloud call (spec §3.7); "Awaken" and the name are never parsed as app commands.
 - **Preemptive generation:** off.
-- **Language:** record the corpus in Indian English, plus ~10-20 extra unscored Hindi/code-mixed utterances and ~20 repetitions of the wake word in quiet, noisy, and speakerphone conditions.
+- **Corpus:** `evals/corpus/RECORDING_GUIDE.md` (v2) supersedes the corpus sizes in this roadmap. The bake-off set (s01 sections A, C, E, G, I) blocks Phase 1 step 5 and the Phase 1 exit; the wake-word sets (B, D, F, H, other speakers, continuous negatives) belong to Phase 1b. Assign the dev/test split before running any provider or detector.
+- **Language:** record the corpus in Indian English, plus ~10-20 extra unscored Hindi/code-mixed utterances plus the wake-word and name recordings (the "Awaken" wake word, the name "Daimon" and its aliases, embedded-"awaken" negatives, and confusables such as "Damon", "Simon" and "hey man") exactly as laid out in `evals/corpus/RECORDING_GUIDE.md` (v2).
 
 ---
 
@@ -191,7 +194,7 @@ This roadmap describes the **target** build. While in **Profile A (free)** (see 
 **Steps**
 1. Create the monorepo (`pnpm` workspaces for TS, `uv` for Python). Add lint, format, and a pre-commit hook. Skip Docker/Postgres/Redis for now — you don't need them yet.
 2. Create accounts and keys: LiveKit Cloud, Deepgram, one TTS vendor, Groq, Google AI Studio, Anthropic. Put them in `.env` (git-ignored) plus `.env.example`.
-3. **Record the benchmark corpus:** 50–100 WAV files (16 kHz mono) of *you* speaking: commands, questions, contact names, numbers, currency, corrections, plus some in a noisy room and on speakerphone. Save ground-truth transcripts in JSON. This is the most valuable asset in the project.
+3. **Record the benchmark corpus** following `evals/corpus/RECORDING_GUIDE.md` (v2): masters at 48 kHz, derived 16 kHz mono WAVs, ground truth in JSON, and a dev/test split assigned before any run. Record the provider bake-off set first; wake-word sets come later. This is the most valuable asset in the project.
 4. Write **ADR-001** (initial stack) and **ADR-002** (latency definitions: what exactly `T_speech_end` and `T_first_audio` mean).
 5. Install the LiveKit CLI; run the official voice-agent quickstart end-to-end.
 
@@ -246,10 +249,10 @@ if __name__ == "__main__":
 2. **Web client.** A Next.js route handler mints short-lived LiveKit tokens (`livekit-server-sdk`). The page uses the LiveKit React components: room, audio renderer, and the voice-assistant hook for state + visualizer. Start with a plain orb and a transcript; polish later.
 3. **Voice system prompt** (spec Appendix A v2): short answers, no markdown, spoken numbers. Use the fixed default style values and omit the "TUNING THE VOICE" block until Phase 3.
 4. **Telemetry from day one.** LiveKit Agents emits per-component metrics (end-of-utterance delay, LLM TTFT, TTS TTFB). Subscribe and write one JSON line per turn with the trace shape in the spec (§14). Add `cost_usd`.
-5. **Provider bake-off** on your corpus: STT (Deepgram Nova-3 vs Flux vs Sarvam), TTS (Cartesia vs ElevenLabs Flash vs Deepgram Aura-2 vs Sarvam), LLM (Groq vs Gemini Flash-tier with minimal thinking vs Claude Haiku 5.5). Record results in **ADR-003**. Pick primary **and** fallback for each.
+5. **Provider bake-off** on your corpus: STT (Deepgram Nova-3 vs Flux vs Sarvam), TTS (Cartesia vs ElevenLabs Flash vs Deepgram Aura-2 vs Sarvam), LLM (Groq vs Gemini Flash-tier with minimal thinking vs Claude Haiku 5.5). Under Profile A, compare only free options. Record results in a new ADR (ADR-003 already records the Groq stack decision; update it if the bake-off changes it). Pick primary **and** fallback for each.
 6. **Deploy early** to LiveKit Cloud `ap-south` (Mumbai) and re-measure — numbers from your laptop or a US region will mislead you.
 7. **Turn-taking tuning:** adjust endpointing delays, adaptive-interruption thresholds, and false-interruption recovery using real recordings of yourself pausing, correcting, and coughing.
-8. **Scripted barge-in test:** play audio at Baby mid-sentence and assert silence within the budget.
+8. **Scripted barge-in test:** play audio at Baby mid-sentence and assert silence within the budget. Task-cancel timings from mock harnesses do not count; measure from the user's voice to silent speakers in a live session, including audio buffers and echo-cancellation settling.
 
 **Exit criteria**
 - Deployed agent: **p50 speech-end → first audio ≤ 1.0 s** over a 20-turn scripted conversation
@@ -262,6 +265,28 @@ if __name__ == "__main__":
 - **Never let a speculative pass execute a side-effecting tool** (relevant from Phase 2 on).
 - High "thinking" levels on flash-class models can add seconds of TTFT — turn it down for the voice path.
 - Test with headphones first; speaker echo will make you chase phantom bugs.
+
+---
+
+### Phase 1b — Wake word, session gate, name addressing (Proposed, ADR-004; ~2–3 weeks)
+
+**Goal:** an on-device "Awaken" session gate and a per-request name gate, so no audio leaves the device before both pass. Design: spec §3.7.
+
+**Preconditions**
+- Phase 1 exit met: bake-off done, live browser session tested, end-to-end barge-in measured.
+- Wake-word corpus recorded (s01 sections B, D, F, H; other speakers if recruited; continuous negative audio). If others can't be recruited, label every result "single-speaker baseline".
+- The owner has confirmed the open policy items in spec §3.7.
+
+**Steps**
+1. Write **ADR-004** as Proposed, with acceptance thresholds set before any test run (false accepts per hour, false rejects on enrolled voices, wake-to-chime).
+2. Choose the on-device engine behind a `WakeWordEngine` interface. On the web client this is a WASM or worker keyword model. Benchmark two or three candidates on the dev split. Check each library's vocabulary rules (restricted-grammar engines need the words in their lexicon; keyword-spotting models use their own token set, generated with the engine's tooling, not guessed phonemes).
+3. Implement `ASLEEP`/`AWAKE`, standalone "Awaken" detection, chimes and Orb glow, the sleep and abort phrases, and an idle timeout (starting guess, then tune).
+4. Name gate: name-at-start first; build the alias map from corpus section E raw STT output; add the tail form only if there is measured need, and measure its buffering latency.
+5. Wake-to-ready: pre-roll buffer or muted room so the first words after the gate are kept; add "wake-to-ready" to telemetry.
+6. Self-trigger tests on speakers: the assistant's own speech must not wake or gate it.
+7. Tune on the dev split only; report once on the test split, per speaker and per environment, with the false-accept bound actually reached.
+
+**Exit:** ADR-004 moves to Accepted only when the benchmarks meet its thresholds; golden #10 passes. Rule of three: with no false accepts observed, the bound is about 3 divided by hours recorded, so showing under 0.1 per hour needs about 30 clean hours; report the bound you actually reached.
 
 ---
 
@@ -315,7 +340,7 @@ def tier0(text: str):
 4. **Bootstrap endpoint:** at session start the agent makes **one** call that returns profile, preferences, top-K memories, and the tool manifest. Cache in-process. This is how the hot path stays free of DB queries.
 5. **Redis session state:** conversation window, entity store, action stack, pending confirmations — with TTLs. The agent reads its in-process copy and writes to Redis asynchronously.
 6. **Long-term memory tools:** `remember`, `recall`, `forget`. Embed with FastEmbed → pgvector. Recall runs in parallel with STT finalization under a 50 ms budget; on timeout, continue without.
-6b. **Style preferences (persona tuning):** add `style_preferences` (humor, fillers, formality, verbosity; defaults 1/1/1/1) to the profile and return it in the bootstrap call so it is injected into the system prompt with no hot-path query. Add the `update_style_preferences` tool (risk `LOW`, announced). Switch the agent to Appendix A v2 including the "TUNING THE VOICE" block. The first-session style check fires once; later changes happen only on request or a repeated correction.
+6b. **Style preferences (persona tuning):** add `style_preferences` (humor, fillers, formality, verbosity; defaults 1/0/1/1) to the profile and return it in the bootstrap call so it is injected into the system prompt with no hot-path query. Add the `update_style_preferences` tool (risk `LOW`, announced). Switch the agent to Appendix A v2 including the "TUNING THE VOICE" block. The first-session style check fires once; later changes happen only on request or a repeated correction.
 7. **Memory manager UI:** list, edit, delete, provenance. Add "what do you remember about me?" by voice.
 8. **BullMQ worker** for write-behind: memory saves, conversation summaries, analytics.
 9. **Trace propagation:** `traceparent` from agent → gateway → workers.
@@ -379,7 +404,7 @@ export function decide(tool: BabyTool<any, any>, ctx: PolicyCtx): Decision {
 **Where:** `apps/android/`, a device command channel in the gateway.
 
 **Steps**
-1. **Companion app** (Kotlin, Jetpack Compose, LiveKit Android SDK): same room/session protocol as web. Use a visible foreground service while the mic is active. Tap-to-talk first; wake word later (Phase 7).
+1. **Companion app** (Kotlin, Jetpack Compose, LiveKit Android SDK): same room/session protocol as web. Use a visible foreground service while the mic is active. Tap-to-talk first; wake word later (web in Phase 1b, native later).
 2. **Device command channel:** gateway → device via LiveKit data/RPC or FCM push. Define a `DeviceCommand` schema and a **capability manifest** the device reports (which capabilities exist and which permissions are granted). Results flow back for verification.
 3. **Implement in this order:** open app → timer/alarm (`AlarmClock` intents) → call (dial intent, direct call only with explicit permission) → SMS (compose intent, user taps send) → **WhatsApp (`wa.me` deep link with prefilled text, user taps send)** → music control → location → settings panels (Bluetooth/Wi-Fi where toggling isn't allowed).
 4. **Honest status mapping:** launching a compose screen returns `handed_off`, not `success`. Baby says "I've opened WhatsApp with the message ready."
@@ -419,7 +444,7 @@ export function decide(tool: BabyTool<any, any>, ctx: PolicyCtx): Decision {
 4. Expand Tier 0 using the router log ("what do people say that never needed an LLM?")
 5. Tiny ONNX intent classifier trained on the router log (only if it beats the rules)
 6. Semantic cache for STATIC answers (only if hit-rate data justifies it; watch false hits)
-7. Local wake word and on-device VAD
+7. Optimize or extend on-device wake detection (base version: the fixed wake word "Awaken" plus the name gate from Phase 1b; user-defined wake words are premium-only and are NOT built in the base version)
 8. Small local LLM for private/offline cases
 
 **Exit:** each retained component has a before/after table (latency, quality, cost, privacy).
@@ -449,17 +474,18 @@ export function decide(tool: BabyTool<any, any>, ctx: PolicyCtx): Decision {
 | Cost blow-up from speculative LLM calls | `cost_usd` on every trace; per-session caps; tune thresholds |
 | Scope creep / solo-dev burnout | Phase gates; each phase ends in a demo you can actually use |
 | Vendor lock-in | Provider interfaces; ADR-backed choices; fallbacks from day one |
+| Name collision: Daimon is used by a live personal-AI app and a pending trademark application | Full trademark search (including India) and an attorney's opinion before public launch; keep the name a config value; fallbacks if testing or clearance fails: Aletheia, Outis (unchecked) |
 
 ---
 
 ## Part 6 — Your first 7 days
 
 1. **Day 1:** Create the repo, accounts, and keys; run the LiveKit quickstart in console mode.
-2. **Day 2:** Record the 50–100 utterance corpus with ground truth.
+2. **Day 2:** Record the bake-off corpus with ground truth (see `evals/corpus/RECORDING_GUIDE.md` v2).
 3. **Day 3:** Write ADR-001/002; get a console agent running with your chosen defaults.
 4. **Day 4:** Add the Next.js token route and a minimal voice page; talk to it from the browser.
 5. **Day 5:** Add per-turn telemetry (EOT, TTFT, TTS TTFB, cost) as JSON lines.
 6. **Day 6:** Deploy the agent to Mumbai; re-measure.
-7. **Day 7:** Try the first bake-off (two STTs × two TTS × two LLMs) on your corpus; write ADR-003 draft.
+7. **Day 7:** Try the first bake-off (two STTs × two TTS × two LLMs) on your corpus; write the bake-off ADR.
 
 By the end of week one you should hear Baby answer in your browser with real latency numbers in front of you — everything after that is an ordered, measurable climb.

@@ -36,10 +36,10 @@ Exact model IDs retrieved from provider catalog APIs:
 | **STT (Primary)** | Groq | `whisper-large-v3-turbo` | Utterance-based | `language="en"`, 16 kHz mono |
 | **STT (Fallback)** | Local | `faster-whisper` (base.en / small.en) | Utterance-based | Zero network dependency |
 | **Fast LLM (Primary)**| Groq | `qwen/qwen3.8-27b` | Streaming | `temperature=0.4`, `max_tokens=120`, thinking OFF |
-| **Fast LLM (Secondary)**| Google | `gemini-3.8-flash` | Streaming | Failover for Groq 429/5xx |
+| **Fast LLM (Secondary)**| Google | `gemini-3.8-flash` | Streaming | Failover for Groq 429/5xx (verified via AI Studio API) |
 | **LLM (Tertiary)** | Local | `ollama/qwen2.5:7b` | Streaming | Local CPU/GPU fallback |
 | **TTS (Demos/Bake-off)**| Groq | `canopylabs/orpheus-v1-english` (voice: `autumn`) | Chunked Stream | Strictly capped: 100 req/hour limit |
-| **TTS (Dev & Tests)** | Local | Piper / Kokoro (`en_US-lessac-medium`) | Local Stream | Default for all automated tests & dev |
+| **TTS (Dev & Tests)** | Local | Piper (GPL-3.0, dev/fallback-only) / Kokoro (Apache-2.0) | Local Stream | Default for all automated tests & dev |
 | **VAD** | Local | Silero VAD (ONNX, CPU, 16 kHz) | In-process | < 1 ms |
 | **Turn Detection** | LiveKit | `turn-detector-v1` (multilingual) | In-process/Cloud | ~400 ms endpointing |
 
@@ -61,11 +61,21 @@ Empirical rate limits observed on Groq free-tier:
 2. **Quota Tracking:** An in-memory, rolling per-hour counter tracks TTS requests.
 3. **429 Recovery Line:**
    - Must NOT use Orpheus to synthesize (Orpheus itself may be 429'd).
-   - Delivered via a pre-recorded WAV or local TTS fallback:
+   - Delivered via a pre-recorded WAV (`assets/recovery_429.wav`), then continues via local Piper TTS:
      > *"I've hit my hourly voice limit. My replies will appear on screen for now."*
+   - **Note:** The WAV wording says "on screen" but the system actually continues speaking via Piper TTS after the recovery line plays. The WAV should be re-recorded with something like *"I've hit my voice limit. Switching to local voice."* (tracked as TODO in `agent.py`).
+   - After the hourly window resets (1 hour since the first quota-exhaustion timestamp), `GuardedOrpheusTTS` automatically resumes Orpheus and clears the `_quota_exhausted` flag.
    - Concurrently emits the full text response to the client UI transcript via the data channel.
 
-### 4. Filler Evaluation
+### 4. Local TTS Licensing & Distribution Constraints (Piper vs. Kokoro)
+
+- **Piper Licensing:** `piper-tts` is licensed under **GPL-3.0** due to embedded `espeak-ng` code and runtime dependencies. Individual voice ONNX models carry distinct licenses that **must be verified before any distribution**. Check the specific model's `MODEL_CARD.md` on the [rhasspy/piper-voices HuggingFace repo](https://huggingface.co/rhasspy/piper-voices) — do not assume any particular voice is public domain or ODC without reading that file.
+- **Architectural Scope:** Piper is kept strictly as a **development and offline fallback engine** (`TTS_PROVIDER=piper` / local fallback). It must never be bundled into a statically-linked, distributed proprietary binary.
+- **Distribution Roadmap:** Prior to any public client release or standalone distribution:
+  1. Isolate Piper behind an out-of-process **subprocess / IPC service boundary**, OR
+  2. Adopt **Kokoro ONNX** (`kokoro-onnx` v0.6.1, ~82M parameters, Apache-2.0 permissive license) as the primary distributed local TTS engine.
+
+### 5. Filler Evaluation
 
 - Tested Orpheus on fillers (*"Hmm, I see."*, *"Uh, let me think."*, *"Wait, that changes it."*).
 - Both Orpheus audio and Whisper transcription processed fillers accurately.

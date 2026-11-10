@@ -54,16 +54,16 @@ Baby is built in two profiles. Finish Profile A (FREE) completely before touchin
 |---|---|
 | Transport | LiveKit Cloud **Build** plan, agent run on your own PC (or self-hosted LiveKit) |
 | VAD / turn detection | Silero VAD + LiveKit turn-detector (falls back to a local model when free quota ends) |
-| STT | LiveKit Inference credits → local faster-whisper (slower, utterance-based) |
-| Fast LLM | Groq free tier → Gemini Flash free tier → local Ollama (Qwen) — failover chain |
+| STT | Groq Whisper (utterance-based, no partial transcripts; model ID pinned in ADR-003) → local faster-whisper fallback |
+| Fast LLM | Groq free tier (model ID pinned in ADR-003) → Gemini Flash free tier → local Ollama (Qwen) — failover chain |
 | Reasoning LLM | Small free daily quota (Gemini) |
-| TTS | Piper / Kokoro (local) |
+| TTS | Groq Orpheus (about 100 requests/hour on the free tier: a hard ceiling with a pre-recorded recovery line; ADR-003) → local Piper / Kokoro → on-screen text. Development and automated tests use a local voice, never Orpheus |
 | Data | SQLite (or local Docker Postgres + Redis) |
 | Hosting | Your PC + Tailscale / Cloudflare Tunnel for phone access |
 | Search / weather | Open-Meteo + a free-tier search API |
 | Observability | Local JSONL traces |
 
-Free-profile rules: preemptive generation **off** (it burns request quota), 429s handled with a spoken recovery line, daily request counter in telemetry.
+Free-profile rules: preemptive generation **off** (it burns request quota), 429s handled with a spoken recovery line, daily request counter in telemetry (plus an hourly TTS counter). Using Groq for STT and TTS is a documented Profile A deviation (ADR-003) chosen for streaming latency; all calls share one account's quotas, so count actual API calls and read the provider's rate-limit headers.
 
 ---
 
@@ -149,3 +149,27 @@ Cost levers: skip Ship and run the agent on a small Mumbai VM instead; use the c
 - [ ] Spend cap and alerts set; auto-recharge off
 - [ ] Golden conversations and latency replay pass
 - [ ] Rollback tested (one config change)
+
+---
+
+## 8. Premium-only feature backlog (not part of the base build)
+
+### 8.1 User-defined wake words
+**Base version (Profile A and the first release):** one fixed wake word, "Awaken" (config `WAKE_WORD`), plus the per-request name gate for "Daimon" (spec §3.7). No user-editable wake words, no training UI, no per-user wake models.
+
+**Premium version (later):** let users create their own wake phrase. Do not start this until the owner explicitly unlocks it.
+
+Sketch of the feature:
+1. The user types or says a phrase.
+2. Phrase check: reject phrases that are too short (under about 6 sounds), resemble common words, or are likely to trigger by accident.
+3. The user repeats the phrase 5-10 times, in a quiet room and a noisy one (close and about 2 m away).
+4. Train or fine-tune a model, then let the user test it live and adjust sensitivity.
+5. Show a false-trigger report after a few days so the user can change the phrase.
+
+Design notes:
+- Runs on the user's device (browser or phone app), not in the agent, so audio leaves the device only after the phrase is heard.
+- Models are per platform and per user; store and sync them in the user profile (Phase 3 data).
+- Always-on listening must be opt-in with a clear mic indicator.
+- Engine options to benchmark when unlocked: openWakeWord (open-source, Apache 2.0, custom fine-tuning) and Picovoice Porcupine (polished, trained via Picovoice's console; commercial licensing, so check current pricing before building a user-facing training flow on it). Third-party summaries only; verify on your own recordings.
+
+**Prep that is allowed now (cheap, no scaffolding):** keep the wake word and name aliases in config (never hard-coded); put wake-word code behind a `WakeWordEngine` interface; when recording the corpus, capture "Awaken" at about 30 cm and about 2 m so the recordings can serve as test or training data later.

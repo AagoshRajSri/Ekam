@@ -29,7 +29,15 @@ dist/
 logs/
 traces/
 *.jsonl
+telemetry_traces.jsonl
+services/agent/telemetry_traces.jsonl
 !evals/corpus/**/*.jsonl
+
+# ── Local Models & Piper Voices (downloaded assets, keep repo clean) ─────────
+services/agent/models/
+models/piper/
+*.onnx
+*.onnx.json
 
 # ── OS / editor ───────────────────────────────────────────────────────────────
 .DS_Store
@@ -44,9 +52,16 @@ Thumbs.db
 .terraform/
 infra/.env
 
-# ── Eval corpus — keep ground truth JSON, ignore raw audio ────────────────────
+# ── Eval corpus & audio — keep ground truth JSON, ignore raw audio ───────────
+evals/corpus/**/*.wav
+evals/corpus/**/*.mp3
+evals/corpus/wavs/
+evals/corpus/masters/
 evals/corpus/*.wav
 evals/corpus/*.mp3
+**/tmp_audio/
+*.wav
+!services/agent/assets/recovery_429.wav
 # (commit ground_truth.json alongside the WAVs)
 
 # ── Old prompt archives ───────────────────────────────────────────────────────

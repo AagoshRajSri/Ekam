@@ -18,6 +18,9 @@ dependencies = [
     "livekit-plugins-deepgram>=1.8.11",
     "livekit-plugins-cartesia>=1.8.11",
     "livekit-plugins-google>=1.8.11",
+    "piper-tts>=1.8.0",
+    "livekit-plugins-openai>=1.8.11",
+    "kokoro-onnx>=0.6.1",
 ]
 
 [dependency-groups]

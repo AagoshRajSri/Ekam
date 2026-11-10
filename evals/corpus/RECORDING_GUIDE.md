@@ -1,192 +1,257 @@
-# Benchmark Corpus Recording Guide (Phase 0 / Phase 1)
+Daimon Benchmark Corpus Recording Guide (v2)
 
-> **Mandatory Milestone Gate:** Per `BABY_ROADMAP.md` and `docs/STATUS.md`, **Step 5 (Provider bake-off) and the Phase 1 exit criteria are BLOCKED** until this corpus is physically recorded and transcripts are validated.
+This is a revised version of your guide with the fixes folded in. I can’t save files in this conversation, so the full text is below. File paths (evals/corpus/...) and the roadmap gate come from your guide, and I haven’t verified them against your repo.
 
-Record short audio files (`.wav`, 16 kHz mono) of yourself speaking. Store the audio files in `evals/corpus/wavs/` and map them to their exact ground-truth transcripts in `evals/corpus/ground_truth.json`.
+1. Design under test (v1.1)
+State	Listens for	Notes
+ASLEEP	“Awaken” only, said as a standalone utterance	Everything else is dropped on-device
+AWAKE	“Daimon” (aliases: Damon, Dayman, Demon) at the start or end of an utterance	Speech without the name is dropped before any cloud call
+Abort (stays AWAKE)	“stop” (during TTS), “cancel that”, “never mind”, “Daimon, stop”	Cancels the current request or speech only
+Sleep (to ASLEEP)	“dismissed”, “that’s all”, “go to sleep”, “Daimon, sleep”, and tail or combined forms	Gentle descending chime
 
----
+Decision made in this version: in your previous guide, “stop”, “cancel that” and “never mind” all closed the session. I split them out as abort-only, because those phrases mean “drop this request”, not “go to sleep”. Change this if you disagree, but fix it before recording, since the expected results depend on it.
 
-## 1. System Architecture & Trigger Protocols
+Policy items still open. The corpus records them, but the expected action is TBD and the result is informational until you decide:
 
-Ekam / Daimon operates under a **Modal Voice Architecture**:
+“Awaken” followed directly by a command in one breath
+“Hey Daimon, ...” (a carrier prefix)
+“Awaken” with a short pause or right after other speech
+2. Recording specifications
+Capture: 48 kHz, 16-bit or better, mono, with AGC, noise suppression and echo cancellation turned OFF. Keep these masters.
+Derive: 16 kHz, 16-bit mono WAV for the pipeline (evals/corpus/wavs/). Keep the originals so you can re-derive later.
+Levels: peaks between about -12 and -6 dBFS, no clipping. Record about 1 s of room tone before and after each clip.
+Environments (code in the filename):
+Code	Setup
+Q	Quiet room, headset or close mic
+D	Desk: laptop built-in mic, speaker 1-2 m away
+N	Noisy: fan, background music or TV running at a realistic volume
+Takes: 2 takes per item unless stated. Don’t delete “bad” takes. Mark them in the metadata (quality_flag) so failures aren’t hidden.
+Filename: {speaker}_{env}_{id}_t{take}.wav, for example s01_D_wake_03_t2.wav.
+Dev/test split: assign takes or speakers to dev (tuning) and test (final report) before any detector runs. Tune only on dev, and report on test once.
+3. Speakers
+s01 (you): records everything in sections A-G (178 items, about 356 clips at 2 takes).
+s02-s05 (at least 3, ideally 4 others): each records the speaker subset (45 items): wake_01-10, wake_neg_01-05, cmd_01-15, name_01-10, sleep_01-05. Include different genders, ages and accents, and at least two with strongly Indian-English speech patterns. Record their metadata (self-described accent or L1, device) with consent.
+If you can’t recruit others, label every result “single-speaker baseline” and don’t generalize.
+4. Utterance catalog (speaker s01)
+A. Wake “Awaken” (30 items)
+ID	Spoken	Condition	Expected
+wake_01-05	“Awaken.”	Q, natural pace, about 0.5 s pause before and after	Open session
+wake_06-10	“Awaken.”	D, natural	Open session
+wake_11-15	“Awaken.”	N, natural	Open session
+wake_16-19	“Awaken.”	Whisper / clipped / tired / loud-fast (Q)	Open session
+wake_20-23	“Awaken.”	Stress variants: uh-WAY-ken ×2, AW-ken-style ×2 (Q)	Open session
+wake_24-25	“Awaken.”	Short pause (~0.2 s) before and after, flowing speech (Q)	Informational
+wake_26-27	“okay, so... Awaken.”	Said right after other speech (Q)	Informational
+wake_28-30	“Awaken, Daimon, what time is it”	One breath, with command (Q)	TBD
+B. Wake negatives, embedded “awaken” (13 items)
+ID	Spoken	Expected
+wake_neg_01	“I have to awaken early tomorrow morning”	Stay asleep
+wake_neg_02	“the coffee helped awaken my senses”	Stay asleep
+wake_neg_03	“will you awaken them when they arrive”	Stay asleep
+wake_neg_04	“an awakening experience for the team”	Stay asleep
+wake_neg_05	“awakenings happen naturally”	Stay asleep
+wake_neg_06	“please don’t awaken the baby”	Stay asleep
+wake_neg_07	“it’s time to awaken him”	Stay asleep
+wake_neg_08	“she will awaken soon”	Stay asleep
+wake_neg_09	“Sleeping Beauty will awaken with a kiss”	Stay asleep
+wake_neg_10	“Awaken them.” (hard negative: short, with an object)	Stay asleep
+wake_neg_11-13	Repeats of wake_neg_01, 03, 10 in N	Stay asleep
+C. Addressed commands (35 items)
 
-1. **Session Gate ("Awaken"):**
-   - Said as an **isolated, standalone word** framed by a brief pause before and after (`[silence] → "Awaken." → [silence]`).
-   - Flips the session state from `ASLEEP` to `AWAKE`.
-   - Plays a wake chime and triggers the visualizer Orb glow.
-2. **Per-Request Addressing ("Daimon"):**
-   - While `AWAKE`, every command is addressed using the name at the **start or end** of the sentence (e.g., *"Daimon, check my email"* or *"What's the weather, Daimon?"*).
-   - Accepted aliases: `Daimon`, `Damon`, `Dayman`, `Demon`.
-3. **Session Sleep / Exit:**
-   - Verbal bailouts: `"dismissed"`, `"that's all"`, `"Daimon, sleep"`, `"go to sleep"`.
-   - Transitions session back to `ASLEEP` with a gentle descending chime.
-4. **Side-Talk & False Trigger Rejection (Negative Controls):**
-   - Utterances spoken without "Daimon" during an open session must be **ignored** (dropped before calling cloud LLM).
-   - "Awaken" embedded in natural conversation (e.g. *"I need to awaken early tomorrow"*) must **not** trigger session wake.
+Items marked ★ are re-recorded in D and N.
 
----
+ID	Spoken	Category
+cmd_01 ★	“Daimon, what time is it in Tokyo right now”	Time
+cmd_02 ★	“Daimon, what is twenty-five plus seventy-eight”	Math
+cmd_03 ★	“what is fifteen percent of two thousand four hundred, Daimon”	Tail
+cmd_04	“convert fifty miles to kilometers, Daimon”	Tail
+cmd_05 ★	“Daimon, what’s the weather in Mumbai”	Weather
+cmd_06 ★	“will it rain this evening, Daimon”	Tail
+cmd_07	“Daimon, tell me a one sentence joke”	Conversational
+cmd_08 ★	“Daimon, text Rahul I’m reaching in ten minutes”	Entity
+cmd_09 ★	“call Rohan, Daimon”	Entity, tail
+cmd_10	“Daimon, send an email to Priya saying the deck is ready”	Entity
+cmd_11 ★	“set a timer for fifteen minutes, Daimon”	Timer
+cmd_12 ★	“Damon, what’s on my calendar today”	Alias
+cmd_13	“Dayman, summarize my unread messages”	Alias
+cmd_14	“Demon, check git status”	Alias
+cmd_15 ★	“Daimon, remind me to carry an umbrella at eight AM”	Reminder
+cmd_16-25	The ★ items above, recorded in D	Distance
+cmd_26-35	The ★ items above, recorded in N	Noise
+D. Name-position edge cases (10 items)
+ID	Spoken	Expected
+edge_01	“Daimon.” (name alone)	Attention call (decide: chime only or prompt)
+edge_02	“Daimon?”	Same as edge_01
+edge_03	“tell Daimon to check my email” (mid-sentence)	Ignore
+edge_04	“I was reading about the daimon in Plato”	Ignore
+edge_05	“ask Daimon what time it is”	Ignore
+edge_06	“Daimon, what time is it, Daimon” (both ends)	Route once
+edge_07	“um, Daimon, what’s the date” (after hesitation)	Route
+edge_08	“Hey Daimon, what’s the date”	TBD (carrier prefix)
+edge_09	“what’s the date, uh, Daimon” (tail with filler)	Route
+edge_10	“Daimon check the time Daimon check the time” (repeat)	Route once
+E. Name capture and alias map (40 items)
 
-## 2. Recording Specifications
+The goal is the list of ways STT actually writes the name.
 
-- **Format:** 16,000 Hz (16 kHz), 16-bit PCM, Mono WAV (`.wav`).
-- **Target Environments:**
-  - **Quiet room (Headset or close mic):** Baseline clarity
-  - **Speakerphone / Laptop built-in mic (1–2 meters away):** Real-world desk use
-  - **Noisy environment (Fan, background music, or TV running):** Noise robustness
+ID	Spoken	Condition
+name_01-10	“Daimon.” (DAY-mon)	Q
+name_11-20	“Daimon.” (DAY-mon)	D
+name_21-30	“Daimon.” (DAY-mon)	N
+name_31-40	“Daimon.” (DY-mon variant)	Q
 
----
+For each clip, log the raw STT output. The alias map in the pipeline should come from this data, not from guesses.
 
-## 3. Utterance Recording Catalog
+F. Confusables and known false-accept risks (10 items)
 
-### A. Wake Session Triggers: "Awaken" (15 items)
-*Goal: Measure True Positive Rate (TPR) on isolated "Awaken" across acoustics.*
+These are said to another person or in conversation. The aliases are accepted, so some of these will route to the LLM. That is a known limitation, and this section measures its size.
 
-| ID | Spoken Text | Environment / Delivery | Expected Result |
-|---|---|---|---|
-| `wake_01`–`wake_05` | `"Awaken."` | Quiet room, natural pace (0.5s pause before & after) | Open session |
-| `wake_06`–`wake_08` | `"Awaken."` | Quick, clipped / whisper / tired tone | Open session |
-| `wake_09`–`wake_11` | `"Awaken."` | Laptop mic, 2 meters away (speakerphone distance) | Open session |
-| `wake_12`–`wake_15` | `"Awaken."` | Background noise active (fan / ambient music) | Open session |
+ID	Spoken	Expected
+conf_01	“Damon, did you finish the report?”	Known risk (routes)
+conf_02	“Damon, can you pass the salt”	Known risk (routes)
+conf_03	“Simon, are you coming tonight”	Ignore
+conf_04	“Raymond, call me back”	Ignore
+conf_05	“hey man, what’s up”	Ignore
+conf_06	“it’s a day, man”	Ignore
+conf_07	“that movie was a demon of a film”	Ignore
+conf_08	“Dayman, Dayman, Dayman”	Known risk
+conf_09	“Demon Slayer is on tonight”	Ignore
+conf_10	“the daemon process is running”	Ignore
+G. Side-talk while AWAKE (12 items)
+ID	Spoken	Condition	Expected
+sidetalk_01	“Hey Rahul, did you order the food?”	Q	Silent drop
+sidetalk_02	“Can you pass me the water bottle?”	Q	Silent drop
+sidetalk_03	“Yeah, I think the meeting starts at three.”	Q	Silent drop
+sidetalk_04	“Where did I leave my keys?”	Q	Silent drop
+sidetalk_05	“Excuse me, what time does the shop close?”	Q	Silent drop
+sidetalk_06	“Look at this new design on the screen.”	Q	Silent drop
+sidetalk_07	“Yes, absolutely.”	Q	Silent drop
+sidetalk_08	“Turn off the fan, please.”	Q	Silent drop
+sidetalk_09	sidetalk_01 (“Hey Rahul, did you order the food?”)	N	Silent drop
+sidetalk_10	sidetalk_03 (“Yeah, I think the meeting starts at three.”)	N	Silent drop
+sidetalk_11	sidetalk_05 (“Excuse me, what time does the shop close?”)	N	Silent drop
+sidetalk_12	sidetalk_08 (“Turn off the fan, please.”)	N	Silent drop
+H. Sleep, abort and near-miss controls (18 items)
+ID	Spoken	Condition	Expected
+sleep_01-07	“dismissed” / “that’s all” / “that’s all, Daimon” / “Daimon, go to sleep” / “Daimon, sleep” / “go to sleep” / “thanks, Daimon, that’s all for now”	Q	Sleep
+sleep_08-10	sleep_01, 02, 05	N	Sleep
+abort_01	“stop” (said while the assistant is speaking)	Q	Cut TTS, stay AWAKE
+abort_02	“cancel that”	Q	Abort request, stay AWAKE
+abort_03	“never mind”	Q	Abort request, stay AWAKE
+abort_04	“Daimon, stop”	Q	Cut TTS, stay AWAKE
+sleepneg_01	“that’s all right with me”	Q	Ignore
+sleepneg_02	“I dismissed that idea yesterday”	Q	Ignore
+sleepneg_03	“stop by the shop on the way home”	Q	Ignore
+sleepneg_04	“that’s all I have to say about it”	Q	Ignore
 
----
+For abort_01 and abort_04, play a TTS reply through the speakers while you record. Record this separately from the quiet clips, because it also tests echo cancellation.
 
-### B. Wake Rejection Controls: Embedded "Awaken" (5 items)
-*Goal: Verify VAD silence-framing prevents accidental wakes during conversation.*
+I. Hindi and code-mixed (10 items, Q & Web AEC)
 
-| ID | Spoken Text | Expected Result |
-|---|---|---|
-| `wake_neg_01` | `"I have to awaken early tomorrow morning"` | Ignore / Stay Asleep |
-| `wake_neg_02` | `"the coffee helped awaken my senses"` | Ignore / Stay Asleep |
-| `wake_neg_03` | `"will you awaken them when they arrive"` | Ignore / Stay Asleep |
-| `wake_neg_04` | `"an awakening experience for the team"` | Ignore / Stay Asleep |
-| `wake_neg_05` | `"awakenings happen naturally"` | Ignore / Stay Asleep |
+Goal: Benchmark Hindi / Hinglish phonetics against the name addressing gate.
+Distribution: 6 addressed (3 prefix, 3 tail) + 4 unaddressed (negative controls while AWAKE).
 
----
+ID	Spoken	Structure	Condition	Expected Action
+hi_01	“Daimon, aaj ka mausam kaisa hai”	Prefix Addressed	Q	Route to LLM
+hi_02	“Daimon, Rahul ko message bhejo ki main dus minute mein pahunch raha hoon”	Prefix Addressed	Q	Route to LLM
+hi_03	“Daimon, ek cup chai banane ka timer laga do”	Prefix Addressed	Q	Route to LLM
+hi_04	“kal barish hogi kya, Daimon”	Tail Addressed	Q	Route to LLM
+hi_05	“Delhi ka temperature kitna hai, Daimon”	Tail Addressed	Q	Route to LLM
+hi_06	“meeting kab schedule hui hai, Daimon”	Tail Addressed	Q	Route to LLM
+hi_07	“mujhe aath baje jagana”	Unaddressed	Q	Silent drop
+hi_08	“kya tum Hindi samajhte ho”	Unaddressed	Q	Silent drop
+hi_09	“aaj traffic kaisa hai”	Unaddressed	Q	Silent drop
+hi_10	“gaane play karo”	Unaddressed	Q	Silent drop
 
-### C. Addressed Commands: "Daimon" & Aliases (15 items)
-*Goal: Benchmark STT Word Error Rate (WER) and ensure the name gate passes the command to the LLM.*
+Web Client AEC Recording Takes:
+In addition to direct mic/headset recordings, record dedicated takes of this section (e.g. labeled _webaec_t1, etc.) through the real web client UI (http://localhost:3000) while connected to the active LiveKit room:
+- Browser microphone settings must have Echo Cancellation (AEC) and Noise Suppression active (echoCancellation: true, noiseSuppression: true).
+- Validates the browser audio pipeline, WebRTC jitter buffer, and acoustic echo cancellation settling on regional accents and code-mixed phrasing.
 
-| ID | Spoken Text | Category |
-|---|---|---|
-| `cmd_01` | `"Daimon, what time is it in Tokyo right now"` | Time / Math |
-| `cmd_02` | `"Daimon, what is twenty-five plus seventy-eight"` | Tier 0 Math |
-| `cmd_03` | `"what is fifteen percent of two thousand four hundred, Daimon"` | Tail-addressed |
-| `cmd_04` | `"convert fifty miles to kilometers, Daimon"` | Tail-addressed |
-| `cmd_05` | `"Daimon, what's the weather in Mumbai"` | Context / Weather |
-| `cmd_06` | `"will it rain this evening, Daimon"` | Weather follow-up |
-| `cmd_07` | `"Daimon, tell me a one sentence joke"` | Conversational |
-| `cmd_08` | `"Daimon, text Rahul I'm reaching in ten minutes"` | Messaging / Indian entity |
-| `cmd_09` | `"call Rohan, Daimon"` | Contact entity |
-| `cmd_10` | `"Daimon, send an email to Priya saying the deck is ready"` | Messaging entity |
-| `cmd_11` | `"set a timer for fifteen minutes, Daimon"` | Timer |
-| `cmd_12` | `"Damon, what's on my calendar today"` | Alias: Damon |
-| `cmd_13` | `"Dayman, summarize my unread messages"` | Alias: Dayman |
-| `cmd_14` | `"Demon, check git status"` | Alias: Demon |
-| `cmd_15` | `"Daimon, remind me to carry an umbrella at eight AM"` | Reminder |
+Capturing Web AEC takes (RECORD_CORPUS mode — deferred):
+Automated in-browser WAV capture via MediaRecorder (NEXT_PUBLIC_RECORD_CORPUS=1 mode) is deferred. Until it is implemented, capture web-AEC takes manually using one of these methods:
+  a) Audacity with WASAPI loopback capture on Windows (records the microphone after browser AEC is applied).
+  b) OS-level recording tool (e.g. Sound Recorder) set to the communications microphone (which is AEC-processed).
+  c) Record the raw mic signal through the web client and save via the browser DevTools audio tab.
+Label all web-AEC takes with the _webaec suffix (e.g. s01_Q_hi_01_webaec_t1.wav).
+When RECORD_CORPUS=1 is eventually implemented, it will add a MediaRecorder hook in VoiceRoom.tsx that captures the AEC-processed mic stream and triggers a WAV download at session end.
 
----
+Scoring rule: Addressed items (hi_01–hi_06) pass if the name gate routes to the LLM. Unaddressed items (hi_07–hi_10) pass if silently dropped. Transcription accuracy (WER) is reported for diagnostic tracking but does not cause pass/fail rejection.
 
-### D. Side-Talk Rejection: Speech WITHOUT Name (8 items)
-*Goal: Verify speech heard while AWAKE that does NOT contain "Daimon" is dropped without calling cloud LLM.*
+Total for s01: 30 + 13 + 35 + 10 + 40 + 10 + 12 + 18 + 10 = 178 items.
 
-| ID | Spoken Text | Expected Action |
-|---|---|---|
-| `sidetalk_01` | `"Hey Rahul, did you order the food?"` | Silent drop (No LLM call) |
-| `sidetalk_02` | `"Can you pass me the water bottle?"` | Silent drop (No LLM call) |
-| `sidetalk_03` | `"Yeah, I think the meeting starts at three."` | Silent drop (No LLM call) |
-| `sidetalk_04` | `"Where did I leave my keys?"` | Silent drop (No LLM call) |
-| `sidetalk_05` | `"Excuse me, what time does the shop close?"` | Silent drop (No LLM call) |
-| `sidetalk_06` | `"Look at this new design on the screen."` | Silent drop (No LLM call) |
-| `sidetalk_07` | `"Yes, absolutely."` | Silent drop (No LLM call) |
-| `sidetalk_08` | `"Turn off the fan, please."` *(Said to someone else)* | Silent drop (No LLM call) |
+5. Continuous negative audio (the part that measures false accepts)
 
----
+Short clips can’t tell you how often the system wakes by mistake. This set can.
 
-### E. Session Sleep & Bailout Triggers (10 items)
-*Goal: Benchmark instant local session close triggers.*
-
-| ID | Spoken Text | Expected Action |
-|---|---|---|
-| `sleep_01` | `"dismissed"` | Close session $\to$ ASLEEP |
-| `sleep_02` | `"that's all"` | Close session $\to$ ASLEEP |
-| `sleep_03` | `"that's all, Daimon"` | Close session $\to$ ASLEEP |
-| `sleep_04` | `"Daimon, go to sleep"` | Close session $\to$ ASLEEP |
-| `sleep_05` | `"Daimon, sleep"` | Close session $\to$ ASLEEP |
-| `sleep_06` | `"stop"` | Immediate cutoff $\to$ ASLEEP |
-| `sleep_07` | `"be quiet"` | Immediate cutoff $\to$ ASLEEP |
-| `sleep_08` | `"cancel that"` | Abort action $\to$ ASLEEP |
-| `sleep_09` | `"never mind"` | Cancel $\to$ ASLEEP |
-| `sleep_10` | `"thanks, Daimon, that's all for now"` | Close session $\to$ ASLEEP |
-
----
-
-### F. Hindi & Code-Mixed Utterances (Unscored Baseline) (10 items)
-*Goal: Benchmark Whisper multilingual accuracy on Indian English / Hinglish.*
-
-| ID | Spoken Text | Meaning |
-|---|---|---|
-| `hi_01` | `"Daimon, aaj ka mausam kaisa hai"` | Weather query |
-| `hi_02` | `"kal barish hogi kya, Daimon"` | Rain query |
-| `hi_03` | `"Daimon, Rahul ko message bhejo ki main dus minute mein pahunch raha hoon"` | Messaging |
-| `hi_04` | `"ek cup chai banane ka timer laga do, Daimon"` | Timer |
-| `hi_05` | `"Daimon, mujhe aath baje jagana"` | Alarm / reminder |
-| `hi_06` | `"kya tum Hindi samajhte ho, Daimon"` | Language check |
-| `hi_07` | `"Daimon, meeting kab schedule hui hai"` | Calendar check |
-| `hi_08` | `"aaj traffic kaisa hai, Daimon"` | Traffic query |
-| `hi_09` | `"Daimon, Delhi ka temperature kitna hai"` | City temperature |
-| `hi_10` | `"gaane play karo, Daimon"` | Media play |
-
----
-
-## 4. Ground Truth Mapping Schema
-
-Save mappings in `evals/corpus/ground_truth.json`:
-
-```json
+Format: unsegmented 16 kHz mono recordings, 10-60 minutes each. No per-clip transcripts, but log every event where “awaken” or the name (or an alias) is actually spoken.
+Categories:
+TV and streaming in Indian English and Hindi
+Family or roommate conversation (several speakers, overlapping)
+Phone calls and video meetings
+Music with vocals
+Podcasts or audiobooks (these will contain “awaken” naturally)
+Fan, kitchen or street noise, plus your own typing and coughing
+Amount: this is a statistics question, not a preference. With zero false accepts observed, the “rule of three” says the true rate is below roughly 3 divided by hours recorded (at about 95% confidence). Showing under 0.1 per hour therefore needs about 30 hours with none. If you can only record 10 hours, the best claim is “below about 0.3 per hour”. Start with whatever you can get, and say so honestly in the results.
+Realistic positives: mix isolated “Awaken.” clips into this audio at several loudness levels. Label these synthetic mixes so they aren’t confused with real recordings.
+Rights: use this for private testing only. Don’t redistribute commercial TV or music audio.
+6. Ground truth schema (evals/corpus/ground_truth.json)
+json
 {
-  "wake_01.wav": {
+  "s01_Q_wake_01_t1.wav": {
     "text": "Awaken",
     "type": "session_wake",
-    "environment": "quiet_headset",
-    "expected_action": "open_session"
+    "speaker_id": "s01",
+    "accent_note": "indian_english",
+    "environment": "Q",
+    "distance_m": 0.1,
+    "device": "headset_xyz",
+    "split": "dev",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "quality_flag": "ok"
   },
-  "wake_neg_01.wav": {
-    "text": "I have to awaken early tomorrow morning",
-    "type": "wake_negative_control",
-    "environment": "quiet_headset",
-    "expected_action": "ignore"
+  "s01_Q_edge_08_t1.wav": {
+    "text": "Hey Daimon, what's the date",
+    "type": "name_edge",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "split": "test",
+    "expected_action": "TBD",
+    "policy_status": "open",
+    "quality_flag": "ok"
   },
-  "cmd_01.wav": {
-    "text": "Daimon, what time is it in Tokyo right now",
-    "type": "addressed_command",
-    "name_present": true,
-    "alias_used": "Daimon",
-    "expected_action": "route_to_llm"
-  },
-  "sidetalk_01.wav": {
-    "text": "Hey Rahul, did you order the food?",
-    "type": "side_talk_control",
-    "name_present": false,
-    "expected_action": "silent_drop"
-  },
-  "sleep_01.wav": {
-    "text": "dismissed",
-    "type": "session_sleep",
-    "expected_action": "close_session"
+  "name_01_stt.json": {
+    "note": "Log raw STT output for each name_* clip here to build the alias map"
   }
 }
-```
 
----
+Allowed expected_action values: open_session, ignore, route_to_llm, silent_drop, close_session, abort_request, cut_tts, attention_call, TBD. Clips marked policy_status: open are reported separately and never count toward pass/fail.
 
-## 5. Summary Total Count
+7. Metrics to report
+Metric	Computed from	Starting target (you set the final number before testing)
+Wake true-positive rate	Section A (settled items only), per environment and per speaker	Set by you
+Wake false accepts per hour	Section I (continuous audio) plus Section B	Under 0.1 per hour (see the statistics note)
+Name-gate pass rate	Sections C, E, I	Set by you
+Name-gate false accepts	Sections D, F, G	Report counts; Damon/Dayman/demon cases listed separately
+Sleep/abort accuracy	Section H, including near-misses	Set by you
+Wake-to-chime latency	Measured on the device	Under 500 ms (your earlier target)
+Alias map	Section E raw STT logs	n/a (output is the map)
 
-| Category | Purpose | Count |
-|---|---|:---:|
-| **A. Wake Triggers ("Awaken")** | Session activation across distances & noise | 15 |
-| **B. Wake Negative Controls** | VAD framing / conversational embedding rejection | 5 |
-| **C. Addressed Commands** | WER, Math, Weather, Indian Entities, Aliases | 15 |
-| **D. Side-Talk Rejection** | Zero-call rejection when name is absent | 8 |
-| **E. Session Sleep & Bailouts** | Instant close (`dismissed`, `that's all`, etc.) | 10 |
-| **F. Hindi / Code-Mixed** | Multilingual & regional phonetic baseline | 10 |
-| **Total** | Full empirical coverage for Phase 1 / Step 5 | **63 WAVs** |
+Always report results per speaker, per environment and dev versus test, not just as one overall number.
+
+8. Recording procedure and quality checks
+Record in one environment at a time and keep the setup fixed during a block.
+Read each line as written, once naturally. Don’t rehearse it into an unnaturally clean delivery.
+Don’t re-record clips because the detector failed on them. Re-record only for technical faults (clipping, noise burst, wrong line), and note this in quality_flag.
+After each session, spot-check 10% of clips by listening, and confirm the transcript text matches what was actually said.
+Verify the format: ffprobe or soxi each derived file for 16 kHz, mono, 16-bit.
+Don’t tune the detector on the test split.
+9. What changed from your previous guide
+Fixed sleep/abort semantics, and added near-miss controls for them.
+Added speaker spread (s02-s05) and the dev/test split.
+Added continuous negative audio with a honest statistics note.
+Added name edge cases, a name capture set (for the alias map) and confusables.
+Expanded “Awaken” variants and boundary tests, and marked open policies as informational.
+Added environment, distance, speaker and accent fields to the schema.
+Made Hindi scoring explicit.

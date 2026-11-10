@@ -2,8 +2,10 @@ import type { Metadata } from 'next';
 import '@livekit/components-styles';
 import './globals.css';
 
+const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || 'Daimon';
+
 export const metadata: Metadata = {
-  title: 'Ekam — Voice-First AI Assistant',
+  title: `${APP_NAME} — Voice-First AI Assistant`,
   description: 'Ultra-low-latency, real-time voice-first personal AI assistant.',
 };
 

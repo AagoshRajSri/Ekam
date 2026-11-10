@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import { Sparkles, Mic, Radio, Shield, AlertCircle } from 'lucide-react';
 import { VoiceRoom } from '@/components/VoiceRoom';
 
+const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || 'Daimon';
+
 export default function HomePage() {
   const [token, setToken] = useState<string | null>(null);
   const [livekitUrl, setLivekitUrl] = useState<string | null>(null);
@@ -47,7 +49,7 @@ export default function HomePage() {
           </div>
           <div>
             <h1 className="text-xl font-bold tracking-tight text-white flex items-center gap-2">
-              <span>Ekam</span>
+              <span>{APP_NAME}</span>
               <span className="text-[10px] uppercase font-semibold tracking-wider px-2 py-0.5 rounded-full bg-brand-500/20 text-brand-300 border border-brand-500/30">
                 Phase 1 Voice Client
               </span>
@@ -80,9 +82,9 @@ export default function HomePage() {
               <Radio className="w-10 h-10 text-brand-400 animate-pulse" />
             </div>
 
-            <h2 className="text-2xl font-bold text-white mb-2">Talk to Ekam</h2>
+            <h2 className="text-2xl font-bold text-white mb-2">Talk to {APP_NAME}</h2>
             <p className="text-sm text-neutral-400 mb-6 leading-relaxed">
-              Start an interactive, hands-free voice session with Ekam. Answers are concise, conversational, and real-time.
+              Start an interactive, hands-free voice session with {APP_NAME}. Answers are concise, conversational, and real-time.
             </p>
 
             {/* Room Name Input (optional) */}

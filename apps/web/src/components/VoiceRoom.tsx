@@ -37,7 +37,7 @@ function ActiveVoiceRoom({ onDisconnect }: { onDisconnect: () => void }) {
   const isAgentSpeakingRef = useRef<boolean>(false);
 
   // Data channel for custom messages (telemetry, on-screen text fallbacks)
-  const { send } = useDataChannel('ekam-telemetry', (msg) => {
+  const { send } = useDataChannel('telemetry', (msg) => {
     try {
       const decoded = new TextDecoder().decode(msg.payload);
       const data = JSON.parse(decoded);

@@ -34,7 +34,7 @@ export function TranscriptFeed({ entries, quotaAlert }: TranscriptFeedProps) {
         <div className="mb-3 p-3 bg-amber-950/40 border border-amber-600/50 rounded-lg flex items-start gap-2.5 text-amber-200 text-xs">
           <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
           <div>
-            <span className="font-semibold text-amber-300">Voice Limit Fallback Active:</span> Ekam has reached the hourly voice synthesis limit. Replies will continue to appear on screen in real time.
+            <span className="font-semibold text-amber-300">Voice Limit Fallback Active:</span> The hourly voice synthesis limit was reached. Replies will continue to appear on screen in real time.
           </div>
         </div>
       )}
@@ -42,7 +42,7 @@ export function TranscriptFeed({ entries, quotaAlert }: TranscriptFeedProps) {
       <div className="flex-1 overflow-y-auto space-y-3 pr-1 text-sm max-h-[360px]">
         {entries.length === 0 ? (
           <div className="h-full flex items-center justify-center text-neutral-400 text-xs italic py-8">
-            Connect and speak to Ekam to begin…
+            Connect and speak to begin…
           </div>
         ) : (
           entries.map((entry) => {

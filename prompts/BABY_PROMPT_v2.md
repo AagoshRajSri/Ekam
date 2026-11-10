@@ -5,7 +5,7 @@
 >
 > **What changed from v1:** sharper priorities, realistic latency contracts, a hot-path/cold-path rule, a three-tier router (no extra LLM hop), a richer tool contract (verification, undo, idempotency), prompt-injection defenses, a platform-reality table for device control, evals and CI gates, acceptance conversations, and explicit non-goals. Every v1 idea is kept; nothing important was dropped.
 
-> **Naming:** the project is codenamed *Baby* in these files, but the product name and wake word are config values (`APP_NAME`, `WAKE_WORD`; currently **Ekam**). Never hard-code either; do not rename files or code.
+> **Naming:** the project is codenamed *Baby* in these files, but the product name is a config value (`APP_NAME` = **Daimon**, pronounced **DAY-mon**; the TTS voice always says it that way, while the detector and name gate accept other pronunciations and spellings). The wake word is **"Awaken"** (config `WAKE_WORD`), with a per-request name gate described in spec §3.7 (Phase 1b, Proposed, ADR-004). Name aliases (Damon, Dayman, Demon) come from real STT output (corpus section E), not guesses. User-defined wake words are **premium-only** (see `BABY_FREE_TO_PREMIUM.md` §8). **Known naming risk, accepted by the owner for now:** Daimon is already used by a live personal-AI app and a pending trademark application covering personalized-guidance and long-term-memory AI software (Prospinity Inc.), plus other AI products and open-source projects. Treat it as a working name; do a full trademark search (including India) and get an attorney's opinion before any public launch. The repo still says Ekam until the config rename (internal `@ekam/*` package names stay until the owner asks to rename). Never hard-code names or wake words; do not rename files or code.
 
 ---
 
@@ -19,6 +19,7 @@
 6. **Boring by default.** Every new dependency needs a one-line justification in an ADR (`docs/adr/`).
 7. **If the spec is ambiguous:** pick the safest, simplest reading, state the assumption, continue. Ask at most one question, only if blocked.
 8. **Never weaken a permission or security rule to make a demo work.**
+9. **Measurement honesty.** Mock or test-harness timings are not latency. Report only measured results with their method, and treat benchmark numbers as targets until measured. For false-accept claims, report the statistical bound actually reached (with zero events observed, roughly 3 divided by hours recorded).
 
 ---
 
@@ -35,7 +36,7 @@
 
 **Explicit non-goals (v1)**
 - Not a general GUI-driving agent (no brittle UI scraping when an official API exists).
-- No always-on ambient listening. Wake word and push-to-talk only, opt-in.
+- No always-on ambient listening. Wake word and push-to-talk only, opt-in; wake and name gating run on-device, and no audio leaves the device before the session gate and name gate pass.
 - No autonomous high-risk actions (purchases, deletions, security changes) without explicit confirmation.
 - No custom model training. No Kubernetes. No multi-tenant billing.
 - Not another chatbot: if a feature doesn't make the voice loop faster, more reliable, or more capable of real actions, it waits.
@@ -96,6 +97,39 @@ Client-side echo cancellation, noise suppression, and auto-gain (WebRTC built-in
 - Corrections: "call Rahul" → "no, Rohan" cancels the pending action and re-resolves.
 - **Action stack:** the last N actions keep undo handlers. "Cancel that" targets the most recent cancellable action; if ambiguous, ask.
 - **Global kill switch:** "Baby, stop everything" cancels all pending actions and background tasks.
+
+### 3.7 Wake word, session gate, and name addressing *(Phase 1b, Proposed: ADR-004)*
+
+Two-step design. A distinctive wake word opens a session; the assistant's name then gates each request. Everything here runs **on-device before any cloud call**; no audio leaves the device until the session gate and name gate pass. These states wrap the §3.1 machine.
+
+| State | Listens for | Behavior |
+|---|---|---|
+| **ASLEEP** | "Awaken", said as a standalone utterance (short pause before and after) | Everything else is dropped on-device, with no cloud call |
+| **AWAKE** | "Daimon" at the start or end of an utterance (aliases Damon, Dayman, Demon, normalized to "Daimon") | Request goes to the cloud; speech without the name is dropped on-device |
+| **Abort** (stays AWAKE) | "stop" (during TTS), "cancel that", "never mind", "Daimon, stop" | Cancels the current request or speech only |
+| **Sleep** (to ASLEEP) | "dismissed", "that's all", "go to sleep", "Daimon, sleep", combined and tail forms; idle timeout | Descending chime |
+
+Feedback: Orb glow and chime on confirmed wake; descending chime on sleep.
+
+**Rules**
+- The alias map comes from real STT output (corpus section E), not guesses. Mid-sentence name use ("tell Daimon to...") is ignored.
+- Sleep phrases match as whole utterances ("that's all right with me" must not sleep). "Stop" cancels speech but keeps the session; a lone "thanks" does not end it.
+- The assistant's own speech must never wake or gate it: echo cancellation on, and the assistant rarely says its own name or "awaken" aloud.
+- The TTS voice always says the name as DAY-mon; the detector and gate accept other pronunciations and spellings.
+- Before the session gate, "Awaken" is a detector target only; it is never an app command.
+
+**Design notes (recorded concerns)**
+- **Tail-addressed names** ("what's the weather, Daimon") require buffering the whole utterance on-device before anything streams to the cloud, which delays the response. Build the name-at-start form first; add the tail form only if measured need, and measure its latency cost.
+- **Name on every request is friction.** A short name-free follow-up window (off by default) is a candidate to test after the base gate works.
+- **Wake-to-ready:** the first words after the gate must not be lost. Use a rolling pre-roll buffer or a muted room, and measure "wake-to-ready" as its own latency.
+- **"Awaken" is a common English word.** Embedded-"awaken" negatives and continuous negative audio measure false accepts; report the bound actually reached (about 3 divided by hours recorded when none are observed).
+- **Platform limits:** in a browser, local detection only runs while the tab is open with mic permission; Android needs a visible foreground service.
+
+**Starting targets** (targets, not benchmarks; set final numbers before testing): false accepts under 0.1 per hour; false rejects on enrolled voices under 3%; wake-to-chime under 500 ms. Name-to-first-audio follows the §11 budgets.
+
+**Deferred until real audio data shows a need:** speaker verification, a two-stage verifier, an LLM addressee check (a `<skip/>` sentinel or `ignore_turn` tool call, never the plain word "SKIP", with token buffering before TTS), and a name-free follow-up default.
+
+**Open policy items (decide before ADR-004 is Accepted; the corpus records them as informational):** "Awaken" followed directly by a command in one breath; a "Hey Daimon" carrier prefix; bare "Daimon" with no command (chime only, or a prompt); "Awaken" with a short pause or right after other speech; idle-timeout length (a few minutes is a starting guess); which on-device engine.
 
 ---
 
@@ -283,7 +317,7 @@ interface BabyTool<I, O> {
 
 ## 10. Speech stack selection protocol
 
-Do not pick vendors by popularity. Build a **benchmark corpus** (50–100 utterances recorded by the real user: Indian English, quiet + noisy + speakerphone, including contact names, numbers, and commands) and score every candidate:
+Do not pick vendors by popularity. Build a **benchmark corpus** (recorded by the real user per `evals/corpus/RECORDING_GUIDE.md`: Indian English, quiet + noisy + speakerphone, including contact names, numbers, and commands; the provider bake-off set is separate from the later wake-word set; assign a dev/test split before running anything, tune only on dev, report test once, and record capture settings, including whether echo cancellation and noise suppression were on) and score every candidate:
 
 - STT: time-to-first-partial, end-of-turn latency, WER **on entities** (names/numbers), false-endpoint rate, streaming stability, cost
 - TTS: time-to-first-byte, pronunciation of names/currency, naturalness, cost
@@ -418,6 +452,7 @@ Baby is built in two profiles. **Profile A (free)** is built and finished first 
 7. **Degraded mode:** primary LLM times out → failover succeeds or Baby says a recovery line; no silence > 2 s.
 8. **Honesty:** WhatsApp request → Baby says it opened WhatsApp with the message ready, never "sent."
 9. **Persona boundaries:** at fillers level 2, "text Rahul I'm late" → the sent message body contains no fillers or persona phrasing; "fewer ums" → `update_style_preferences` called, confirmed in a few words, and still in effect in a new session; no "training"/"learning" claims.
+10. **Wake and sleep:** asleep, a standalone "Awaken" opens the session with a chime; "what time is it" without the name is dropped on-device with no cloud call; "Daimon, what time is it" routes; "that's all right with me" does not sleep; "that's all" sleeps with a descending chime; the assistant's own speech never re-wakes or gates it.
 
 ---
 
@@ -427,6 +462,7 @@ Baby is built in two profiles. **Profile A (free)** is built and finished first 
 |---|---|---|
 | 0 | Foundations, keys, benchmark corpus, ADRs | Local console agent talks back |
 | 1 | Voice core | Deployed (Mumbai); fast-path p50 ≤ 1.0 s; barge-in ≤ 300 ms; 30-min stable session |
+| 1b | Wake word, session gate, name addressing (Proposed, ADR-004) | Meets the pre-set false-accept, false-reject and wake-to-chime targets on the wake-word corpus, stated with the bound actually reached; golden #10 passes; ADR-004 Accepted |
 | 2 | Router + deterministic tools | Tier-0 precision ≥ 99 %; golden #1 (partial), #2, #3 pass |
 | 3 | Gateway, Redis, Postgres, memory | State survives agent restart; no DB on hot path; ≤ 5 % latency regression |
 | 4 | Tool ecosystem + permissions | Golden #1, #4–#6 pass in automated replay; every tool has schema + policy + verification |
@@ -460,7 +496,7 @@ Baby is built in two profiles. **Profile A (free)** is built and finished first 
 
 - Primary phone platform (Android or iOS) — decides Phase 5.
 - Launch languages beyond Indian English?
-- Wake word vs push-to-talk first?
+- Decided: tap-to-talk first (Phase 1); the "Awaken" wake word, session gate and name addressing come in Phase 1b (Proposed).
 - Monthly budget ceiling and per-interaction cost cap?
 - Retention defaults for transcripts and audio?
 - Single-user forever, or multi-user eventually?
@@ -471,9 +507,10 @@ Baby is built in two profiles. **Profile A (free)** is built and finished first 
 
 **Usage notes**
 - `{{APP_NAME}}` and the `style.*` values are filled in at runtime (name from config, style from the user's saved profile via the one-time bootstrap call; never a DB query on the hot path).
-- **Before Phase 3** there is no profile storage: use the fixed defaults (humor 1, fillers 1, formality 1, verbosity 1) and **omit the "TUNING THE VOICE" block**.
+- **Before Phase 3** there is no profile storage: use the fixed defaults (humor 1, fillers 0, formality 1, verbosity 1; keep fillers at 0 until you have listened to how the chosen TTS voice reads "uh" and "hmm") and **omit the "TUNING THE VOICE" block**.
 - From Phase 3 on, include "TUNING THE VOICE" and register the `update_style_preferences` tool (risk `LOW`, announced, not confirmed).
 - Persona never overrides TRUTH, ACTIONS, or SAFETY. If they conflict, personality loses.
+- TTS: the voice must always say the name as DAY-mon (/ˈdeɪmɒn/). If it reads it differently, use a phonetic respelling in the TTS input only, never in the displayed transcript or saved text. The detector and name gate accept other pronunciations and spellings.
 
 ```text
 You are {{APP_NAME}}, a voice-first personal assistant. Everything you write is spoken aloud.
@@ -499,8 +536,9 @@ HOW YOU SOUND
 - Thinking out loud is allowed when you are actually reasoning: "Hmm, wait, that changes it..."
   Use it for real self-corrections, not as decoration.
 - Say numbers, dates, and money the way a person would say them.
+- Rarely say your own name or the word "awaken" aloud; on speakers it can re-trigger the wake or name gate.
 
-FILLERS (style.fillers: 0 none, 1 rare, 2 occasional, 3 chatty; default 1)
+FILLERS (style.fillers: 0 none, 1 rare, 2 occasional, 3 chatty; default 0)
 - Allowed: "hmm", "uh", "oh", "okay so", "wait". At level 1, at most one per reply.
 - Never before an instant answer (math, time, timers). Never in two consecutive turns.
 - Never fake effort: don't say "let me think" when you are not reasoning, and don't say

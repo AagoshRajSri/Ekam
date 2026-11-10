@@ -544,14 +544,16 @@ class VoiceAssistant(Agent):
 def prewarm(proc: JobProcess) -> None:
     """Prewarm local Silero VAD once per worker process."""
     log.info("prewarm", status="loading Silero VAD")
+    vad_activation = float(os.getenv("VAD_ACTIVATION_THRESHOLD", "0.40"))
+    vad_min_silence = float(os.getenv("VAD_MIN_SILENCE_DURATION", "0.55"))
     proc.userdata["vad"] = silero.VAD.load(
         min_speech_duration=0.05,
-        min_silence_duration=0.45,
-        activation_threshold=0.5,
+        min_silence_duration=vad_min_silence,
+        activation_threshold=vad_activation,
         sample_rate=16000,
         force_cpu=True,
     )
-    log.info("prewarm", status="Silero VAD ready")
+    log.info("prewarm", status="Silero VAD ready", activation_threshold=vad_activation, min_silence=vad_min_silence)
 
 
 # ── Entrypoint ───────────────────────────────────────────────────────────────
@@ -670,6 +672,10 @@ async def entrypoint(ctx: JobContext) -> None:
 
     active_llm = FallbackAdapter(llm=llm_chain, attempt_timeout=5.0)
 
+    endpointing_min_delay = float(os.getenv("ENDPOINTING_MIN_DELAY", "0.8"))
+    endpointing_max_delay = float(os.getenv("ENDPOINTING_MAX_DELAY", "3.0"))
+    aec_warmup = float(os.getenv("AEC_WARMUP_DURATION", "0.5"))
+
     session = AgentSession(
         # ── VAD: Local Silero (ONNX, CPU) ───────────────────────────────────
         vad=ctx.proc.userdata["vad"],
@@ -677,15 +683,20 @@ async def entrypoint(ctx: JobContext) -> None:
         stt=groq.STT(
             model="whisper-large-v3-turbo",
             language="en",
+            prompt=f"{APP_NAME}, helpful assistant, natural spoken conversational English.",
             api_key=os.environ.get("GROQ_API_KEY", ""),
         ),
         # ── LLM: Resilient Failover Chain (Groq -> Gemini -> Ollama) ─────────
         llm=active_llm,
         # ── TTS: Guarded Orpheus, Piper, or Local Mock ───────────────────────
         tts=active_tts,
+        aec_warmup_duration=aec_warmup,
         # ── Turn detection & Interruption (Barge-in) ────────────────────────
         turn_handling={
-            "endpointing": {"min_delay": 0.4, "max_delay": 3.0},
+            "endpointing": {
+                "min_delay": endpointing_min_delay,
+                "max_delay": endpointing_max_delay,
+            },
             "interruption": {
                 "enabled": True,
                 "min_duration": 0.4,
@@ -694,6 +705,31 @@ async def entrypoint(ctx: JobContext) -> None:
             "preemptive_generation": {"enabled": False},
         },
     )
+
+    async def _publish_transcript(role: str, text: str) -> None:
+        try:
+            if ctx.room and ctx.room.local_participant:
+                payload = json.dumps({"type": "transcript", "role": role, "text": text}).encode("utf-8")
+                await ctx.room.local_participant.publish_data(payload, reliable=True, topic=TELEMETRY_TOPIC)
+        except Exception as ex:
+            log.warning("transcript_broadcast_failed", error=str(ex))
+
+    @session.on("user_input_transcribed")
+    def _on_user_input_transcribed(ev: Any) -> None:
+        text = getattr(ev, "transcript", "")
+        is_final = getattr(ev, "is_final", True)
+        if text and is_final:
+            log.info("user_transcript_received", text=text)
+            asyncio.create_task(_publish_transcript("user", text))
+
+    @session.on("conversation_item_added")
+    def _on_conversation_item_added(ev: Any) -> None:
+        item = getattr(ev, "item", None)
+        if item is not None:
+            role = getattr(item, "role", "")
+            text = getattr(item, "text_content", "") or ""
+            if text and role in ("user", "assistant"):
+                asyncio.create_task(_publish_transcript(role, text))
 
     await session.start(VoiceAssistant(), room=ctx.room)
     log.info(

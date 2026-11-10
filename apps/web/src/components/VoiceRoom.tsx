@@ -229,7 +229,11 @@ export function VoiceRoom({ token, url, roomName, onDisconnect }: VoiceSessionPr
       token={token}
       serverUrl={url}
       connect={true}
-      audio={true}
+      audio={{
+        echoCancellation: true,
+        noiseSuppression: true,
+        autoGainControl: true,
+      }}
       video={false}
       onDisconnected={onDisconnect}
       className="flex flex-col items-center justify-center w-full"

@@ -147,6 +147,36 @@ def test_derive_masters_to_derived(tmp_path):
         assert wf.getsampwidth() == 2
 
 
+def test_resampling_anti_alias():
+    """Verify that scipy.signal.resample_poly preserves 1 kHz and strongly attenuates
+    tones above the 8 kHz Nyquist limit when downsampling 48 kHz -> 16 kHz.
+    """
+    import numpy as np
+    from check_corpus import resample_to_16k
+
+    fs = 48000
+    t = np.arange(fs, dtype=np.float64) / fs
+    # Pure 1 kHz tone
+    tone1k = np.sin(2.0 * np.pi * 1000.0 * t)
+    # Pure 10 kHz tone (above 8 kHz Nyquist of 16 kHz)
+    tone10k = np.sin(2.0 * np.pi * 10000.0 * t)
+
+    res1k = resample_to_16k(tone1k, fs)
+    res10k = resample_to_16k(tone10k, fs)
+
+    # Trim filter transient edges (100 samples)
+    amp1k = float(np.sqrt(np.mean(res1k[100:-100] ** 2)) / (1.0 / np.sqrt(2.0)))
+    amp10k = float(np.sqrt(np.mean(res10k[100:-100] ** 2)) / (1.0 / np.sqrt(2.0)))
+
+    atten1k_dB = 20.0 * math.log10(amp1k)
+    atten10k_dB = 20.0 * math.log10(amp10k)
+
+    # 1 kHz must be preserved within 0.1 dB
+    assert abs(atten1k_dB) < 0.1, f"1 kHz tone altered: {atten1k_dB:.3f} dB"
+    # 10 kHz must be strongly attenuated by >= 40 dB (measured ~57 dB)
+    assert atten10k_dB <= -40.0, f"10 kHz tone not sufficiently attenuated: {atten10k_dB:.2f} dB"
+
+
 def test_assign_split_behavior(tmp_path):
     manifest_path = tmp_path / "manifest.json"
     manifest_path.write_text(json.dumps({

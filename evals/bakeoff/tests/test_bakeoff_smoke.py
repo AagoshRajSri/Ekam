@@ -22,7 +22,7 @@ def test_dry_run_exits_cleanly():
     ]
     res = subprocess.run(cmd, capture_output=True, text=True, cwd=str(REPO_ROOT))
     assert res.returncode == 0
-    assert "BAKE-OFF DRY-RUN ACCOUNTING" in res.stdout
+    assert "BAKE-OFF REQUEST ACCOUNTING BEFORE SPENDING" in res.stdout
     assert "DRY RUN ONLY" in res.stdout
 
 
@@ -57,3 +57,43 @@ def test_synthetic_offline_bakeoff_run(tmp_path):
     assert "Fast LLM Candidates" in content
     assert "Text-to-Speech (TTS) Candidates" in content
     assert "single-speaker baseline" in content
+
+
+def test_alias_candidates_only_from_dev_split(tmp_path):
+    """Confirm alias candidates are never collected from the test split."""
+    report_out = tmp_path / "test_split_report.md"
+    cmd = [
+        sys.executable,
+        str(BAKEOFF_SCRIPT),
+        "--split", "test",
+        "--final",
+        "--no-dry-run",
+        "--use-fakes",
+        "--output-report", str(report_out),
+    ]
+    res = subprocess.run(cmd, capture_output=True, text=True, cwd=str(REPO_ROOT))
+    assert res.returncode == 0
+    content = report_out.read_text(encoding="utf-8")
+    assert "| (pending real recordings) | — | — | — |" in content
+
+
+def test_partial_coverage_does_not_crash(tmp_path):
+    """Confirm the harness runs cleanly on partial coverage (e.g. only 1 WAV exists)."""
+    fake_wavs_dir = tmp_path / "wavs"
+    fake_wavs_dir.mkdir(parents=True)
+    # Create just one single dummy WAV file
+    (fake_wavs_dir / "s01_Q_cmd_01_t1.wav").write_bytes(b"RIFFdummyWAVE")
+    report_out = tmp_path / "partial_report.md"
+
+    cmd = [
+        sys.executable,
+        str(BAKEOFF_SCRIPT),
+        "--split", "dev",
+        "--wavs-dir", str(fake_wavs_dir),
+        "--no-dry-run",
+        "--use-fakes",
+        "--output-report", str(report_out),
+    ]
+    res = subprocess.run(cmd, capture_output=True, text=True, cwd=str(REPO_ROOT))
+    assert res.returncode == 0
+    assert report_out.exists()

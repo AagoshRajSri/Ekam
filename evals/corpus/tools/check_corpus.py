@@ -1,6 +1,6 @@
 """
 check_corpus.py: Windows-friendly corpus validation, status, and derivation tool.
-Does NOT require ffmpeg. Uses stdlib wave and audioop.
+Does NOT require ffmpeg. Uses stdlib wave, numpy, and scipy polyphase resampler.
 """
 
 from __future__ import annotations
@@ -15,6 +15,9 @@ import sys
 import wave
 from pathlib import Path
 from typing import Any
+
+import numpy as np
+import scipy.signal as sig
 
 # Pattern: {speaker}_{env}_{id}_t{take}.wav
 FILENAME_RE = re.compile(r"^(?P<speaker>[a-zA-Z0-9]+)_(?P<env>[QDN])_(?P<id>[a-zA-Z0-9_]+)_t(?P<take>[1-9]\d*)\.wav$")
@@ -38,41 +41,82 @@ def get_audio_info(path: Path) -> dict[str, Any]:
     }
 
 
-def compute_audio_stats(raw_bytes: bytes, sampwidth: int) -> dict[str, float]:
-    if not raw_bytes or sampwidth not in (2, 4):
-        return {"peak_dBFS": -999.0, "is_clipped": False, "rms_dBFS": -999.0}
+def compute_audio_stats(raw_bytes: bytes, sampwidth: int) -> dict[str, Any]:
+    if not raw_bytes or sampwidth not in (2, 3, 4):
+        return {"peak": 0.0, "peak_dBFS": -999.0, "is_clipped": False, "rms_dBFS": -999.0}
 
     if sampwidth == 2:
-        count = len(raw_bytes) // 2
-        samples = struct.unpack(f"<{count}h", raw_bytes[: count * 2])
+        samples = np.frombuffer(raw_bytes, dtype="<i2").astype(np.float64)
         max_val = 32768.0
-        clip_thresh = 32760
-    else:
-        count = len(raw_bytes) // 4
-        samples = struct.unpack(f"<{count}i", raw_bytes[: count * 4])
+        clip_thresh = 32760.0
+    elif sampwidth == 3:
+        b = np.frombuffer(raw_bytes, dtype=np.uint8)
+        n_samples = len(b) // 3
+        b = b[: n_samples * 3].reshape(-1, 3)
+        samples = (
+            b[:, 0].astype(np.int32)
+            | (b[:, 1].astype(np.int32) << 8)
+            | (b[:, 2].astype(np.int8).astype(np.int32) << 16)
+        ).astype(np.float64)
+        max_val = 8388608.0
+        clip_thresh = 8388500.0
+    elif sampwidth == 4:
+        samples = np.frombuffer(raw_bytes, dtype="<i4").astype(np.float64)
         max_val = 2147483648.0
-        clip_thresh = 2147483000
+        clip_thresh = 2147483000.0
+    else:
+        return {"peak": 0.0, "peak_dBFS": -999.0, "is_clipped": False, "rms_dBFS": -999.0}
 
-    if not samples:
-        return {"peak_dBFS": -999.0, "is_clipped": False, "rms_dBFS": -999.0}
+    if len(samples) == 0:
+        return {"peak": 0.0, "peak_dBFS": -999.0, "is_clipped": False, "rms_dBFS": -999.0}
 
-    abs_samples = [abs(s) for s in samples]
-    peak = max(abs_samples)
-    is_clipped = peak >= clip_thresh
+    abs_samples = np.abs(samples)
+    peak = float(np.max(abs_samples))
+    is_clipped = bool(peak >= clip_thresh)
+    peak_dBFS = float(20.0 * math.log10(peak / max_val)) if peak > 0 else -999.0
 
-    peak_dBFS = 20.0 * math.log10(peak / max_val) if peak > 0 else -999.0
-
-    sum_sq = sum(s * s for s in samples)
-    mean_sq = sum_sq / len(samples)
-    rms = math.sqrt(mean_sq)
-    rms_dBFS = 20.0 * math.log10(rms / max_val) if rms > 0 else -999.0
+    rms = float(np.sqrt(np.mean(samples**2)))
+    rms_dBFS = float(20.0 * math.log10(rms / max_val)) if rms > 0 else -999.0
 
     return {
-        "peak": float(peak),
+        "peak": peak,
         "peak_dBFS": peak_dBFS,
         "is_clipped": is_clipped,
         "rms_dBFS": rms_dBFS,
     }
+
+
+def unpack_pcm(raw_bytes: bytes, sampwidth: int, nchannels: int) -> np.ndarray:
+    """Unpack PCM bytes into float64 numpy array in range [-1.0, 1.0]."""
+    if sampwidth == 2:
+        samples = np.frombuffer(raw_bytes, dtype="<i2").astype(np.float64) / 32768.0
+    elif sampwidth == 3:
+        b = np.frombuffer(raw_bytes, dtype=np.uint8)
+        n_samples = len(b) // 3
+        b = b[: n_samples * 3].reshape(-1, 3)
+        samples = (
+            b[:, 0].astype(np.int32)
+            | (b[:, 1].astype(np.int32) << 8)
+            | (b[:, 2].astype(np.int8).astype(np.int32) << 16)
+        ).astype(np.float64) / 8388608.0
+    elif sampwidth == 4:
+        samples = np.frombuffer(raw_bytes, dtype="<i4").astype(np.float64) / 2147483648.0
+    else:
+        raise ValueError(f"Unsupported sample width: {sampwidth} bytes")
+
+    if nchannels > 1:
+        samples = samples.reshape(-1, nchannels).mean(axis=1)
+    return samples
+
+
+def resample_to_16k(audio_float: np.ndarray, in_rate: int) -> np.ndarray:
+    """Resample 1D float audio to 16 kHz using scipy polyphase Kaiser FIR filter."""
+    if in_rate == 16000:
+        return audio_float
+    gcd = math.gcd(16000, in_rate)
+    up = 16000 // gcd
+    down = in_rate // gcd
+    return sig.resample_poly(audio_float, up, down)
 
 
 def check_room_tone(raw_bytes: bytes, framerate: int, sampwidth: int, duration: float) -> tuple[bool, str]:
@@ -272,8 +316,6 @@ def run_derive(args: argparse.Namespace) -> int:
         print(f"No master WAV files found in {masters_dir}")
         return 0
 
-    import audioop
-
     derived_count = 0
     skipped_count = 0
     errors = 0
@@ -295,24 +337,21 @@ def run_derive(args: argparse.Namespace) -> int:
                 nframes = in_wf.getnframes()
                 raw_bytes = in_wf.readframes(nframes)
 
-            # 1. Convert to mono if needed
-            if in_channels > 1:
-                raw_bytes = audioop.tomono(raw_bytes, in_width, 0.5, 0.5)
+            # 1. Unpack to float mono [-1.0, 1.0]
+            audio_mono = unpack_pcm(raw_bytes, in_width, in_channels)
 
-            # 2. Convert bit depth to 16-bit (2 bytes) if needed
-            if in_width != 2:
-                raw_bytes = audioop.lin2lin(raw_bytes, in_width, 2)
+            # 2. Resample to 16 kHz using scipy polyphase Kaiser FIR filter
+            audio_16k = resample_to_16k(audio_mono, in_rate)
 
-            # 3. Resample to 16000 Hz if needed
-            if in_rate != 16000:
-                raw_bytes, _ = audioop.ratecv(raw_bytes, 2, 1, in_rate, 16000, None)
+            # 3. Quantize to 16-bit PCM
+            audio_int16 = np.clip(np.round(audio_16k * 32767.0), -32768, 32767).astype("<i2")
 
-            # Write derived file
+            # 4. Write derived file
             with wave.open(str(out_path), "wb") as out_wf:
                 out_wf.setnchannels(1)
                 out_wf.setsampwidth(2)
                 out_wf.setframerate(16000)
-                out_wf.writeframes(raw_bytes)
+                out_wf.writeframes(audio_int16.tobytes())
 
             derived_count += 1
 

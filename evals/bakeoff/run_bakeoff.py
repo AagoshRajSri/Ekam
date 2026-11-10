@@ -74,20 +74,38 @@ def main() -> int:
 
     # Filter clips by chosen split
     split_clips = {fname: data for fname, data in ground_truth.items() if data.get("split") == args.split}
-    print(f"Selected split: '{args.split}' — {len(split_clips)} clips.")
+    print(f"Selected split: '{args.split}' — {len(split_clips)} clips in ground truth.")
 
-    # Determine if real WAVs exist
-    real_wavs_exist = any((wavs_dir / fname).exists() for fname in split_clips.keys())
+    # Determine which real WAVs exist on disk
+    existing_wav_files = {p.name for p in wavs_dir.glob("*.wav")} if wavs_dir.exists() else set()
+    available_split_clips = {fname: data for fname, data in split_clips.items() if fname in existing_wav_files}
+    real_wavs_exist = len(available_split_clips) > 0
     is_synthetic = args.use_fakes or not real_wavs_exist
+
+    # In synthetic/fake mode, evaluate all split clips; otherwise evaluate whatever clips exist
+    eval_clips = split_clips if is_synthetic else available_split_clips
+
+    # Coverage breakdown per section (R6)
+    by_section: dict[str, int] = {}
+    for c in eval_clips.values():
+        sec = c.get("section", "unknown")
+        by_section[sec] = by_section.get(sec, 0) + 1
+
+    print(f"\nCorpus Coverage for '{args.split}' split ({len(eval_clips)}/{len(split_clips)} clips evaluated):")
+    for sec in sorted(by_section.keys()):
+        n_avail = by_section[sec]
+        n_total = sum(1 for c in split_clips.values() if c.get("section") == sec)
+        pct = (n_avail / n_total * 100.0) if n_total > 0 else 0.0
+        print(f"  Section {sec}: n = {n_avail}/{n_total} clips ({pct:5.1f}%)")
 
     # Dry-run request count accounting
     stt_candidates = [c for c in config.get("stt", {}).get("candidates", []) if c.get("enabled")]
     llm_candidates = [c for c in config.get("llm", {}).get("candidates", []) if c.get("enabled")]
     tts_candidates = [c for c in config.get("tts", {}).get("candidates", []) if c.get("enabled")]
 
-    stt_reqs = len(stt_candidates) * len(split_clips)
+    stt_reqs = len(stt_candidates) * len(eval_clips)
     # LLM evaluated on fixed Section C prompt items (subset)
-    cmd_clips = [c for c in split_clips.values() if c.get("section") == "C"]
+    cmd_clips = [c for c in eval_clips.values() if c.get("section") == "C"]
     unique_cmd_texts = list({c["text"] for c in cmd_clips})[:10]  # fixed 10 prompts
     llm_reqs = len(llm_candidates) * len(unique_cmd_texts)
     # TTS evaluated on 3 fixed sentences containing name + up to max_orpheus_requests
@@ -98,12 +116,13 @@ def main() -> int:
     ]
     tts_reqs = min(len(tts_candidates) * len(tts_prompts), args.max_orpheus_requests * len(tts_candidates))
 
-    print("\n=== BAKE-OFF DRY-RUN ACCOUNTING ===")
+    print("\n=== BAKE-OFF REQUEST ACCOUNTING BEFORE SPENDING ===")
     print(f"Split:               {args.split} (Final: {args.final})")
-    print(f"Synthetic Mode:      {is_synthetic} ({'using offline fakes' if args.use_fakes else 'no real wavs found'})")
-    print(f"STT Candidates:      {[c['id'] for c in stt_candidates]} -> {stt_reqs} requests")
-    print(f"LLM Candidates:      {[c['id'] for c in llm_candidates]} -> {llm_reqs} requests ({len(unique_cmd_texts)} unique prompts)")
-    print(f"TTS Candidates:      {[c['id'] for c in tts_candidates]} -> {tts_reqs} requests (cap: {args.max_orpheus_requests}/provider)")
+    print(f"Evaluation Mode:     {'OFFLINE FAKES (zero API calls)' if args.use_fakes else ('SYNTHETIC (no real WAVs found)' if not real_wavs_exist else 'REAL PROVIDER CALLS')}")
+    print(f"Clips Evaluated:     {len(eval_clips)} clips")
+    print(f"STT Candidates:      {[c['id'] for c in stt_candidates]} -> {stt_reqs} requests expected")
+    print(f"LLM Candidates:      {[c['id'] for c in llm_candidates]} -> {llm_reqs} requests expected ({len(unique_cmd_texts)} unique prompts)")
+    print(f"TTS Candidates:      {[c['id'] for c in tts_candidates]} -> {tts_reqs} requests expected (cap: {args.max_orpheus_requests}/provider)")
     print(f"Max Orpheus Cap:     {args.max_orpheus_requests} requests strictly enforced")
 
     if args.dry_run:
@@ -115,8 +134,8 @@ def main() -> int:
     cache = BakeoffCache(cache_dir)
     print(f"\nResumable cache initialized at {cache_dir} ({cache.count()} entries cached).")
 
-    # If --final was passed on test split, update split.lock
-    if args.final and lock_path.exists():
+    # If --final was passed on test split with real recordings, update split.lock
+    if args.final and not is_synthetic and lock_path.exists():
         try:
             with open(lock_path, "r", encoding="utf-8") as lf:
                 lock_data = json.load(lf)
@@ -144,7 +163,11 @@ def main() -> int:
         ent_accs: list[float] = []
         rtts: list[float] = []
 
-        for fname, clip in split_clips.items():
+        for fname, clip in eval_clips.items():
+            wav_file = Path(args.wavs_dir) / fname
+            if not is_synthetic and not wav_file.exists():
+                continue
+
             ref_text = clip["text"]
             env = clip["environment"]
             ents = clip.get("entities", [])
@@ -154,8 +177,7 @@ def main() -> int:
             if cached:
                 res = cached
             else:
-                dummy_wav = Path(args.wavs_dir) / fname
-                res = provider.transcribe(dummy_wav)
+                res = provider.transcribe(wav_file)
                 cache.set(cid, inp_hash, res)
 
             hyp_text = res.get("text", "")
@@ -175,8 +197,8 @@ def main() -> int:
             ent_accs.append(ea)
             rtts.append(rtt)
 
-            # Collect alias candidates for Section E
-            if clip.get("section") == "E":
+            # Collect alias candidates for Section E ONLY from dev split (F3)
+            if clip.get("section") == "E" and args.split == "dev":
                 alias_map = alias_candidates.setdefault(cid, {})
                 alias_map[hyp_text] = alias_map.get(hyp_text, 0) + 1
 

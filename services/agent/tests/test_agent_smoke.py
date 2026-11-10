@@ -127,7 +127,7 @@ async def test_orpheus_quota_auto_resets_after_hour():
         hourly_limit=2,
     )
     # Simulate 2 requests that happened > 1 hour ago
-    old_ts = _time.monotonic() - 3700  # 3700 s ago (> 3600)
+    old_ts = _time.time() - 3700.0  # 3700 s ago (> 3600)
     guarded._timestamps.extend([old_ts, old_ts])
     guarded._quota_exhausted = True
     guarded._recovery_played = True
@@ -140,3 +140,118 @@ async def test_orpheus_quota_auto_resets_after_hour():
     assert stream is not None
     assert guarded._quota_exhausted is False, "quota_exhausted must be cleared after window reset"
     assert guarded._recovery_played is False, "recovery_played must be cleared after window reset"
+
+
+def test_recovery_wav_format_and_wording():
+    import wave
+    from agent import _RECOVERY_WAV, _RECOVERY_LINE_TEXT
+
+    assert _RECOVERY_WAV.exists(), "recovery_429.wav must exist"
+    assert _RECOVERY_LINE_TEXT == "I've hit my voice limit, switching to my backup voice."
+
+    with wave.open(str(_RECOVERY_WAV), "rb") as wf:
+        assert wf.getframerate() == 24000, f"Expected 24000 Hz, got {wf.getframerate()}"
+        assert wf.getnchannels() == 1, f"Expected mono, got {wf.getnchannels()}"
+        assert wf.getsampwidth() == 2, f"Expected 16-bit, got {wf.getsampwidth() * 8}-bit"
+
+
+@pytest.mark.asyncio
+async def test_429_retry_after_handling(tmp_path):
+    import time
+    mock_fallback = LocalMockTTS(sample_rate=24000)
+    ts_file = tmp_path / "tts_timestamps.jsonl"
+    guarded = GuardedOrpheusTTS(
+        api_key="dummy",
+        hourly_limit=100,
+        fallback_tts=mock_fallback,
+        timestamps_file=ts_file,
+    )
+
+    class Fake429Error(Exception):
+        def __init__(self):
+            super().__init__("Rate limit exceeded")
+            self.headers = {"Retry-After": "120"}
+
+    def fake_failing_synth(text, conn_options=None):
+        raise Fake429Error()
+
+    guarded._inner.synthesize = fake_failing_synth
+
+    stream = guarded.synthesize("test message")
+    assert stream is not None
+    assert guarded._quota_exhausted is True
+    # Cooldown should be approximately 120 seconds in future
+    assert guarded._retry_after_until > time.time() + 100
+
+
+@pytest.mark.asyncio
+async def test_429_exponential_backoff_without_header(tmp_path):
+    import time
+    mock_fallback = LocalMockTTS(sample_rate=24000)
+    ts_file = tmp_path / "tts_timestamps.jsonl"
+    guarded = GuardedOrpheusTTS(
+        api_key="dummy",
+        hourly_limit=100,
+        fallback_tts=mock_fallback,
+        timestamps_file=ts_file,
+    )
+
+    def fake_failing_synth(text, conn_options=None):
+        raise RuntimeError("Server Error 500")
+
+    guarded._inner.synthesize = fake_failing_synth
+
+    # 1st failure: 60s backoff
+    guarded.synthesize("test 1")
+    assert guarded._backoff_seconds == 120.0  # doubled for next failure
+
+    # Force reset cooldown to trigger 2nd failure
+    guarded._retry_after_until = 0.0
+    guarded._quota_exhausted = False
+    guarded.synthesize("test 2")
+    assert guarded._backoff_seconds == 240.0  # doubled again
+
+
+@pytest.mark.asyncio
+async def test_proactive_headroom_switch(tmp_path):
+    import time, json
+    ts_file = tmp_path / "tts_timestamps.jsonl"
+    # Pre-populate 91 recent timestamps -> remaining is 9 <= 10% of 100
+    now = time.time()
+    lines = [json.dumps({"ts": now - i * 10}) + "\n" for i in range(91)]
+    ts_file.write_text("".join(lines), encoding="utf-8")
+
+    guarded = GuardedOrpheusTTS(
+        api_key="dummy",
+        hourly_limit=100,
+        fallback_tts=LocalMockTTS(sample_rate=24000),
+        timestamps_file=ts_file,
+    )
+
+    # Should switch proactively without even calling inner
+    assert guarded._quota_exhausted is True
+    assert len(guarded._timestamps) == 91
+
+
+@pytest.mark.asyncio
+async def test_timestamps_persistence_across_restart(tmp_path):
+    import time, json
+    ts_file = tmp_path / "tts_timestamps.jsonl"
+    now = time.time()
+    recent_ts = now - 60.0  # 1 minute ago
+    old_ts = now - 4000.0   # expired (> 1 hr)
+    lines = [
+        json.dumps({"ts": recent_ts}) + "\n",
+        json.dumps({"ts": old_ts}) + "\n",
+    ]
+    ts_file.write_text("".join(lines), encoding="utf-8")
+
+    guarded = GuardedOrpheusTTS(
+        api_key="dummy",
+        hourly_limit=100,
+        timestamps_file=ts_file,
+    )
+
+    # Only recent_ts should be loaded
+    assert len(guarded._timestamps) == 1
+    assert abs(guarded._timestamps[0] - recent_ts) < 1.0

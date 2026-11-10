@@ -33,6 +33,10 @@ s01 (you): records everything in sections A-G (178 items, about 356 clips at 2 t
 s02-s05 (at least 3, ideally 4 others): each records the speaker subset (45 items): wake_01-10, wake_neg_01-05, cmd_01-15, name_01-10, sleep_01-05. Include different genders, ages and accents, and at least two with strongly Indian-English speech patterns. Record their metadata (self-described accent or L1, device) with consent.
 If you can’t recruit others, label every result “single-speaker baseline” and don’t generalize.
 4. Utterance catalog (speaker s01)
+
+> **Bake-off corpus scope (speaker s01, sections A, C, E, G, I): exactly 127 items / 254 clips at 2 takes** (formalized in `evals/corpus/manifest.json`).
+> Sections B, D, F, H (51 items / 102 clips) belong to the Phase 1b wake-word corpus and are recorded separately.
+
 A. Wake “Awaken” (30 items)
 ID	Spoken	Condition	Expected
 wake_01-05	“Awaken.”	Q, natural pace, about 0.5 s pause before and after	Open session
@@ -169,16 +173,16 @@ In addition to direct mic/headset recordings, record dedicated takes of this sec
 - Validates the browser audio pipeline, WebRTC jitter buffer, and acoustic echo cancellation settling on regional accents and code-mixed phrasing.
 
 Capturing Web AEC takes (RECORD_CORPUS mode — deferred):
-Automated in-browser WAV capture via MediaRecorder (NEXT_PUBLIC_RECORD_CORPUS=1 mode) is deferred. Until it is implemented, capture web-AEC takes manually using one of these methods:
-  a) Audacity with WASAPI loopback capture on Windows (records the microphone after browser AEC is applied).
-  b) OS-level recording tool (e.g. Sound Recorder) set to the communications microphone (which is AEC-processed).
-  c) Record the raw mic signal through the web client and save via the browser DevTools audio tab.
-Label all web-AEC takes with the _webaec suffix (e.g. s01_Q_hi_01_webaec_t1.wav).
-When RECORD_CORPUS=1 is eventually implemented, it will add a MediaRecorder hook in VoiceRoom.tsx that captures the AEC-processed mic stream and triggers a WAV download at session end.
+Automated in-browser WAV capture via MediaRecorder (`NEXT_PUBLIC_RECORD_CORPUS=1` mode) is deferred. Until it is implemented:
+- **Audacity with WASAPI loopback capture on Windows**: records the **raw microphone signal (no browser AEC)**. Label these takes `_audacity_raw_t1` (or `_raw_t1`).
+- **Browser-processed AEC takes**: marked as **pending RECORD_CORPUS** mode. When `RECORD_CORPUS=1` is implemented, it will capture the browser AEC-processed `MediaStream` and trigger a WAV download at session end.
+- Alternatively, OS-level recording tools set to the communications microphone device can capture the AEC-processed stream. Label true browser AEC takes with `_webaec_t1`.
 
 Scoring rule: Addressed items (hi_01–hi_06) pass if the name gate routes to the LLM. Unaddressed items (hi_07–hi_10) pass if silently dropped. Transcription accuracy (WER) is reported for diagnostic tracking but does not cause pass/fail rejection.
 
-Total for s01: 30 + 13 + 35 + 10 + 40 + 10 + 12 + 18 + 10 = 178 items.
+**Item and clip totals:**
+- **Phase 1 Bake-off corpus (sections A, C, E, G, I):** 30 + 35 + 40 + 12 + 10 = **127 items / 254 clips** (locked in `evals/corpus/manifest.json`).
+- **Full s01 catalog (all sections A–I):** 30 + 13 + 35 + 10 + 40 + 10 + 12 + 18 + 10 = **178 items / 356 clips** (sections B, D, F, H are Phase 1b wake-word corpus).
 
 5. Continuous negative audio (the part that measures false accepts)
 

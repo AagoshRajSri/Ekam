@@ -54,7 +54,9 @@ load_dotenv(dotenv_path=_ENV_PATH)
 
 _ASSETS_DIR = Path(__file__).resolve().parent / "assets"
 _RECOVERY_WAV = _ASSETS_DIR / "recovery_429.wav"
+_RECOVERY_LINE_TEXT = "I've hit my voice limit, switching to my backup voice."
 _TELEMETRY_JSONL = Path(__file__).resolve().parent / "telemetry_traces.jsonl"
+_TTS_TIMESTAMPS_FILE = Path(__file__).resolve().parent / "tts_quota_timestamps.jsonl"
 
 # ── Logging ──────────────────────────────────────────────────────────────────
 structlog.configure(
@@ -220,7 +222,7 @@ class PreRecordedRecoveryStream(tts.ChunkedStream):
     ) -> None:
         super().__init__(
             tts=tts_instance,
-            input_text="Voice limit reached. Showing replies on screen.",
+            input_text=_RECOVERY_LINE_TEXT,
             conn_options=conn_options or DEFAULT_API_CONNECT_OPTIONS,
         )
         self._wav_path = wav_path
@@ -262,6 +264,8 @@ class PreRecordedRecoveryStream(tts.ChunkedStream):
 class GuardedOrpheusTTS(tts.TTS):
     """Wraps Groq Orpheus with a strict rolling 100 req/hour ceiling and
     instant failover to pre-recorded audio + local Piper / on-screen text fallback.
+    Honors Retry-After, exponential cooldown on 429/5xx, proactive switch at <=10% headroom,
+    and persists timestamps across process restarts.
     """
 
     def __init__(
@@ -270,6 +274,7 @@ class GuardedOrpheusTTS(tts.TTS):
         hourly_limit: int = 100,
         room: rtc.Room | None = None,
         fallback_tts: tts.TTS | None = None,
+        timestamps_file: Path | None = None,
     ) -> None:
         super().__init__(
             capabilities=tts.TTSCapabilities(streaming=False),
@@ -282,43 +287,117 @@ class GuardedOrpheusTTS(tts.TTS):
             api_key=api_key,
         )
         self._hourly_limit = hourly_limit
+        self._timestamps_file = timestamps_file
         self._timestamps: collections.deque[float] = collections.deque()
         self._quota_exhausted = False
         self._recovery_played = False
         self._room = room
         self._fallback_tts = fallback_tts
 
+        # 429 Retry-After & cooldown tracking
+        self._retry_after_until: float = 0.0
+        self._backoff_seconds: float = 60.0
+
+        # Load persisted timestamps from previous session if file configured
+        self._load_persisted_timestamps()
+
     def set_room(self, room: rtc.Room) -> None:
         self._room = room
 
+    def _load_persisted_timestamps(self) -> None:
+        if not self._timestamps_file or not self._timestamps_file.exists():
+            return
+        now = time.time()
+        valid_ts: list[float] = []
+        try:
+            with open(self._timestamps_file, "r", encoding="utf-8") as f:
+                for line in f:
+                    line = line.strip()
+                    if not line:
+                        continue
+                    try:
+                        record = json.loads(line)
+                        ts = float(record.get("ts", 0.0))
+                        if now - ts <= 3600.0:
+                            valid_ts.append(ts)
+                    except Exception:
+                        pass
+            self._timestamps = collections.deque(sorted(valid_ts))
+            # Proactive switch if headroom already low on startup
+            self._check_headroom()
+        except Exception as e:
+            log.warning("tts_timestamps_load_failed", error=str(e))
+
+    def _save_timestamps(self) -> None:
+        if not self._timestamps_file:
+            return
+        try:
+            self._timestamps_file.parent.mkdir(parents=True, exist_ok=True)
+            with open(self._timestamps_file, "w", encoding="utf-8") as f:
+                for ts in self._timestamps:
+                    f.write(json.dumps({"ts": ts}) + "\n")
+        except Exception as e:
+            log.warning("tts_timestamps_save_failed", error=str(e))
+
+    def _record_request_timestamp(self, now: float) -> None:
+        self._timestamps.append(now)
+        if self._timestamps_file:
+            try:
+                self._timestamps_file.parent.mkdir(parents=True, exist_ok=True)
+                with open(self._timestamps_file, "a", encoding="utf-8") as f:
+                    f.write(json.dumps({"ts": now}) + "\n")
+            except Exception as e:
+                log.warning("tts_timestamp_append_failed", error=str(e))
+
     def _purge_old_timestamps(self, now: float) -> None:
-        while self._timestamps and now - self._timestamps[0] > 3600:
+        purged = False
+        while self._timestamps and now - self._timestamps[0] > 3600.0:
             self._timestamps.popleft()
+            purged = True
+        if purged:
+            self._save_timestamps()
+
+    def _check_headroom(self) -> bool:
+        """Switch proactively when remaining headroom is at or below 10% of hourly limit.
+        Only applies when hourly_limit >= 10 to avoid prematurely tripping small test limits.
+        """
+        if self._hourly_limit < 10:
+            return True
+        remaining = self._hourly_limit - len(self._timestamps)
+        headroom_ratio = remaining / float(self._hourly_limit) if self._hourly_limit > 0 else 0.0
+        if headroom_ratio <= 0.10:
+            if not self._quota_exhausted:
+                log.warning("tts_proactive_switch_headroom_low", remaining=remaining, limit=self._hourly_limit)
+                self._quota_exhausted = True
+            return False
+        return True
 
     def requests_in_past_hour(self) -> int:
-        now = time.monotonic()
+        now = time.time()
         self._purge_old_timestamps(now)
         return len(self._timestamps)
 
     def synthesize(
         self, text: str, *, conn_options: Any = None
     ) -> tts.ChunkedStream:
-        now = time.monotonic()
+        now = time.time()
         self._purge_old_timestamps(now)
 
         # TTS-only phonetic normalization: derive from APP_NAME + TTS_NAME_RESPELL, case-insensitive, possessive-safe
         synth_text = respell_for_tts(text)
 
-        # Auto-reset quota after the hourly window clears.
-        # _purge_old_timestamps removed entries older than 3600s; if the queue is now
-        # below the limit we can let Orpheus try again.
-        if self._quota_exhausted and len(self._timestamps) < self._hourly_limit:
-            log.info("tts_quota_reset", remaining=self._hourly_limit - len(self._timestamps))
+        cooldown_active = now < self._retry_after_until
+        remaining = self._hourly_limit - len(self._timestamps)
+
+        # Auto-reset quota after the hourly window or cooldown clears
+        if self._quota_exhausted and not cooldown_active and remaining > int(0.10 * self._hourly_limit):
+            log.info("tts_quota_reset", remaining=remaining, limit=self._hourly_limit)
             self._quota_exhausted = False
             self._recovery_played = False
+            self._backoff_seconds = 60.0
 
-        # Check rolling 1-hour quota
-        if len(self._timestamps) >= self._hourly_limit or self._quota_exhausted:
+        # Check rolling 1-hour quota, proactive headroom limit, or server cooldown
+        if len(self._timestamps) >= self._hourly_limit or not self._check_headroom() or self._quota_exhausted or cooldown_active:
             if not self._quota_exhausted:
                 log.warning("tts_hourly_limit_exceeded", count=len(self._timestamps))
                 self._quota_exhausted = True
@@ -327,9 +406,6 @@ class GuardedOrpheusTTS(tts.TTS):
             self._broadcast_fallback(text)
 
             # Play pre-recorded recovery audio line once
-            # TODO: re-record recovery_429.wav — current wording says "My replies will appear on
-            # screen" but we now continue speaking via Piper TTS after this plays. New wording
-            # should be: "I've hit my voice limit. Switching to local voice."
             if not self._recovery_played and _RECOVERY_WAV.exists():
                 self._recovery_played = True
                 log.info("tts_recovery_spoken_line", status="playing recovery_429.wav")
@@ -351,8 +427,8 @@ class GuardedOrpheusTTS(tts.TTS):
                 conn_options=conn_options or DEFAULT_API_CONNECT_OPTIONS,
             )
 
-        # Record valid request timestamp
-        self._timestamps.append(now)
+        # Record valid request timestamp (in memory and on disk)
+        self._record_request_timestamp(now)
         log.debug(
             "tts_quota_counter",
             hourly_requests=len(self._timestamps),
@@ -364,6 +440,34 @@ class GuardedOrpheusTTS(tts.TTS):
         except Exception as e:
             log.error("tts_groq_synthesis_failed", error=str(e))
             self._quota_exhausted = True
+
+            # Extract Retry-After or rate-limit headers if present
+            retry_seconds: float | None = None
+            response = getattr(e, "response", None)
+            headers = getattr(response, "headers", None) if response else getattr(e, "headers", None)
+            if headers:
+                ra = headers.get("retry-after") or headers.get("Retry-After")
+                if ra:
+                    try:
+                        retry_seconds = float(ra)
+                    except ValueError:
+                        pass
+                rem = headers.get("x-ratelimit-remaining-requests") or headers.get("X-RateLimit-Remaining-Requests")
+                if rem is not None:
+                    try:
+                        if int(rem) <= int(0.10 * self._hourly_limit):
+                            self._quota_exhausted = True
+                    except ValueError:
+                        pass
+
+            if retry_seconds is not None:
+                self._retry_after_until = now + retry_seconds
+                log.warning("tts_retry_after_received", seconds=retry_seconds)
+            else:
+                self._retry_after_until = now + self._backoff_seconds
+                log.warning("tts_exponential_cooldown", seconds=self._backoff_seconds)
+                self._backoff_seconds = min(3600.0, self._backoff_seconds * 2.0)
+
             self._broadcast_fallback(text)
             if not self._recovery_played and _RECOVERY_WAV.exists():
                 self._recovery_played = True
@@ -383,8 +487,8 @@ class GuardedOrpheusTTS(tts.TTS):
 
         async def _publish() -> None:
             try:
-                # 1. Alert client of fallback mode
-                alert = json.dumps({"type": "fallback_429"}).encode("utf-8")
+                # 1. Alert client of fallback mode with exact recovery wording
+                alert = json.dumps({"type": "fallback_429", "message": _RECOVERY_LINE_TEXT}).encode("utf-8")
                 await self._room.local_participant.publish_data(
                     alert, reliable=True, topic=TELEMETRY_TOPIC
                 )
@@ -455,6 +559,7 @@ async def entrypoint(ctx: JobContext) -> None:
             hourly_limit=100,
             room=ctx.room,
             fallback_tts=local_piper_tts or LocalMockTTS(sample_rate=24000),
+            timestamps_file=_TTS_TIMESTAMPS_FILE,
         )
         active_tts = guarded_tts
     elif tts_provider == "piper" and local_piper_tts and local_piper_tts.is_available:

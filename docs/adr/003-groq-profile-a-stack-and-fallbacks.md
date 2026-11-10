@@ -59,13 +59,16 @@ Empirical rate limits observed on Groq free-tier:
 **Isolation Rules:**
 1. **Dev & Automated Tests:** Groq Orpheus MUST NOT be invoked during automated test runs (such as the barge-in test suite) or general dev looping. Development defaults to local TTS (Piper/Kokoro) to conserve the 100 req/hour quota.
 2. **Quota Tracking:** An in-memory, rolling per-hour counter tracks TTS requests.
-3. **429 Recovery Line:**
+3. **429 Recovery Line & Quota Resilience:**
    - Must NOT use Orpheus to synthesize (Orpheus itself may be 429'd).
-   - Delivered via a pre-recorded WAV (`assets/recovery_429.wav`), then continues via local Piper TTS:
-     > *"I've hit my hourly voice limit. My replies will appear on screen for now."*
-   - **Note:** The WAV wording says "on screen" but the system actually continues speaking via Piper TTS after the recovery line plays. The WAV should be re-recorded with something like *"I've hit my voice limit. Switching to local voice."* (tracked as TODO in `agent.py`).
-   - After the hourly window resets (1 hour since the first quota-exhaustion timestamp), `GuardedOrpheusTTS` automatically resumes Orpheus and clears the `_quota_exhausted` flag.
-   - Concurrently emits the full text response to the client UI transcript via the data channel.
+   - Delivered via a pre-recorded WAV (`assets/recovery_429.wav`, 24 kHz mono 16-bit, synthesized with local Piper):
+     > *"I've hit my voice limit, switching to my backup voice."*
+   - Once the recovery line is emitted, ongoing speech continues via local Piper TTS.
+   - **Proactive Headroom Switch:** When rolling hourly headroom drops to $\le 10\%$ of limit ($\le 10$ remaining of 100), `GuardedOrpheusTTS` switches proactively to Piper before hitting hard server rejection.
+   - **Retry-After & Cooldown:** On any server-side 429 or 5xx, the `Retry-After` header is honored (or an exponential backoff starting at 60 s up to 3600 s is engaged).
+   - **Persistence Across Restarts:** Rolling request timestamps are persisted to local `tts_quota_timestamps.jsonl` (gitignored), preventing quota evasion or inadvertent exhaustion on process restarts.
+   - **Auto-Return:** When the cooldown expires and the rolling 1-hour window drops below the limit, Orpheus automatically resumes as the primary TTS engine.
+   - Concurrently emits status and transcript to the client UI via the `telemetry` data channel.
 
 ### 4. Local TTS Licensing & Distribution Constraints (Piper vs. Kokoro)
 

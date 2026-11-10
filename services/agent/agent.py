@@ -558,12 +558,20 @@ def prewarm(proc: JobProcess) -> None:
 async def entrypoint(ctx: JobContext) -> None:
     room_name = getattr(ctx.room, "name", "console")
     livekit_url = os.getenv("LIVEKIT_URL", "")
-    is_mumbai_region = "ap-south" in livekit_url or "mumbai" in livekit_url.lower()
+    livekit_region = os.getenv("LIVEKIT_REGION", "")
+    is_mumbai_region = (
+        "ap-south" in livekit_url
+        or "mumbai" in livekit_url.lower()
+        or "india" in livekit_url.lower()
+        or "ap-south" in livekit_region.lower()
+        or "mumbai" in livekit_region.lower()
+        or "india south" in livekit_region.lower()
+    )
     log.info(
         "entrypoint_connecting",
         room=room_name,
         livekit_url=livekit_url.split("@")[-1] if "@" in livekit_url else (livekit_url[:24] + "..." if len(livekit_url) > 24 else livekit_url),
-        region="ap-south (Mumbai)" if is_mumbai_region else "default",
+        region="ap-south (India South)" if is_mumbai_region else (livekit_region or "default"),
         mumbai_targeted=is_mumbai_region,
     )
     await ctx.connect()

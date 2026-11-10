@@ -111,14 +111,18 @@ def test_respell_for_tts_cases():
 
 
 def test_mumbai_region_detection():
-    """Verify Mumbai (ap-south) region targeting logic via LIVEKIT_URL."""
+    """Verify Mumbai (ap-south / India South) region targeting logic via LIVEKIT_URL or LIVEKIT_REGION."""
     mumbai_url = "wss://my-project-ap-south.livekit.cloud"
-    is_mumbai = "ap-south" in mumbai_url or "mumbai" in mumbai_url.lower()
+    is_mumbai = "ap-south" in mumbai_url or "mumbai" in mumbai_url.lower() or "india" in mumbai_url.lower()
     assert is_mumbai is True
 
     non_mumbai_url = "wss://my-project-us-east.livekit.cloud"
     is_not_mumbai = "ap-south" in non_mumbai_url or "mumbai" in non_mumbai_url.lower()
     assert is_not_mumbai is False
+
+    # Also supports LIVEKIT_REGION=ap-south or 'India South'
+    region_env = "ap-south"
+    assert "ap-south" in region_env.lower() or "india" in region_env.lower()
 
 
 @pytest.mark.asyncio

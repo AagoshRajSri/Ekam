@@ -1,0 +1,73 @@
+# evals/bakeoff/config.yaml
+# Phase 1 Candidate Registry for STT, LLM, and TTS Bake-off
+# Pinned model versions and licenses recorded. Flagged GPL/AGPL per project policy.
+
+stt:
+  candidates:
+    - id: groq_whisper
+      provider: groq
+      model: whisper-large-v3-turbo
+      license: MIT (Whisper weights) / Proprietary API (Groq)
+      enabled: true
+      language: en
+    - id: faster_whisper_small
+      provider: faster_whisper
+      model: small.en
+      license: MIT (faster-whisper library & model)
+      enabled: false  # install with: uv add faster-whisper; enable when installed
+      install_note: "faster-whisper requires CTranslate2 on Windows"
+
+llm:
+  candidates:
+    - id: groq_qwen
+      provider: groq
+      model: qwen/qwen3.8-27b
+      license: Apache-2.0 (Qwen weights) / Proprietary API (Groq)
+      temperature: 0.4
+      max_tokens: 120
+      enabled: true
+    - id: gemini_flash
+      provider: google
+      model: gemini-3.8-flash
+      license: Proprietary API (Google AI Studio)
+      temperature: 0.4
+      max_tokens: 120
+      enabled: true
+    - id: ollama_qwen
+      provider: ollama
+      model: qwen2.5:7b
+      license: Apache-2.0 (Qwen weights) / MIT (Ollama runtime)
+      base_url: "http://localhost:11434/v1"
+      temperature: 0.4
+      max_tokens: 120
+      enabled: true
+
+tts:
+  candidates:
+    - id: groq_orpheus
+      provider: groq_orpheus
+      model: canopylabs/orpheus-v1-english
+      voice: autumn
+      license: Proprietary API (Groq / Canopy Labs)
+      enabled: true
+      max_requests: 20  # Hard ceiling for bake-off runs to conserve 100/hr quota
+    - id: piper_lessac
+      provider: piper
+      model: en_US-lessac-medium
+      license: "GPL-3.0 (piper-tts runtime). Voice model: verify MODEL_CARD before distribution."
+      flag: GPL-3.0  # Dev / offline fallback only
+      enabled: true
+    - id: kokoro
+      provider: kokoro
+      model: kokoro-v1_0.pth
+      voice: af_bella
+      license: Apache-2.0 (permissive)
+      enabled: true
+
+safety:
+  dry_run: true
+  default_split: dev
+  max_orpheus_requests: 20
+  cache_dir: evals/bakeoff/.cache
+  results_dir: evals/bakeoff/results
+  report_path: docs/benchmarks/phase_1_bakeoff.md

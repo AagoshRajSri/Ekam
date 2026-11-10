@@ -64,6 +64,11 @@ evals/corpus/*.mp3
 !services/agent/assets/recovery_429.wav
 # (commit ground_truth.json alongside the WAVs)
 
+# ── Bake-off caches and raw results ──────────────────────────────────────────
+evals/bakeoff/.cache/
+evals/bakeoff/results/
+services/agent/tts_quota_timestamps.jsonl
+
 # ── Old prompt archives ───────────────────────────────────────────────────────
 prompts/old/
 

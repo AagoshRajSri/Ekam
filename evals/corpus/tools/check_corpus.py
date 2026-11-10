@@ -149,7 +149,10 @@ def run_validate(args: argparse.Namespace) -> int:
     # Convenience shortcuts: --masters or --mode master automatically defaults target dir
     if getattr(args, "masters", False):
         args.mode = "master"
-        args.dir = "evals/corpus/masters"
+        if not args.dir or args.dir == "evals/corpus/wavs":
+            args.dir = "evals/corpus/masters"
+        elif Path(args.dir).name == "wavs":
+            args.dir = str(Path(args.dir).parent / "masters")
     elif args.mode == "master" and args.dir == "evals/corpus/wavs":
         args.dir = "evals/corpus/masters"
 

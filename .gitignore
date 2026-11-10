@@ -59,6 +59,7 @@ evals/corpus/wavs/
 evals/corpus/masters/
 evals/corpus/*.wav
 evals/corpus/*.mp3
+evals/corpus/quality_flags.json
 **/tmp_audio/
 *.wav
 !services/agent/assets/recovery_429.wav

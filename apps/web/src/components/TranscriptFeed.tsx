@@ -80,7 +80,7 @@ export function TranscriptFeed({ entries, quotaAlert }: TranscriptFeedProps) {
                   } ${entry.isPartial ? 'opacity-70 italic' : ''}`}
                 >
                   <div className="flex items-center justify-between gap-3 text-[10px] text-neutral-400 mb-0.5">
-                    <span className="font-semibold text-neutral-300">{isUser ? 'You' : 'Ekam'}</span>
+                    <span className="font-semibold text-neutral-300">{isUser ? 'You' : (process.env.NEXT_PUBLIC_APP_NAME || 'Daimon')}</span>
                     <span>{entry.timestamp}</span>
                   </div>
                   <div className="leading-relaxed">{entry.text}</div>

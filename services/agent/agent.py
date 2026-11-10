@@ -1,6 +1,6 @@
 """
-Ekam Voice Agent — Phase 1 Pipeline & Web Telemetry
-===================================================
+Daimon Voice Agent — Phase 1 Pipeline & Web Telemetry
+=====================================================
 Profile A (Free-Tier Stack & Failovers):
   VAD  : Silero (local ONNX, CPU, in-process, no network)
   STT  : Groq Whisper large-v3-turbo (utterance-based)
@@ -10,7 +10,7 @@ Profile A (Free-Tier Stack & Failovers):
          Guarded with strict 100 req/rolling-hour quota & pre-recorded 429 recovery
 
 Runtime System Prompt:
-  Spec Appendix A v2 (Ekam persona + priorities, style.fillers = 0, style.humor = 1,
+  Spec Appendix A v2 (Daimon persona + priorities, style.fillers = 0, style.humor = 1,
   style.formality = 1, style.verbosity = 1; TUNING THE VOICE omitted until Phase 3).
 
 API: livekit-agents 1.8.11

@@ -1,15 +1,15 @@
 {
-  "name": "ekam",
+  "name": "daimon",
   "version": "0.0.0",
   "private": true,
-  "description": "Baby — real-time voice-first personal AI (monorepo root)",
+  "description": "Daimon — real-time voice-first personal AI (monorepo root)",
   "packageManager": "pnpm@10.15.1",
   "engines": {
     "node": ">=20"
   },
   "scripts": {
-    "dev:web": "pnpm --filter @ekam/web dev",
-    "dev:gateway": "pnpm --filter @ekam/gateway dev",
+    "dev:web": "pnpm --filter @daimon/web dev",
+    "dev:gateway": "pnpm --filter @daimon/gateway dev",
     "build": "pnpm -r build",
     "lint": "pnpm -r lint",
     "test": "pnpm -r test"

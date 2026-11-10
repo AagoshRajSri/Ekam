@@ -24,7 +24,7 @@ export async function GET(req: NextRequest) {
     }
 
     const { searchParams } = new URL(req.url);
-    const room = searchParams.get('room') || `ekam_${crypto.randomUUID().slice(0, 8)}`;
+    const room = searchParams.get('room') || `daimon_${crypto.randomUUID().slice(0, 8)}`;
     const identity = `user_${crypto.randomUUID()}`;
 
     // Token TTL: 10 minutes (600s)

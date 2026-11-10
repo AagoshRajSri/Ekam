@@ -1,7 +1,7 @@
 {
-  "name": "@ekam/gateway",
+  "name": "@daimon/gateway",
   "version": "0.0.0",
   "private": true,
-  "description": "Baby gateway — Fastify API, tool registry, permissions, BullMQ workers"
+  "description": "Daimon gateway — Fastify API, tool registry, permissions, BullMQ workers"
 }
 

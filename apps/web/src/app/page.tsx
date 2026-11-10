@@ -115,7 +115,7 @@ export default function HomePage() {
               className="w-full py-3.5 px-6 rounded-xl font-semibold text-sm bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 active:scale-[0.99] text-white shadow-lg shadow-brand-600/30 transition-all flex items-center justify-center gap-2 disabled:opacity-60 cursor-pointer"
             >
               <Mic className="w-4 h-4" />
-              <span>{isConnecting ? 'Connecting to Ekam…' : 'Start Voice Session with Ekam'}</span>
+              <span>{isConnecting ? `Connecting to ${APP_NAME}…` : `Start Voice Session with ${APP_NAME}`}</span>
             </button>
 
             {/* Pipeline Info */}
@@ -148,7 +148,7 @@ export default function HomePage() {
 
       {/* Footer */}
       <footer className="w-full text-center py-3 text-xs text-neutral-400 border-t border-neutral-800">
-        Ekam Voice Agent &copy; {new Date().getFullYear()} — Built on LiveKit Agents & Next.js 16
+        {APP_NAME} Voice Agent &copy; {new Date().getFullYear()} — Built on LiveKit Agents & Next.js 16
       </footer>
     </main>
   );

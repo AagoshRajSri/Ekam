@@ -4,7 +4,7 @@
 **Current Phase:** Phase 1 (Web Client, Telemetry & Barge-in)  
 **Last Updated:** 2026-11-10  
 
-> **Naming:** The assistant product name is **Daimon**, pronounced **DAY-mon** (/ˈdeɪmɒn/). The repository and internal package names remain `@ekam/*` until full trademark clearance and an explicit rename request from the project owner. The wake word is "Awaken" (Phase 1b).
+> **Naming:** The assistant product name is **Daimon**, pronounced **DAY-mon** (/ˈdeɪmɒn/). Internal package names are updated to `@daimon/*` and `daimon-agent` per owner request. The wake word is "Awaken" (Phase 1b).
 
 ---
 
@@ -90,7 +90,7 @@ All architecture is documented in **Proposed ADR-004**. Nothing in Phase 1b is b
 3. **Opt-in Live LLM Tests Not Run in CI:** `services/agent/tests/test_live_llm.py` provides opt-in verification of Gemini 3.8 Flash TTFT and Ollama first-token time vs the 5.0s `attempt_timeout`. Status: **not run** in automated verification to prevent CI flakiness and unintended API costs. Run manually when desired: `$env:RUN_LIVE_LLM_TESTS=1; uv run --project services/agent pytest services/agent/tests/test_live_llm.py -v -s`.
 4. **Piper TTS GPL-3.0 Scope:** Piper runtime is licensed under GPL-3.0 due to embedded `espeak-ng`. Kept strictly as a development and offline fallback engine (`TTS_PROVIDER=piper`). Prior to any public client distribution, isolate behind an out-of-process subprocess boundary or switch to Kokoro (Apache-2.0).
 5. **RECORD_CORPUS=1 Mode Deferred:** In-browser WAV download via `MediaRecorder` is deferred. For web takes, record via OS-level communications audio or Audacity WASAPI loopback (noting that Audacity loopback captures raw mic without browser AEC).
-6. **Naming & Trademark Clearance:** "Daimon" (pronounced DAY-mon) is a working product name with a known collision risk against existing software. Package names stay `@ekam/*` until full trademark opinion is obtained.
+6. **Naming & Trademark Clearance:** "Daimon" (pronounced DAY-mon) is the product name with internal package names updated to `@daimon/*`. Collision risk against existing software is acknowledged by the owner.
 7. **Cloudflare Reference in Phase 0:** Cloudflare account was verified in Phase 0 onboarding, but no Cloudflare code is in the active Profile A voice pipeline. Reserved for Profile B asset hosting / Edge functions.
 
 ---

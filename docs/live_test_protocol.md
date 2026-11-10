@@ -15,7 +15,8 @@ This protocol guides the project owner through manual live verification of the W
    ```
 2. **Start the Next.js Web App:**
    ```powershell
-   pnpm --filter @ekam/web dev
+   pnpm dev:web
+   # (or: pnpm --filter @daimon/web dev)
    ```
 3. Open `http://localhost:3000` in Google Chrome or Edge.
 4. Open **Audacity** on Windows:

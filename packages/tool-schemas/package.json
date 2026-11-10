@@ -1,7 +1,7 @@
 {
-  "name": "@ekam/tool-schemas",
+  "name": "@daimon/tool-schemas",
   "version": "0.0.0",
   "private": true,
-  "description": "Zod schemas → JSON Schema — single source of truth for all Baby tool contracts"
+  "description": "Zod schemas → JSON Schema — single source of truth for all Daimon tool contracts"
 }
 

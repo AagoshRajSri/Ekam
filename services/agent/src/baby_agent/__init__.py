@@ -1,2 +1,0 @@
-# Baby voice agent package
-

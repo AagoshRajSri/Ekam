@@ -86,7 +86,7 @@ Ekam/
 │       └── package.json        # Verified valid JSON workspace package
 ├── services/
 │   └── agent/                  # Python voice agent service (livekit-agents)
-│       ├── src/baby_agent/     # Core package root
+│       ├── src/daimon_agent/   # Core package root
 │       ├── tests/              # Unit & smoke test suite (6/6 passing)
 │       ├── agent.py            # LiveKit entrypoint & session definition
 │       └── pyproject.toml      # uv configuration with pinned dependencies

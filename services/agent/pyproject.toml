@@ -1,7 +1,7 @@
 [project]
-name = "baby-agent"
+name = "daimon-agent"
 version = "0.1.0"
-description = "Baby — real-time voice-first personal AI · LiveKit voice agent"
+description = "Daimon — real-time voice-first personal AI · LiveKit voice agent"
 readme = "README.md"
 authors = [
     { name = "AagoshRajSri", email = "aagoshrajsrivastava10@gmail.com" }

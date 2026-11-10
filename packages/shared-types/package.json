@@ -1,5 +1,5 @@
 {
-  "name": "@ekam/shared-types",
+  "name": "@daimon/shared-types",
   "version": "0.0.0",
   "private": true,
   "description": "Shared TypeScript types across gateway, web, and tool-schemas"

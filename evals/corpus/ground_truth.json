@@ -1,0 +1,4044 @@
+{
+  "s01_Q_wake_01_t1.wav": {
+    "id": "wake_01",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "test",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_wake_01_t2.wav": {
+    "id": "wake_01",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "test",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_wake_02_t1.wav": {
+    "id": "wake_02",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "test",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_wake_02_t2.wav": {
+    "id": "wake_02",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "test",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_wake_03_t1.wav": {
+    "id": "wake_03",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "test",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_wake_03_t2.wav": {
+    "id": "wake_03",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "test",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_wake_04_t1.wav": {
+    "id": "wake_04",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "test",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_wake_04_t2.wav": {
+    "id": "wake_04",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "test",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_wake_05_t1.wav": {
+    "id": "wake_05",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_wake_05_t2.wav": {
+    "id": "wake_05",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_D_wake_06_t1.wav": {
+    "id": "wake_06",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 1,
+    "split": "test",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_D_wake_06_t2.wav": {
+    "id": "wake_06",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 2,
+    "split": "test",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_D_wake_07_t1.wav": {
+    "id": "wake_07",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_D_wake_07_t2.wav": {
+    "id": "wake_07",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_D_wake_08_t1.wav": {
+    "id": "wake_08",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_D_wake_08_t2.wav": {
+    "id": "wake_08",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_D_wake_09_t1.wav": {
+    "id": "wake_09",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_D_wake_09_t2.wav": {
+    "id": "wake_09",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_D_wake_10_t1.wav": {
+    "id": "wake_10",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 1,
+    "split": "test",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_D_wake_10_t2.wav": {
+    "id": "wake_10",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 2,
+    "split": "test",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_N_wake_11_t1.wav": {
+    "id": "wake_11",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_N_wake_11_t2.wav": {
+    "id": "wake_11",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_N_wake_12_t1.wav": {
+    "id": "wake_12",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 1,
+    "split": "test",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_N_wake_12_t2.wav": {
+    "id": "wake_12",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 2,
+    "split": "test",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_N_wake_13_t1.wav": {
+    "id": "wake_13",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_N_wake_13_t2.wav": {
+    "id": "wake_13",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_N_wake_14_t1.wav": {
+    "id": "wake_14",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_N_wake_14_t2.wav": {
+    "id": "wake_14",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_N_wake_15_t1.wav": {
+    "id": "wake_15",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 1,
+    "split": "test",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_N_wake_15_t2.wav": {
+    "id": "wake_15",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 2,
+    "split": "test",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_wake_16_t1.wav": {
+    "id": "wake_16",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_wake_16_t2.wav": {
+    "id": "wake_16",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_wake_17_t1.wav": {
+    "id": "wake_17",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_wake_17_t2.wav": {
+    "id": "wake_17",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_wake_18_t1.wav": {
+    "id": "wake_18",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_wake_18_t2.wav": {
+    "id": "wake_18",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_wake_19_t1.wav": {
+    "id": "wake_19",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_wake_19_t2.wav": {
+    "id": "wake_19",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_wake_20_t1.wav": {
+    "id": "wake_20",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_wake_20_t2.wav": {
+    "id": "wake_20",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_wake_21_t1.wav": {
+    "id": "wake_21",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_wake_21_t2.wav": {
+    "id": "wake_21",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_wake_22_t1.wav": {
+    "id": "wake_22",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_wake_22_t2.wav": {
+    "id": "wake_22",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_wake_23_t1.wav": {
+    "id": "wake_23",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_wake_23_t2.wav": {
+    "id": "wake_23",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "open_session",
+    "policy_status": "settled",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_wake_24_t1.wav": {
+    "id": "wake_24",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "test",
+    "expected_action": "open_session",
+    "policy_status": "open",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok",
+    "open_policy_note": "Open policy item; reported separately and never counts toward pass/fail."
+  },
+  "s01_Q_wake_24_t2.wav": {
+    "id": "wake_24",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "test",
+    "expected_action": "open_session",
+    "policy_status": "open",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok",
+    "open_policy_note": "Open policy item; reported separately and never counts toward pass/fail."
+  },
+  "s01_Q_wake_25_t1.wav": {
+    "id": "wake_25",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "open_session",
+    "policy_status": "open",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok",
+    "open_policy_note": "Open policy item; reported separately and never counts toward pass/fail."
+  },
+  "s01_Q_wake_25_t2.wav": {
+    "id": "wake_25",
+    "section": "A",
+    "text": "Awaken.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "open_session",
+    "policy_status": "open",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok",
+    "open_policy_note": "Open policy item; reported separately and never counts toward pass/fail."
+  },
+  "s01_Q_wake_26_t1.wav": {
+    "id": "wake_26",
+    "section": "A",
+    "text": "okay, so... Awaken.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "open_session",
+    "policy_status": "open",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok",
+    "open_policy_note": "Open policy item; reported separately and never counts toward pass/fail."
+  },
+  "s01_Q_wake_26_t2.wav": {
+    "id": "wake_26",
+    "section": "A",
+    "text": "okay, so... Awaken.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "open_session",
+    "policy_status": "open",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok",
+    "open_policy_note": "Open policy item; reported separately and never counts toward pass/fail."
+  },
+  "s01_Q_wake_27_t1.wav": {
+    "id": "wake_27",
+    "section": "A",
+    "text": "okay, so... Awaken.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "test",
+    "expected_action": "open_session",
+    "policy_status": "open",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok",
+    "open_policy_note": "Open policy item; reported separately and never counts toward pass/fail."
+  },
+  "s01_Q_wake_27_t2.wav": {
+    "id": "wake_27",
+    "section": "A",
+    "text": "okay, so... Awaken.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "test",
+    "expected_action": "open_session",
+    "policy_status": "open",
+    "type": "session_wake",
+    "entities": [],
+    "quality_flag": "ok",
+    "open_policy_note": "Open policy item; reported separately and never counts toward pass/fail."
+  },
+  "s01_Q_wake_28_t1.wav": {
+    "id": "wake_28",
+    "section": "A",
+    "text": "Awaken, Daimon, what time is it",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "test",
+    "expected_action": "TBD",
+    "policy_status": "open",
+    "type": "session_wake",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "open_policy_note": "Open policy item; reported separately and never counts toward pass/fail."
+  },
+  "s01_Q_wake_28_t2.wav": {
+    "id": "wake_28",
+    "section": "A",
+    "text": "Awaken, Daimon, what time is it",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "test",
+    "expected_action": "TBD",
+    "policy_status": "open",
+    "type": "session_wake",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "open_policy_note": "Open policy item; reported separately and never counts toward pass/fail."
+  },
+  "s01_Q_wake_29_t1.wav": {
+    "id": "wake_29",
+    "section": "A",
+    "text": "Awaken, Daimon, what time is it",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "TBD",
+    "policy_status": "open",
+    "type": "session_wake",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "open_policy_note": "Open policy item; reported separately and never counts toward pass/fail."
+  },
+  "s01_Q_wake_29_t2.wav": {
+    "id": "wake_29",
+    "section": "A",
+    "text": "Awaken, Daimon, what time is it",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "TBD",
+    "policy_status": "open",
+    "type": "session_wake",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "open_policy_note": "Open policy item; reported separately and never counts toward pass/fail."
+  },
+  "s01_Q_wake_30_t1.wav": {
+    "id": "wake_30",
+    "section": "A",
+    "text": "Awaken, Daimon, what time is it",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "test",
+    "expected_action": "TBD",
+    "policy_status": "open",
+    "type": "session_wake",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "open_policy_note": "Open policy item; reported separately and never counts toward pass/fail."
+  },
+  "s01_Q_wake_30_t2.wav": {
+    "id": "wake_30",
+    "section": "A",
+    "text": "Awaken, Daimon, what time is it",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "test",
+    "expected_action": "TBD",
+    "policy_status": "open",
+    "type": "session_wake",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "open_policy_note": "Open policy item; reported separately and never counts toward pass/fail."
+  },
+  "s01_Q_cmd_01_t1.wav": {
+    "id": "cmd_01",
+    "section": "C",
+    "text": "Daimon, what time is it in Tokyo right now",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "test",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "Tokyo"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_cmd_01_t2.wav": {
+    "id": "cmd_01",
+    "section": "C",
+    "text": "Daimon, what time is it in Tokyo right now",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "test",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "Tokyo"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_cmd_02_t1.wav": {
+    "id": "cmd_02",
+    "section": "C",
+    "text": "Daimon, what is twenty-five plus seventy-eight",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "test",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "twenty-five",
+      "seventy-eight"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_cmd_02_t2.wav": {
+    "id": "cmd_02",
+    "section": "C",
+    "text": "Daimon, what is twenty-five plus seventy-eight",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "test",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "twenty-five",
+      "seventy-eight"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_cmd_03_t1.wav": {
+    "id": "cmd_03",
+    "section": "C",
+    "text": "what is fifteen percent of two thousand four hundred, Daimon",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "fifteen percent",
+      "two thousand four hundred"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_cmd_03_t2.wav": {
+    "id": "cmd_03",
+    "section": "C",
+    "text": "what is fifteen percent of two thousand four hundred, Daimon",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "fifteen percent",
+      "two thousand four hundred"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_cmd_04_t1.wav": {
+    "id": "cmd_04",
+    "section": "C",
+    "text": "convert fifty miles to kilometers, Daimon",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "fifty miles",
+      "kilometers"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_cmd_04_t2.wav": {
+    "id": "cmd_04",
+    "section": "C",
+    "text": "convert fifty miles to kilometers, Daimon",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "fifty miles",
+      "kilometers"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_cmd_05_t1.wav": {
+    "id": "cmd_05",
+    "section": "C",
+    "text": "Daimon, what's the weather in Mumbai",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "Mumbai"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_cmd_05_t2.wav": {
+    "id": "cmd_05",
+    "section": "C",
+    "text": "Daimon, what's the weather in Mumbai",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "Mumbai"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_cmd_06_t1.wav": {
+    "id": "cmd_06",
+    "section": "C",
+    "text": "will it rain this evening, Daimon",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "this evening"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_cmd_06_t2.wav": {
+    "id": "cmd_06",
+    "section": "C",
+    "text": "will it rain this evening, Daimon",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "this evening"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_cmd_07_t1.wav": {
+    "id": "cmd_07",
+    "section": "C",
+    "text": "Daimon, tell me a one sentence joke",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "one sentence"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_cmd_07_t2.wav": {
+    "id": "cmd_07",
+    "section": "C",
+    "text": "Daimon, tell me a one sentence joke",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "one sentence"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_cmd_08_t1.wav": {
+    "id": "cmd_08",
+    "section": "C",
+    "text": "Daimon, text Rahul I'm reaching in ten minutes",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "test",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "Rahul",
+      "ten minutes"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_cmd_08_t2.wav": {
+    "id": "cmd_08",
+    "section": "C",
+    "text": "Daimon, text Rahul I'm reaching in ten minutes",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "test",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "Rahul",
+      "ten minutes"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_cmd_09_t1.wav": {
+    "id": "cmd_09",
+    "section": "C",
+    "text": "call Rohan, Daimon",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "test",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "Rohan"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_cmd_09_t2.wav": {
+    "id": "cmd_09",
+    "section": "C",
+    "text": "call Rohan, Daimon",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "test",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "Rohan"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_cmd_10_t1.wav": {
+    "id": "cmd_10",
+    "section": "C",
+    "text": "Daimon, send an email to Priya saying the deck is ready",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "Priya"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_cmd_10_t2.wav": {
+    "id": "cmd_10",
+    "section": "C",
+    "text": "Daimon, send an email to Priya saying the deck is ready",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "Priya"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_cmd_11_t1.wav": {
+    "id": "cmd_11",
+    "section": "C",
+    "text": "set a timer for fifteen minutes, Daimon",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "fifteen minutes"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_cmd_11_t2.wav": {
+    "id": "cmd_11",
+    "section": "C",
+    "text": "set a timer for fifteen minutes, Daimon",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "fifteen minutes"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_cmd_12_t1.wav": {
+    "id": "cmd_12",
+    "section": "C",
+    "text": "Damon, what's on my calendar today",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "test",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "today"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_cmd_12_t2.wav": {
+    "id": "cmd_12",
+    "section": "C",
+    "text": "Damon, what's on my calendar today",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "test",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "today"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_cmd_13_t1.wav": {
+    "id": "cmd_13",
+    "section": "C",
+    "text": "Dayman, summarize my unread messages",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "test",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_cmd_13_t2.wav": {
+    "id": "cmd_13",
+    "section": "C",
+    "text": "Dayman, summarize my unread messages",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "test",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_cmd_14_t1.wav": {
+    "id": "cmd_14",
+    "section": "C",
+    "text": "Demon, check git status",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "git status"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_cmd_14_t2.wav": {
+    "id": "cmd_14",
+    "section": "C",
+    "text": "Demon, check git status",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "git status"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_cmd_15_t1.wav": {
+    "id": "cmd_15",
+    "section": "C",
+    "text": "Daimon, remind me to carry an umbrella at eight AM",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "eight AM",
+      "umbrella"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_cmd_15_t2.wav": {
+    "id": "cmd_15",
+    "section": "C",
+    "text": "Daimon, remind me to carry an umbrella at eight AM",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "eight AM",
+      "umbrella"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_D_cmd_16_t1.wav": {
+    "id": "cmd_16",
+    "section": "C",
+    "text": "Daimon, what time is it in Tokyo right now",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 1,
+    "split": "test",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "Tokyo"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_D_cmd_16_t2.wav": {
+    "id": "cmd_16",
+    "section": "C",
+    "text": "Daimon, what time is it in Tokyo right now",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 2,
+    "split": "test",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "Tokyo"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_D_cmd_17_t1.wav": {
+    "id": "cmd_17",
+    "section": "C",
+    "text": "Daimon, what is twenty-five plus seventy-eight",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "twenty-five",
+      "seventy-eight"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_D_cmd_17_t2.wav": {
+    "id": "cmd_17",
+    "section": "C",
+    "text": "Daimon, what is twenty-five plus seventy-eight",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "twenty-five",
+      "seventy-eight"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_D_cmd_18_t1.wav": {
+    "id": "cmd_18",
+    "section": "C",
+    "text": "what is fifteen percent of two thousand four hundred, Daimon",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "fifteen percent",
+      "two thousand four hundred"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_D_cmd_18_t2.wav": {
+    "id": "cmd_18",
+    "section": "C",
+    "text": "what is fifteen percent of two thousand four hundred, Daimon",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "fifteen percent",
+      "two thousand four hundred"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_D_cmd_19_t1.wav": {
+    "id": "cmd_19",
+    "section": "C",
+    "text": "Daimon, what's the weather in Mumbai",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "Mumbai"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_D_cmd_19_t2.wav": {
+    "id": "cmd_19",
+    "section": "C",
+    "text": "Daimon, what's the weather in Mumbai",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "Mumbai"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_D_cmd_20_t1.wav": {
+    "id": "cmd_20",
+    "section": "C",
+    "text": "will it rain this evening, Daimon",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 1,
+    "split": "test",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "this evening"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_D_cmd_20_t2.wav": {
+    "id": "cmd_20",
+    "section": "C",
+    "text": "will it rain this evening, Daimon",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 2,
+    "split": "test",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "this evening"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_D_cmd_21_t1.wav": {
+    "id": "cmd_21",
+    "section": "C",
+    "text": "Daimon, text Rahul I'm reaching in ten minutes",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "Rahul",
+      "ten minutes"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_D_cmd_21_t2.wav": {
+    "id": "cmd_21",
+    "section": "C",
+    "text": "Daimon, text Rahul I'm reaching in ten minutes",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "Rahul",
+      "ten minutes"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_D_cmd_22_t1.wav": {
+    "id": "cmd_22",
+    "section": "C",
+    "text": "call Rohan, Daimon",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 1,
+    "split": "test",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "Rohan"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_D_cmd_22_t2.wav": {
+    "id": "cmd_22",
+    "section": "C",
+    "text": "call Rohan, Daimon",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 2,
+    "split": "test",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "Rohan"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_D_cmd_23_t1.wav": {
+    "id": "cmd_23",
+    "section": "C",
+    "text": "set a timer for fifteen minutes, Daimon",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "fifteen minutes"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_D_cmd_23_t2.wav": {
+    "id": "cmd_23",
+    "section": "C",
+    "text": "set a timer for fifteen minutes, Daimon",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "fifteen minutes"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_D_cmd_24_t1.wav": {
+    "id": "cmd_24",
+    "section": "C",
+    "text": "Damon, what's on my calendar today",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "today"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_D_cmd_24_t2.wav": {
+    "id": "cmd_24",
+    "section": "C",
+    "text": "Damon, what's on my calendar today",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "today"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_D_cmd_25_t1.wav": {
+    "id": "cmd_25",
+    "section": "C",
+    "text": "Daimon, remind me to carry an umbrella at eight AM",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 1,
+    "split": "test",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "eight AM",
+      "umbrella"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_D_cmd_25_t2.wav": {
+    "id": "cmd_25",
+    "section": "C",
+    "text": "Daimon, remind me to carry an umbrella at eight AM",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 2,
+    "split": "test",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "eight AM",
+      "umbrella"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_N_cmd_26_t1.wav": {
+    "id": "cmd_26",
+    "section": "C",
+    "text": "Daimon, what time is it in Tokyo right now",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 1,
+    "split": "test",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "Tokyo"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_N_cmd_26_t2.wav": {
+    "id": "cmd_26",
+    "section": "C",
+    "text": "Daimon, what time is it in Tokyo right now",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 2,
+    "split": "test",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "Tokyo"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_N_cmd_27_t1.wav": {
+    "id": "cmd_27",
+    "section": "C",
+    "text": "Daimon, what is twenty-five plus seventy-eight",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 1,
+    "split": "test",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "twenty-five",
+      "seventy-eight"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_N_cmd_27_t2.wav": {
+    "id": "cmd_27",
+    "section": "C",
+    "text": "Daimon, what is twenty-five plus seventy-eight",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 2,
+    "split": "test",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "twenty-five",
+      "seventy-eight"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_N_cmd_28_t1.wav": {
+    "id": "cmd_28",
+    "section": "C",
+    "text": "what is fifteen percent of two thousand four hundred, Daimon",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "fifteen percent",
+      "two thousand four hundred"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_N_cmd_28_t2.wav": {
+    "id": "cmd_28",
+    "section": "C",
+    "text": "what is fifteen percent of two thousand four hundred, Daimon",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "fifteen percent",
+      "two thousand four hundred"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_N_cmd_29_t1.wav": {
+    "id": "cmd_29",
+    "section": "C",
+    "text": "Daimon, what's the weather in Mumbai",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 1,
+    "split": "test",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "Mumbai"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_N_cmd_29_t2.wav": {
+    "id": "cmd_29",
+    "section": "C",
+    "text": "Daimon, what's the weather in Mumbai",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 2,
+    "split": "test",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "Mumbai"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_N_cmd_30_t1.wav": {
+    "id": "cmd_30",
+    "section": "C",
+    "text": "will it rain this evening, Daimon",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "this evening"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_N_cmd_30_t2.wav": {
+    "id": "cmd_30",
+    "section": "C",
+    "text": "will it rain this evening, Daimon",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "this evening"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_N_cmd_31_t1.wav": {
+    "id": "cmd_31",
+    "section": "C",
+    "text": "Daimon, text Rahul I'm reaching in ten minutes",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 1,
+    "split": "test",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "Rahul",
+      "ten minutes"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_N_cmd_31_t2.wav": {
+    "id": "cmd_31",
+    "section": "C",
+    "text": "Daimon, text Rahul I'm reaching in ten minutes",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 2,
+    "split": "test",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "Rahul",
+      "ten minutes"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_N_cmd_32_t1.wav": {
+    "id": "cmd_32",
+    "section": "C",
+    "text": "call Rohan, Daimon",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "Rohan"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_N_cmd_32_t2.wav": {
+    "id": "cmd_32",
+    "section": "C",
+    "text": "call Rohan, Daimon",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "Rohan"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_N_cmd_33_t1.wav": {
+    "id": "cmd_33",
+    "section": "C",
+    "text": "set a timer for fifteen minutes, Daimon",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "fifteen minutes"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_N_cmd_33_t2.wav": {
+    "id": "cmd_33",
+    "section": "C",
+    "text": "set a timer for fifteen minutes, Daimon",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "fifteen minutes"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_N_cmd_34_t1.wav": {
+    "id": "cmd_34",
+    "section": "C",
+    "text": "Damon, what's on my calendar today",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "today"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_N_cmd_34_t2.wav": {
+    "id": "cmd_34",
+    "section": "C",
+    "text": "Damon, what's on my calendar today",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "today"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_N_cmd_35_t1.wav": {
+    "id": "cmd_35",
+    "section": "C",
+    "text": "Daimon, remind me to carry an umbrella at eight AM",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "eight AM",
+      "umbrella"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_N_cmd_35_t2.wav": {
+    "id": "cmd_35",
+    "section": "C",
+    "text": "Daimon, remind me to carry an umbrella at eight AM",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "addressed_command",
+    "entities": [
+      "eight AM",
+      "umbrella"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_name_01_t1.wav": {
+    "id": "name_01",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_01_t2.wav": {
+    "id": "name_01",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_02_t1.wav": {
+    "id": "name_02",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_02_t2.wav": {
+    "id": "name_02",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_03_t1.wav": {
+    "id": "name_03",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "test",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_03_t2.wav": {
+    "id": "name_03",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "test",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_04_t1.wav": {
+    "id": "name_04",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_04_t2.wav": {
+    "id": "name_04",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_05_t1.wav": {
+    "id": "name_05",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "test",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_05_t2.wav": {
+    "id": "name_05",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "test",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_06_t1.wav": {
+    "id": "name_06",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "test",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_06_t2.wav": {
+    "id": "name_06",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "test",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_07_t1.wav": {
+    "id": "name_07",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "test",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_07_t2.wav": {
+    "id": "name_07",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "test",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_08_t1.wav": {
+    "id": "name_08",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "test",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_08_t2.wav": {
+    "id": "name_08",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "test",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_09_t1.wav": {
+    "id": "name_09",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_09_t2.wav": {
+    "id": "name_09",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_10_t1.wav": {
+    "id": "name_10",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_10_t2.wav": {
+    "id": "name_10",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_D_name_11_t1.wav": {
+    "id": "name_11",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 1,
+    "split": "test",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_D_name_11_t2.wav": {
+    "id": "name_11",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 2,
+    "split": "test",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_D_name_12_t1.wav": {
+    "id": "name_12",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 1,
+    "split": "test",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_D_name_12_t2.wav": {
+    "id": "name_12",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 2,
+    "split": "test",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_D_name_13_t1.wav": {
+    "id": "name_13",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_D_name_13_t2.wav": {
+    "id": "name_13",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_D_name_14_t1.wav": {
+    "id": "name_14",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 1,
+    "split": "test",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_D_name_14_t2.wav": {
+    "id": "name_14",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 2,
+    "split": "test",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_D_name_15_t1.wav": {
+    "id": "name_15",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_D_name_15_t2.wav": {
+    "id": "name_15",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_D_name_16_t1.wav": {
+    "id": "name_16",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_D_name_16_t2.wav": {
+    "id": "name_16",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_D_name_17_t1.wav": {
+    "id": "name_17",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 1,
+    "split": "test",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_D_name_17_t2.wav": {
+    "id": "name_17",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 2,
+    "split": "test",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_D_name_18_t1.wav": {
+    "id": "name_18",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_D_name_18_t2.wav": {
+    "id": "name_18",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_D_name_19_t1.wav": {
+    "id": "name_19",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_D_name_19_t2.wav": {
+    "id": "name_19",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_D_name_20_t1.wav": {
+    "id": "name_20",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_D_name_20_t2.wav": {
+    "id": "name_20",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "D",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_N_name_21_t1.wav": {
+    "id": "name_21",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_N_name_21_t2.wav": {
+    "id": "name_21",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_N_name_22_t1.wav": {
+    "id": "name_22",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 1,
+    "split": "test",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_N_name_22_t2.wav": {
+    "id": "name_22",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 2,
+    "split": "test",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_N_name_23_t1.wav": {
+    "id": "name_23",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_N_name_23_t2.wav": {
+    "id": "name_23",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_N_name_24_t1.wav": {
+    "id": "name_24",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_N_name_24_t2.wav": {
+    "id": "name_24",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_N_name_25_t1.wav": {
+    "id": "name_25",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 1,
+    "split": "test",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_N_name_25_t2.wav": {
+    "id": "name_25",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 2,
+    "split": "test",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_N_name_26_t1.wav": {
+    "id": "name_26",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 1,
+    "split": "test",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_N_name_26_t2.wav": {
+    "id": "name_26",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 2,
+    "split": "test",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_N_name_27_t1.wav": {
+    "id": "name_27",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_N_name_27_t2.wav": {
+    "id": "name_27",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_N_name_28_t1.wav": {
+    "id": "name_28",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 1,
+    "split": "test",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_N_name_28_t2.wav": {
+    "id": "name_28",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 2,
+    "split": "test",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_N_name_29_t1.wav": {
+    "id": "name_29",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_N_name_29_t2.wav": {
+    "id": "name_29",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_N_name_30_t1.wav": {
+    "id": "name_30",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_N_name_30_t2.wav": {
+    "id": "name_30",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_31_t1.wav": {
+    "id": "name_31",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_31_t2.wav": {
+    "id": "name_31",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_32_t1.wav": {
+    "id": "name_32",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_32_t2.wav": {
+    "id": "name_32",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_33_t1.wav": {
+    "id": "name_33",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_33_t2.wav": {
+    "id": "name_33",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_34_t1.wav": {
+    "id": "name_34",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_34_t2.wav": {
+    "id": "name_34",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_35_t1.wav": {
+    "id": "name_35",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_35_t2.wav": {
+    "id": "name_35",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_36_t1.wav": {
+    "id": "name_36",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_36_t2.wav": {
+    "id": "name_36",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_37_t1.wav": {
+    "id": "name_37",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "test",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_37_t2.wav": {
+    "id": "name_37",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "test",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_38_t1.wav": {
+    "id": "name_38",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "test",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_38_t2.wav": {
+    "id": "name_38",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "test",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_39_t1.wav": {
+    "id": "name_39",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "test",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_39_t2.wav": {
+    "id": "name_39",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "test",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_40_t1.wav": {
+    "id": "name_40",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_name_40_t2.wav": {
+    "id": "name_40",
+    "section": "E",
+    "text": "Daimon.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "attention_call",
+    "policy_status": "settled",
+    "type": "name_capture",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok",
+    "stt_output": null
+  },
+  "s01_Q_sidetalk_01_t1.wav": {
+    "id": "sidetalk_01",
+    "section": "G",
+    "text": "Hey Rahul, did you order the food?",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "silent_drop",
+    "policy_status": "settled",
+    "type": "sidetalk_negative",
+    "entities": [
+      "Rahul"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_sidetalk_01_t2.wav": {
+    "id": "sidetalk_01",
+    "section": "G",
+    "text": "Hey Rahul, did you order the food?",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "silent_drop",
+    "policy_status": "settled",
+    "type": "sidetalk_negative",
+    "entities": [
+      "Rahul"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_sidetalk_02_t1.wav": {
+    "id": "sidetalk_02",
+    "section": "G",
+    "text": "Can you pass me the water bottle?",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "silent_drop",
+    "policy_status": "settled",
+    "type": "sidetalk_negative",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_sidetalk_02_t2.wav": {
+    "id": "sidetalk_02",
+    "section": "G",
+    "text": "Can you pass me the water bottle?",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "silent_drop",
+    "policy_status": "settled",
+    "type": "sidetalk_negative",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_sidetalk_03_t1.wav": {
+    "id": "sidetalk_03",
+    "section": "G",
+    "text": "Yeah, I think the meeting starts at three.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "silent_drop",
+    "policy_status": "settled",
+    "type": "sidetalk_negative",
+    "entities": [
+      "three"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_sidetalk_03_t2.wav": {
+    "id": "sidetalk_03",
+    "section": "G",
+    "text": "Yeah, I think the meeting starts at three.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "silent_drop",
+    "policy_status": "settled",
+    "type": "sidetalk_negative",
+    "entities": [
+      "three"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_sidetalk_04_t1.wav": {
+    "id": "sidetalk_04",
+    "section": "G",
+    "text": "Where did I leave my keys?",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "test",
+    "expected_action": "silent_drop",
+    "policy_status": "settled",
+    "type": "sidetalk_negative",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_sidetalk_04_t2.wav": {
+    "id": "sidetalk_04",
+    "section": "G",
+    "text": "Where did I leave my keys?",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "test",
+    "expected_action": "silent_drop",
+    "policy_status": "settled",
+    "type": "sidetalk_negative",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_sidetalk_05_t1.wav": {
+    "id": "sidetalk_05",
+    "section": "G",
+    "text": "Excuse me, what time does the shop close?",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "silent_drop",
+    "policy_status": "settled",
+    "type": "sidetalk_negative",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_sidetalk_05_t2.wav": {
+    "id": "sidetalk_05",
+    "section": "G",
+    "text": "Excuse me, what time does the shop close?",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "silent_drop",
+    "policy_status": "settled",
+    "type": "sidetalk_negative",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_sidetalk_06_t1.wav": {
+    "id": "sidetalk_06",
+    "section": "G",
+    "text": "Look at this new design on the screen.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "test",
+    "expected_action": "silent_drop",
+    "policy_status": "settled",
+    "type": "sidetalk_negative",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_sidetalk_06_t2.wav": {
+    "id": "sidetalk_06",
+    "section": "G",
+    "text": "Look at this new design on the screen.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "test",
+    "expected_action": "silent_drop",
+    "policy_status": "settled",
+    "type": "sidetalk_negative",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_sidetalk_07_t1.wav": {
+    "id": "sidetalk_07",
+    "section": "G",
+    "text": "Yes, absolutely.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "silent_drop",
+    "policy_status": "settled",
+    "type": "sidetalk_negative",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_sidetalk_07_t2.wav": {
+    "id": "sidetalk_07",
+    "section": "G",
+    "text": "Yes, absolutely.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "silent_drop",
+    "policy_status": "settled",
+    "type": "sidetalk_negative",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_sidetalk_08_t1.wav": {
+    "id": "sidetalk_08",
+    "section": "G",
+    "text": "Turn off the fan, please.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "test",
+    "expected_action": "silent_drop",
+    "policy_status": "settled",
+    "type": "sidetalk_negative",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_sidetalk_08_t2.wav": {
+    "id": "sidetalk_08",
+    "section": "G",
+    "text": "Turn off the fan, please.",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "test",
+    "expected_action": "silent_drop",
+    "policy_status": "settled",
+    "type": "sidetalk_negative",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_N_sidetalk_09_t1.wav": {
+    "id": "sidetalk_09",
+    "section": "G",
+    "text": "Hey Rahul, did you order the food?",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "silent_drop",
+    "policy_status": "settled",
+    "type": "sidetalk_negative",
+    "entities": [
+      "Rahul"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_N_sidetalk_09_t2.wav": {
+    "id": "sidetalk_09",
+    "section": "G",
+    "text": "Hey Rahul, did you order the food?",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "silent_drop",
+    "policy_status": "settled",
+    "type": "sidetalk_negative",
+    "entities": [
+      "Rahul"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_N_sidetalk_10_t1.wav": {
+    "id": "sidetalk_10",
+    "section": "G",
+    "text": "Yeah, I think the meeting starts at three.",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 1,
+    "split": "test",
+    "expected_action": "silent_drop",
+    "policy_status": "settled",
+    "type": "sidetalk_negative",
+    "entities": [
+      "three"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_N_sidetalk_10_t2.wav": {
+    "id": "sidetalk_10",
+    "section": "G",
+    "text": "Yeah, I think the meeting starts at three.",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 2,
+    "split": "test",
+    "expected_action": "silent_drop",
+    "policy_status": "settled",
+    "type": "sidetalk_negative",
+    "entities": [
+      "three"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_N_sidetalk_11_t1.wav": {
+    "id": "sidetalk_11",
+    "section": "G",
+    "text": "Excuse me, what time does the shop close?",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 1,
+    "split": "test",
+    "expected_action": "silent_drop",
+    "policy_status": "settled",
+    "type": "sidetalk_negative",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_N_sidetalk_11_t2.wav": {
+    "id": "sidetalk_11",
+    "section": "G",
+    "text": "Excuse me, what time does the shop close?",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 2,
+    "split": "test",
+    "expected_action": "silent_drop",
+    "policy_status": "settled",
+    "type": "sidetalk_negative",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_N_sidetalk_12_t1.wav": {
+    "id": "sidetalk_12",
+    "section": "G",
+    "text": "Turn off the fan, please.",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "silent_drop",
+    "policy_status": "settled",
+    "type": "sidetalk_negative",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_N_sidetalk_12_t2.wav": {
+    "id": "sidetalk_12",
+    "section": "G",
+    "text": "Turn off the fan, please.",
+    "speaker_id": "s01",
+    "environment": "N",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "silent_drop",
+    "policy_status": "settled",
+    "type": "sidetalk_negative",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_hi_01_t1.wav": {
+    "id": "hi_01",
+    "section": "I",
+    "text": "Daimon, aaj ka mausam kaisa hai",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "hindi_addressed",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_hi_01_t2.wav": {
+    "id": "hi_01",
+    "section": "I",
+    "text": "Daimon, aaj ka mausam kaisa hai",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "hindi_addressed",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_hi_02_t1.wav": {
+    "id": "hi_02",
+    "section": "I",
+    "text": "Daimon, Rahul ko message bhejo ki main dus minute mein pahunch raha hoon",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "hindi_addressed",
+    "entities": [
+      "Daimon",
+      "Rahul",
+      "dus minute"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_hi_02_t2.wav": {
+    "id": "hi_02",
+    "section": "I",
+    "text": "Daimon, Rahul ko message bhejo ki main dus minute mein pahunch raha hoon",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "hindi_addressed",
+    "entities": [
+      "Daimon",
+      "Rahul",
+      "dus minute"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_hi_03_t1.wav": {
+    "id": "hi_03",
+    "section": "I",
+    "text": "Daimon, ek cup chai banane ka timer laga do",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "test",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "hindi_addressed",
+    "entities": [
+      "Daimon",
+      "ek cup chai",
+      "timer"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_hi_03_t2.wav": {
+    "id": "hi_03",
+    "section": "I",
+    "text": "Daimon, ek cup chai banane ka timer laga do",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "test",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "hindi_addressed",
+    "entities": [
+      "Daimon",
+      "ek cup chai",
+      "timer"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_hi_04_t1.wav": {
+    "id": "hi_04",
+    "section": "I",
+    "text": "kal barish hogi kya, Daimon",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "test",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "hindi_addressed",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_hi_04_t2.wav": {
+    "id": "hi_04",
+    "section": "I",
+    "text": "kal barish hogi kya, Daimon",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "test",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "hindi_addressed",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_hi_05_t1.wav": {
+    "id": "hi_05",
+    "section": "I",
+    "text": "Delhi ka temperature kitna hai, Daimon",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "test",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "hindi_addressed",
+    "entities": [
+      "Delhi",
+      "Daimon"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_hi_05_t2.wav": {
+    "id": "hi_05",
+    "section": "I",
+    "text": "Delhi ka temperature kitna hai, Daimon",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "test",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "hindi_addressed",
+    "entities": [
+      "Delhi",
+      "Daimon"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_hi_06_t1.wav": {
+    "id": "hi_06",
+    "section": "I",
+    "text": "meeting kab schedule hui hai, Daimon",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "test",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "hindi_addressed",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_hi_06_t2.wav": {
+    "id": "hi_06",
+    "section": "I",
+    "text": "meeting kab schedule hui hai, Daimon",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "test",
+    "expected_action": "route_to_llm",
+    "policy_status": "settled",
+    "type": "hindi_addressed",
+    "entities": [
+      "Daimon"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_hi_07_t1.wav": {
+    "id": "hi_07",
+    "section": "I",
+    "text": "mujhe aath baje jagana",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "silent_drop",
+    "policy_status": "settled",
+    "type": "hindi_unaddressed",
+    "entities": [
+      "aath baje"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_hi_07_t2.wav": {
+    "id": "hi_07",
+    "section": "I",
+    "text": "mujhe aath baje jagana",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "silent_drop",
+    "policy_status": "settled",
+    "type": "hindi_unaddressed",
+    "entities": [
+      "aath baje"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_hi_08_t1.wav": {
+    "id": "hi_08",
+    "section": "I",
+    "text": "kya tum Hindi samajhte ho",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "silent_drop",
+    "policy_status": "settled",
+    "type": "hindi_unaddressed",
+    "entities": [
+      "Hindi"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_hi_08_t2.wav": {
+    "id": "hi_08",
+    "section": "I",
+    "text": "kya tum Hindi samajhte ho",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "silent_drop",
+    "policy_status": "settled",
+    "type": "hindi_unaddressed",
+    "entities": [
+      "Hindi"
+    ],
+    "quality_flag": "ok"
+  },
+  "s01_Q_hi_09_t1.wav": {
+    "id": "hi_09",
+    "section": "I",
+    "text": "aaj traffic kaisa hai",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "silent_drop",
+    "policy_status": "settled",
+    "type": "hindi_unaddressed",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_hi_09_t2.wav": {
+    "id": "hi_09",
+    "section": "I",
+    "text": "aaj traffic kaisa hai",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "silent_drop",
+    "policy_status": "settled",
+    "type": "hindi_unaddressed",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_hi_10_t1.wav": {
+    "id": "hi_10",
+    "section": "I",
+    "text": "gaane play karo",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 1,
+    "split": "dev",
+    "expected_action": "silent_drop",
+    "policy_status": "settled",
+    "type": "hindi_unaddressed",
+    "entities": [],
+    "quality_flag": "ok"
+  },
+  "s01_Q_hi_10_t2.wav": {
+    "id": "hi_10",
+    "section": "I",
+    "text": "gaane play karo",
+    "speaker_id": "s01",
+    "environment": "Q",
+    "take": 2,
+    "split": "dev",
+    "expected_action": "silent_drop",
+    "policy_status": "settled",
+    "type": "hindi_unaddressed",
+    "entities": [],
+    "quality_flag": "ok"
+  }
+}

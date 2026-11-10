@@ -1,0 +1,15 @@
+{
+  "assignment_hash": "3497f4e6547d2263a6aa97a72998893a5ac92b10ddfd746d336d6ccd57b0bedd",
+  "manifest_hash": "f0720e7f76017d8bca0c643840d755955e1534d62dafba270988ba9112e41710",
+  "created_at": "2026-11-10T12:16:37Z",
+  "seed": 42,
+  "dev_ratio": 0.6,
+  "total_items": 127,
+  "dev_items": 76,
+  "test_items": 51,
+  "total_clips": 254,
+  "dev_clips": 152,
+  "test_clips": 102,
+  "result_runs": 0,
+  "note": "Dev/test split is locked. result_runs will increment when --final (test split) runs. Split changes are rejected if result_runs > 0."
+}

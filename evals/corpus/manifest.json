@@ -1,0 +1,5395 @@
+{
+  "version": "1.0",
+  "speaker": "s01",
+  "sections": [
+    "A",
+    "C",
+    "E",
+    "G",
+    "I"
+  ],
+  "total_items": 127,
+  "total_clips": 254,
+  "items": [
+    {
+      "id": "wake_01",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "condition": "natural pace, ~0.5s pause before and after",
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "id": "wake_02",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "condition": "natural pace, ~0.5s pause before and after",
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "id": "wake_03",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "condition": "natural pace, ~0.5s pause before and after",
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "id": "wake_04",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "condition": "natural pace, ~0.5s pause before and after",
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "id": "wake_05",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "condition": "natural pace, ~0.5s pause before and after",
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "id": "wake_06",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "D",
+      "condition": "natural",
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "id": "wake_07",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "D",
+      "condition": "natural",
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "id": "wake_08",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "D",
+      "condition": "natural",
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "id": "wake_09",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "D",
+      "condition": "natural",
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "id": "wake_10",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "D",
+      "condition": "natural",
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "id": "wake_11",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "N",
+      "condition": "natural",
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "id": "wake_12",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "N",
+      "condition": "natural",
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "id": "wake_13",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "N",
+      "condition": "natural",
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "id": "wake_14",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "N",
+      "condition": "natural",
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "id": "wake_15",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "N",
+      "condition": "natural",
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "id": "wake_16",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "condition": "whisper",
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "id": "wake_17",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "condition": "clipped",
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "id": "wake_18",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "condition": "tired",
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "id": "wake_19",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "condition": "loud-fast",
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "id": "wake_20",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "condition": "uh-WAY-ken variant 1",
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "id": "wake_21",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "condition": "uh-WAY-ken variant 2",
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "id": "wake_22",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "condition": "AW-ken-style variant 1",
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "id": "wake_23",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "condition": "AW-ken-style variant 2",
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "id": "wake_24",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "condition": "short pause (~0.2s) before and after, flowing speech",
+      "expected_action": "open_session",
+      "policy_status": "open",
+      "entities": []
+    },
+    {
+      "id": "wake_25",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "condition": "short pause (~0.2s) before and after, flowing speech",
+      "expected_action": "open_session",
+      "policy_status": "open",
+      "entities": []
+    },
+    {
+      "id": "wake_26",
+      "section": "A",
+      "text": "okay, so... Awaken.",
+      "env": "Q",
+      "condition": "said right after other speech",
+      "expected_action": "open_session",
+      "policy_status": "open",
+      "entities": []
+    },
+    {
+      "id": "wake_27",
+      "section": "A",
+      "text": "okay, so... Awaken.",
+      "env": "Q",
+      "condition": "said right after other speech",
+      "expected_action": "open_session",
+      "policy_status": "open",
+      "entities": []
+    },
+    {
+      "id": "wake_28",
+      "section": "A",
+      "text": "Awaken, Daimon, what time is it",
+      "env": "Q",
+      "condition": "one breath, with command",
+      "expected_action": "TBD",
+      "policy_status": "open",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "wake_29",
+      "section": "A",
+      "text": "Awaken, Daimon, what time is it",
+      "env": "Q",
+      "condition": "one breath, with command",
+      "expected_action": "TBD",
+      "policy_status": "open",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "wake_30",
+      "section": "A",
+      "text": "Awaken, Daimon, what time is it",
+      "env": "Q",
+      "condition": "one breath, with command",
+      "expected_action": "TBD",
+      "policy_status": "open",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "cmd_01",
+      "section": "C",
+      "text": "Daimon, what time is it in Tokyo right now",
+      "env": "Q",
+      "category": "Time",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Tokyo"
+      ]
+    },
+    {
+      "id": "cmd_02",
+      "section": "C",
+      "text": "Daimon, what is twenty-five plus seventy-eight",
+      "env": "Q",
+      "category": "Math",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "twenty-five",
+        "seventy-eight"
+      ]
+    },
+    {
+      "id": "cmd_03",
+      "section": "C",
+      "text": "what is fifteen percent of two thousand four hundred, Daimon",
+      "env": "Q",
+      "category": "Tail",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "fifteen percent",
+        "two thousand four hundred"
+      ]
+    },
+    {
+      "id": "cmd_04",
+      "section": "C",
+      "text": "convert fifty miles to kilometers, Daimon",
+      "env": "Q",
+      "category": "Tail",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "fifty miles",
+        "kilometers"
+      ]
+    },
+    {
+      "id": "cmd_05",
+      "section": "C",
+      "text": "Daimon, what's the weather in Mumbai",
+      "env": "Q",
+      "category": "Weather",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Mumbai"
+      ]
+    },
+    {
+      "id": "cmd_06",
+      "section": "C",
+      "text": "will it rain this evening, Daimon",
+      "env": "Q",
+      "category": "Tail",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "this evening"
+      ]
+    },
+    {
+      "id": "cmd_07",
+      "section": "C",
+      "text": "Daimon, tell me a one sentence joke",
+      "env": "Q",
+      "category": "Conversational",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "one sentence"
+      ]
+    },
+    {
+      "id": "cmd_08",
+      "section": "C",
+      "text": "Daimon, text Rahul I'm reaching in ten minutes",
+      "env": "Q",
+      "category": "Entity",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Rahul",
+        "ten minutes"
+      ]
+    },
+    {
+      "id": "cmd_09",
+      "section": "C",
+      "text": "call Rohan, Daimon",
+      "env": "Q",
+      "category": "Entity, tail",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Rohan"
+      ]
+    },
+    {
+      "id": "cmd_10",
+      "section": "C",
+      "text": "Daimon, send an email to Priya saying the deck is ready",
+      "env": "Q",
+      "category": "Entity",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Priya"
+      ]
+    },
+    {
+      "id": "cmd_11",
+      "section": "C",
+      "text": "set a timer for fifteen minutes, Daimon",
+      "env": "Q",
+      "category": "Timer",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "fifteen minutes"
+      ]
+    },
+    {
+      "id": "cmd_12",
+      "section": "C",
+      "text": "Damon, what's on my calendar today",
+      "env": "Q",
+      "category": "Alias",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "today"
+      ]
+    },
+    {
+      "id": "cmd_13",
+      "section": "C",
+      "text": "Dayman, summarize my unread messages",
+      "env": "Q",
+      "category": "Alias",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "id": "cmd_14",
+      "section": "C",
+      "text": "Demon, check git status",
+      "env": "Q",
+      "category": "Alias",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "git status"
+      ]
+    },
+    {
+      "id": "cmd_15",
+      "section": "C",
+      "text": "Daimon, remind me to carry an umbrella at eight AM",
+      "env": "Q",
+      "category": "Reminder",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "eight AM",
+        "umbrella"
+      ]
+    },
+    {
+      "id": "cmd_16",
+      "section": "C",
+      "text": "Daimon, what time is it in Tokyo right now",
+      "env": "D",
+      "category": "Time (Distance)",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Tokyo"
+      ]
+    },
+    {
+      "id": "cmd_17",
+      "section": "C",
+      "text": "Daimon, what is twenty-five plus seventy-eight",
+      "env": "D",
+      "category": "Math (Distance)",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "twenty-five",
+        "seventy-eight"
+      ]
+    },
+    {
+      "id": "cmd_18",
+      "section": "C",
+      "text": "what is fifteen percent of two thousand four hundred, Daimon",
+      "env": "D",
+      "category": "Tail (Distance)",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "fifteen percent",
+        "two thousand four hundred"
+      ]
+    },
+    {
+      "id": "cmd_19",
+      "section": "C",
+      "text": "Daimon, what's the weather in Mumbai",
+      "env": "D",
+      "category": "Weather (Distance)",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Mumbai"
+      ]
+    },
+    {
+      "id": "cmd_20",
+      "section": "C",
+      "text": "will it rain this evening, Daimon",
+      "env": "D",
+      "category": "Tail (Distance)",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "this evening"
+      ]
+    },
+    {
+      "id": "cmd_21",
+      "section": "C",
+      "text": "Daimon, text Rahul I'm reaching in ten minutes",
+      "env": "D",
+      "category": "Entity (Distance)",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Rahul",
+        "ten minutes"
+      ]
+    },
+    {
+      "id": "cmd_22",
+      "section": "C",
+      "text": "call Rohan, Daimon",
+      "env": "D",
+      "category": "Entity, tail (Distance)",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Rohan"
+      ]
+    },
+    {
+      "id": "cmd_23",
+      "section": "C",
+      "text": "set a timer for fifteen minutes, Daimon",
+      "env": "D",
+      "category": "Timer (Distance)",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "fifteen minutes"
+      ]
+    },
+    {
+      "id": "cmd_24",
+      "section": "C",
+      "text": "Damon, what's on my calendar today",
+      "env": "D",
+      "category": "Alias (Distance)",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "today"
+      ]
+    },
+    {
+      "id": "cmd_25",
+      "section": "C",
+      "text": "Daimon, remind me to carry an umbrella at eight AM",
+      "env": "D",
+      "category": "Reminder (Distance)",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "eight AM",
+        "umbrella"
+      ]
+    },
+    {
+      "id": "cmd_26",
+      "section": "C",
+      "text": "Daimon, what time is it in Tokyo right now",
+      "env": "N",
+      "category": "Time (Noise)",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Tokyo"
+      ]
+    },
+    {
+      "id": "cmd_27",
+      "section": "C",
+      "text": "Daimon, what is twenty-five plus seventy-eight",
+      "env": "N",
+      "category": "Math (Noise)",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "twenty-five",
+        "seventy-eight"
+      ]
+    },
+    {
+      "id": "cmd_28",
+      "section": "C",
+      "text": "what is fifteen percent of two thousand four hundred, Daimon",
+      "env": "N",
+      "category": "Tail (Noise)",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "fifteen percent",
+        "two thousand four hundred"
+      ]
+    },
+    {
+      "id": "cmd_29",
+      "section": "C",
+      "text": "Daimon, what's the weather in Mumbai",
+      "env": "N",
+      "category": "Weather (Noise)",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Mumbai"
+      ]
+    },
+    {
+      "id": "cmd_30",
+      "section": "C",
+      "text": "will it rain this evening, Daimon",
+      "env": "N",
+      "category": "Tail (Noise)",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "this evening"
+      ]
+    },
+    {
+      "id": "cmd_31",
+      "section": "C",
+      "text": "Daimon, text Rahul I'm reaching in ten minutes",
+      "env": "N",
+      "category": "Entity (Noise)",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Rahul",
+        "ten minutes"
+      ]
+    },
+    {
+      "id": "cmd_32",
+      "section": "C",
+      "text": "call Rohan, Daimon",
+      "env": "N",
+      "category": "Entity, tail (Noise)",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Rohan"
+      ]
+    },
+    {
+      "id": "cmd_33",
+      "section": "C",
+      "text": "set a timer for fifteen minutes, Daimon",
+      "env": "N",
+      "category": "Timer (Noise)",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "fifteen minutes"
+      ]
+    },
+    {
+      "id": "cmd_34",
+      "section": "C",
+      "text": "Damon, what's on my calendar today",
+      "env": "N",
+      "category": "Alias (Noise)",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "today"
+      ]
+    },
+    {
+      "id": "cmd_35",
+      "section": "C",
+      "text": "Daimon, remind me to carry an umbrella at eight AM",
+      "env": "N",
+      "category": "Reminder (Noise)",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "eight AM",
+        "umbrella"
+      ]
+    },
+    {
+      "id": "name_01",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "condition": "DAY-mon pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_02",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "condition": "DAY-mon pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_03",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "condition": "DAY-mon pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_04",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "condition": "DAY-mon pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_05",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "condition": "DAY-mon pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_06",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "condition": "DAY-mon pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_07",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "condition": "DAY-mon pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_08",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "condition": "DAY-mon pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_09",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "condition": "DAY-mon pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_10",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "condition": "DAY-mon pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_11",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "D",
+      "condition": "DAY-mon pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_12",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "D",
+      "condition": "DAY-mon pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_13",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "D",
+      "condition": "DAY-mon pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_14",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "D",
+      "condition": "DAY-mon pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_15",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "D",
+      "condition": "DAY-mon pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_16",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "D",
+      "condition": "DAY-mon pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_17",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "D",
+      "condition": "DAY-mon pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_18",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "D",
+      "condition": "DAY-mon pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_19",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "D",
+      "condition": "DAY-mon pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_20",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "D",
+      "condition": "DAY-mon pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_21",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "N",
+      "condition": "DAY-mon pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_22",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "N",
+      "condition": "DAY-mon pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_23",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "N",
+      "condition": "DAY-mon pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_24",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "N",
+      "condition": "DAY-mon pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_25",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "N",
+      "condition": "DAY-mon pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_26",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "N",
+      "condition": "DAY-mon pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_27",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "N",
+      "condition": "DAY-mon pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_28",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "N",
+      "condition": "DAY-mon pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_29",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "N",
+      "condition": "DAY-mon pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_30",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "N",
+      "condition": "DAY-mon pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_31",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "condition": "DY-mon variant pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_32",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "condition": "DY-mon variant pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_33",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "condition": "DY-mon variant pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_34",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "condition": "DY-mon variant pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_35",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "condition": "DY-mon variant pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_36",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "condition": "DY-mon variant pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_37",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "condition": "DY-mon variant pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_38",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "condition": "DY-mon variant pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_39",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "condition": "DY-mon variant pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "name_40",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "condition": "DY-mon variant pronunciation",
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "sidetalk_01",
+      "section": "G",
+      "text": "Hey Rahul, did you order the food?",
+      "env": "Q",
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": [
+        "Rahul"
+      ]
+    },
+    {
+      "id": "sidetalk_02",
+      "section": "G",
+      "text": "Can you pass me the water bottle?",
+      "env": "Q",
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "id": "sidetalk_03",
+      "section": "G",
+      "text": "Yeah, I think the meeting starts at three.",
+      "env": "Q",
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": [
+        "three"
+      ]
+    },
+    {
+      "id": "sidetalk_04",
+      "section": "G",
+      "text": "Where did I leave my keys?",
+      "env": "Q",
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "id": "sidetalk_05",
+      "section": "G",
+      "text": "Excuse me, what time does the shop close?",
+      "env": "Q",
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "id": "sidetalk_06",
+      "section": "G",
+      "text": "Look at this new design on the screen.",
+      "env": "Q",
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "id": "sidetalk_07",
+      "section": "G",
+      "text": "Yes, absolutely.",
+      "env": "Q",
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "id": "sidetalk_08",
+      "section": "G",
+      "text": "Turn off the fan, please.",
+      "env": "Q",
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "id": "sidetalk_09",
+      "section": "G",
+      "text": "Hey Rahul, did you order the food?",
+      "env": "N",
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": [
+        "Rahul"
+      ]
+    },
+    {
+      "id": "sidetalk_10",
+      "section": "G",
+      "text": "Yeah, I think the meeting starts at three.",
+      "env": "N",
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": [
+        "three"
+      ]
+    },
+    {
+      "id": "sidetalk_11",
+      "section": "G",
+      "text": "Excuse me, what time does the shop close?",
+      "env": "N",
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "id": "sidetalk_12",
+      "section": "G",
+      "text": "Turn off the fan, please.",
+      "env": "N",
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "id": "hi_01",
+      "section": "I",
+      "text": "Daimon, aaj ka mausam kaisa hai",
+      "env": "Q",
+      "structure": "prefix_addressed",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "hi_02",
+      "section": "I",
+      "text": "Daimon, Rahul ko message bhejo ki main dus minute mein pahunch raha hoon",
+      "env": "Q",
+      "structure": "prefix_addressed",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon",
+        "Rahul",
+        "dus minute"
+      ]
+    },
+    {
+      "id": "hi_03",
+      "section": "I",
+      "text": "Daimon, ek cup chai banane ka timer laga do",
+      "env": "Q",
+      "structure": "prefix_addressed",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon",
+        "ek cup chai",
+        "timer"
+      ]
+    },
+    {
+      "id": "hi_04",
+      "section": "I",
+      "text": "kal barish hogi kya, Daimon",
+      "env": "Q",
+      "structure": "tail_addressed",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "hi_05",
+      "section": "I",
+      "text": "Delhi ka temperature kitna hai, Daimon",
+      "env": "Q",
+      "structure": "tail_addressed",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Delhi",
+        "Daimon"
+      ]
+    },
+    {
+      "id": "hi_06",
+      "section": "I",
+      "text": "meeting kab schedule hui hai, Daimon",
+      "env": "Q",
+      "structure": "tail_addressed",
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ]
+    },
+    {
+      "id": "hi_07",
+      "section": "I",
+      "text": "mujhe aath baje jagana",
+      "env": "Q",
+      "structure": "unaddressed",
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": [
+        "aath baje"
+      ]
+    },
+    {
+      "id": "hi_08",
+      "section": "I",
+      "text": "kya tum Hindi samajhte ho",
+      "env": "Q",
+      "structure": "unaddressed",
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": [
+        "Hindi"
+      ]
+    },
+    {
+      "id": "hi_09",
+      "section": "I",
+      "text": "aaj traffic kaisa hai",
+      "env": "Q",
+      "structure": "unaddressed",
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "id": "hi_10",
+      "section": "I",
+      "text": "gaane play karo",
+      "env": "Q",
+      "structure": "unaddressed",
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": []
+    }
+  ],
+  "clips": [
+    {
+      "clip_id": "s01_Q_wake_01_t1",
+      "filename": "s01_Q_wake_01_t1.wav",
+      "speaker": "s01",
+      "id": "wake_01",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "natural pace, ~0.5s pause before and after"
+    },
+    {
+      "clip_id": "s01_Q_wake_01_t2",
+      "filename": "s01_Q_wake_01_t2.wav",
+      "speaker": "s01",
+      "id": "wake_01",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "natural pace, ~0.5s pause before and after"
+    },
+    {
+      "clip_id": "s01_Q_wake_02_t1",
+      "filename": "s01_Q_wake_02_t1.wav",
+      "speaker": "s01",
+      "id": "wake_02",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "natural pace, ~0.5s pause before and after"
+    },
+    {
+      "clip_id": "s01_Q_wake_02_t2",
+      "filename": "s01_Q_wake_02_t2.wav",
+      "speaker": "s01",
+      "id": "wake_02",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "natural pace, ~0.5s pause before and after"
+    },
+    {
+      "clip_id": "s01_Q_wake_03_t1",
+      "filename": "s01_Q_wake_03_t1.wav",
+      "speaker": "s01",
+      "id": "wake_03",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "natural pace, ~0.5s pause before and after"
+    },
+    {
+      "clip_id": "s01_Q_wake_03_t2",
+      "filename": "s01_Q_wake_03_t2.wav",
+      "speaker": "s01",
+      "id": "wake_03",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "natural pace, ~0.5s pause before and after"
+    },
+    {
+      "clip_id": "s01_Q_wake_04_t1",
+      "filename": "s01_Q_wake_04_t1.wav",
+      "speaker": "s01",
+      "id": "wake_04",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "natural pace, ~0.5s pause before and after"
+    },
+    {
+      "clip_id": "s01_Q_wake_04_t2",
+      "filename": "s01_Q_wake_04_t2.wav",
+      "speaker": "s01",
+      "id": "wake_04",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "natural pace, ~0.5s pause before and after"
+    },
+    {
+      "clip_id": "s01_Q_wake_05_t1",
+      "filename": "s01_Q_wake_05_t1.wav",
+      "speaker": "s01",
+      "id": "wake_05",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "natural pace, ~0.5s pause before and after"
+    },
+    {
+      "clip_id": "s01_Q_wake_05_t2",
+      "filename": "s01_Q_wake_05_t2.wav",
+      "speaker": "s01",
+      "id": "wake_05",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "natural pace, ~0.5s pause before and after"
+    },
+    {
+      "clip_id": "s01_D_wake_06_t1",
+      "filename": "s01_D_wake_06_t1.wav",
+      "speaker": "s01",
+      "id": "wake_06",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "D",
+      "take": 1,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "natural"
+    },
+    {
+      "clip_id": "s01_D_wake_06_t2",
+      "filename": "s01_D_wake_06_t2.wav",
+      "speaker": "s01",
+      "id": "wake_06",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "D",
+      "take": 2,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "natural"
+    },
+    {
+      "clip_id": "s01_D_wake_07_t1",
+      "filename": "s01_D_wake_07_t1.wav",
+      "speaker": "s01",
+      "id": "wake_07",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "D",
+      "take": 1,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "natural"
+    },
+    {
+      "clip_id": "s01_D_wake_07_t2",
+      "filename": "s01_D_wake_07_t2.wav",
+      "speaker": "s01",
+      "id": "wake_07",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "D",
+      "take": 2,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "natural"
+    },
+    {
+      "clip_id": "s01_D_wake_08_t1",
+      "filename": "s01_D_wake_08_t1.wav",
+      "speaker": "s01",
+      "id": "wake_08",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "D",
+      "take": 1,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "natural"
+    },
+    {
+      "clip_id": "s01_D_wake_08_t2",
+      "filename": "s01_D_wake_08_t2.wav",
+      "speaker": "s01",
+      "id": "wake_08",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "D",
+      "take": 2,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "natural"
+    },
+    {
+      "clip_id": "s01_D_wake_09_t1",
+      "filename": "s01_D_wake_09_t1.wav",
+      "speaker": "s01",
+      "id": "wake_09",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "D",
+      "take": 1,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "natural"
+    },
+    {
+      "clip_id": "s01_D_wake_09_t2",
+      "filename": "s01_D_wake_09_t2.wav",
+      "speaker": "s01",
+      "id": "wake_09",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "D",
+      "take": 2,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "natural"
+    },
+    {
+      "clip_id": "s01_D_wake_10_t1",
+      "filename": "s01_D_wake_10_t1.wav",
+      "speaker": "s01",
+      "id": "wake_10",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "D",
+      "take": 1,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "natural"
+    },
+    {
+      "clip_id": "s01_D_wake_10_t2",
+      "filename": "s01_D_wake_10_t2.wav",
+      "speaker": "s01",
+      "id": "wake_10",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "D",
+      "take": 2,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "natural"
+    },
+    {
+      "clip_id": "s01_N_wake_11_t1",
+      "filename": "s01_N_wake_11_t1.wav",
+      "speaker": "s01",
+      "id": "wake_11",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "N",
+      "take": 1,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "natural"
+    },
+    {
+      "clip_id": "s01_N_wake_11_t2",
+      "filename": "s01_N_wake_11_t2.wav",
+      "speaker": "s01",
+      "id": "wake_11",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "N",
+      "take": 2,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "natural"
+    },
+    {
+      "clip_id": "s01_N_wake_12_t1",
+      "filename": "s01_N_wake_12_t1.wav",
+      "speaker": "s01",
+      "id": "wake_12",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "N",
+      "take": 1,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "natural"
+    },
+    {
+      "clip_id": "s01_N_wake_12_t2",
+      "filename": "s01_N_wake_12_t2.wav",
+      "speaker": "s01",
+      "id": "wake_12",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "N",
+      "take": 2,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "natural"
+    },
+    {
+      "clip_id": "s01_N_wake_13_t1",
+      "filename": "s01_N_wake_13_t1.wav",
+      "speaker": "s01",
+      "id": "wake_13",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "N",
+      "take": 1,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "natural"
+    },
+    {
+      "clip_id": "s01_N_wake_13_t2",
+      "filename": "s01_N_wake_13_t2.wav",
+      "speaker": "s01",
+      "id": "wake_13",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "N",
+      "take": 2,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "natural"
+    },
+    {
+      "clip_id": "s01_N_wake_14_t1",
+      "filename": "s01_N_wake_14_t1.wav",
+      "speaker": "s01",
+      "id": "wake_14",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "N",
+      "take": 1,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "natural"
+    },
+    {
+      "clip_id": "s01_N_wake_14_t2",
+      "filename": "s01_N_wake_14_t2.wav",
+      "speaker": "s01",
+      "id": "wake_14",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "N",
+      "take": 2,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "natural"
+    },
+    {
+      "clip_id": "s01_N_wake_15_t1",
+      "filename": "s01_N_wake_15_t1.wav",
+      "speaker": "s01",
+      "id": "wake_15",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "N",
+      "take": 1,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "natural"
+    },
+    {
+      "clip_id": "s01_N_wake_15_t2",
+      "filename": "s01_N_wake_15_t2.wav",
+      "speaker": "s01",
+      "id": "wake_15",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "N",
+      "take": 2,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "natural"
+    },
+    {
+      "clip_id": "s01_Q_wake_16_t1",
+      "filename": "s01_Q_wake_16_t1.wav",
+      "speaker": "s01",
+      "id": "wake_16",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "whisper"
+    },
+    {
+      "clip_id": "s01_Q_wake_16_t2",
+      "filename": "s01_Q_wake_16_t2.wav",
+      "speaker": "s01",
+      "id": "wake_16",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "whisper"
+    },
+    {
+      "clip_id": "s01_Q_wake_17_t1",
+      "filename": "s01_Q_wake_17_t1.wav",
+      "speaker": "s01",
+      "id": "wake_17",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "clipped"
+    },
+    {
+      "clip_id": "s01_Q_wake_17_t2",
+      "filename": "s01_Q_wake_17_t2.wav",
+      "speaker": "s01",
+      "id": "wake_17",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "clipped"
+    },
+    {
+      "clip_id": "s01_Q_wake_18_t1",
+      "filename": "s01_Q_wake_18_t1.wav",
+      "speaker": "s01",
+      "id": "wake_18",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "tired"
+    },
+    {
+      "clip_id": "s01_Q_wake_18_t2",
+      "filename": "s01_Q_wake_18_t2.wav",
+      "speaker": "s01",
+      "id": "wake_18",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "tired"
+    },
+    {
+      "clip_id": "s01_Q_wake_19_t1",
+      "filename": "s01_Q_wake_19_t1.wav",
+      "speaker": "s01",
+      "id": "wake_19",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "loud-fast"
+    },
+    {
+      "clip_id": "s01_Q_wake_19_t2",
+      "filename": "s01_Q_wake_19_t2.wav",
+      "speaker": "s01",
+      "id": "wake_19",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "loud-fast"
+    },
+    {
+      "clip_id": "s01_Q_wake_20_t1",
+      "filename": "s01_Q_wake_20_t1.wav",
+      "speaker": "s01",
+      "id": "wake_20",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "uh-WAY-ken variant 1"
+    },
+    {
+      "clip_id": "s01_Q_wake_20_t2",
+      "filename": "s01_Q_wake_20_t2.wav",
+      "speaker": "s01",
+      "id": "wake_20",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "uh-WAY-ken variant 1"
+    },
+    {
+      "clip_id": "s01_Q_wake_21_t1",
+      "filename": "s01_Q_wake_21_t1.wav",
+      "speaker": "s01",
+      "id": "wake_21",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "uh-WAY-ken variant 2"
+    },
+    {
+      "clip_id": "s01_Q_wake_21_t2",
+      "filename": "s01_Q_wake_21_t2.wav",
+      "speaker": "s01",
+      "id": "wake_21",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "uh-WAY-ken variant 2"
+    },
+    {
+      "clip_id": "s01_Q_wake_22_t1",
+      "filename": "s01_Q_wake_22_t1.wav",
+      "speaker": "s01",
+      "id": "wake_22",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "AW-ken-style variant 1"
+    },
+    {
+      "clip_id": "s01_Q_wake_22_t2",
+      "filename": "s01_Q_wake_22_t2.wav",
+      "speaker": "s01",
+      "id": "wake_22",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "AW-ken-style variant 1"
+    },
+    {
+      "clip_id": "s01_Q_wake_23_t1",
+      "filename": "s01_Q_wake_23_t1.wav",
+      "speaker": "s01",
+      "id": "wake_23",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "AW-ken-style variant 2"
+    },
+    {
+      "clip_id": "s01_Q_wake_23_t2",
+      "filename": "s01_Q_wake_23_t2.wav",
+      "speaker": "s01",
+      "id": "wake_23",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "open_session",
+      "policy_status": "settled",
+      "entities": [],
+      "condition": "AW-ken-style variant 2"
+    },
+    {
+      "clip_id": "s01_Q_wake_24_t1",
+      "filename": "s01_Q_wake_24_t1.wav",
+      "speaker": "s01",
+      "id": "wake_24",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "open_session",
+      "policy_status": "open",
+      "entities": [],
+      "condition": "short pause (~0.2s) before and after, flowing speech"
+    },
+    {
+      "clip_id": "s01_Q_wake_24_t2",
+      "filename": "s01_Q_wake_24_t2.wav",
+      "speaker": "s01",
+      "id": "wake_24",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "open_session",
+      "policy_status": "open",
+      "entities": [],
+      "condition": "short pause (~0.2s) before and after, flowing speech"
+    },
+    {
+      "clip_id": "s01_Q_wake_25_t1",
+      "filename": "s01_Q_wake_25_t1.wav",
+      "speaker": "s01",
+      "id": "wake_25",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "open_session",
+      "policy_status": "open",
+      "entities": [],
+      "condition": "short pause (~0.2s) before and after, flowing speech"
+    },
+    {
+      "clip_id": "s01_Q_wake_25_t2",
+      "filename": "s01_Q_wake_25_t2.wav",
+      "speaker": "s01",
+      "id": "wake_25",
+      "section": "A",
+      "text": "Awaken.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "open_session",
+      "policy_status": "open",
+      "entities": [],
+      "condition": "short pause (~0.2s) before and after, flowing speech"
+    },
+    {
+      "clip_id": "s01_Q_wake_26_t1",
+      "filename": "s01_Q_wake_26_t1.wav",
+      "speaker": "s01",
+      "id": "wake_26",
+      "section": "A",
+      "text": "okay, so... Awaken.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "open_session",
+      "policy_status": "open",
+      "entities": [],
+      "condition": "said right after other speech"
+    },
+    {
+      "clip_id": "s01_Q_wake_26_t2",
+      "filename": "s01_Q_wake_26_t2.wav",
+      "speaker": "s01",
+      "id": "wake_26",
+      "section": "A",
+      "text": "okay, so... Awaken.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "open_session",
+      "policy_status": "open",
+      "entities": [],
+      "condition": "said right after other speech"
+    },
+    {
+      "clip_id": "s01_Q_wake_27_t1",
+      "filename": "s01_Q_wake_27_t1.wav",
+      "speaker": "s01",
+      "id": "wake_27",
+      "section": "A",
+      "text": "okay, so... Awaken.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "open_session",
+      "policy_status": "open",
+      "entities": [],
+      "condition": "said right after other speech"
+    },
+    {
+      "clip_id": "s01_Q_wake_27_t2",
+      "filename": "s01_Q_wake_27_t2.wav",
+      "speaker": "s01",
+      "id": "wake_27",
+      "section": "A",
+      "text": "okay, so... Awaken.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "open_session",
+      "policy_status": "open",
+      "entities": [],
+      "condition": "said right after other speech"
+    },
+    {
+      "clip_id": "s01_Q_wake_28_t1",
+      "filename": "s01_Q_wake_28_t1.wav",
+      "speaker": "s01",
+      "id": "wake_28",
+      "section": "A",
+      "text": "Awaken, Daimon, what time is it",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "TBD",
+      "policy_status": "open",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "one breath, with command"
+    },
+    {
+      "clip_id": "s01_Q_wake_28_t2",
+      "filename": "s01_Q_wake_28_t2.wav",
+      "speaker": "s01",
+      "id": "wake_28",
+      "section": "A",
+      "text": "Awaken, Daimon, what time is it",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "TBD",
+      "policy_status": "open",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "one breath, with command"
+    },
+    {
+      "clip_id": "s01_Q_wake_29_t1",
+      "filename": "s01_Q_wake_29_t1.wav",
+      "speaker": "s01",
+      "id": "wake_29",
+      "section": "A",
+      "text": "Awaken, Daimon, what time is it",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "TBD",
+      "policy_status": "open",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "one breath, with command"
+    },
+    {
+      "clip_id": "s01_Q_wake_29_t2",
+      "filename": "s01_Q_wake_29_t2.wav",
+      "speaker": "s01",
+      "id": "wake_29",
+      "section": "A",
+      "text": "Awaken, Daimon, what time is it",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "TBD",
+      "policy_status": "open",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "one breath, with command"
+    },
+    {
+      "clip_id": "s01_Q_wake_30_t1",
+      "filename": "s01_Q_wake_30_t1.wav",
+      "speaker": "s01",
+      "id": "wake_30",
+      "section": "A",
+      "text": "Awaken, Daimon, what time is it",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "TBD",
+      "policy_status": "open",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "one breath, with command"
+    },
+    {
+      "clip_id": "s01_Q_wake_30_t2",
+      "filename": "s01_Q_wake_30_t2.wav",
+      "speaker": "s01",
+      "id": "wake_30",
+      "section": "A",
+      "text": "Awaken, Daimon, what time is it",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "TBD",
+      "policy_status": "open",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "one breath, with command"
+    },
+    {
+      "clip_id": "s01_Q_cmd_01_t1",
+      "filename": "s01_Q_cmd_01_t1.wav",
+      "speaker": "s01",
+      "id": "cmd_01",
+      "section": "C",
+      "text": "Daimon, what time is it in Tokyo right now",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Tokyo"
+      ],
+      "category": "Time"
+    },
+    {
+      "clip_id": "s01_Q_cmd_01_t2",
+      "filename": "s01_Q_cmd_01_t2.wav",
+      "speaker": "s01",
+      "id": "cmd_01",
+      "section": "C",
+      "text": "Daimon, what time is it in Tokyo right now",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Tokyo"
+      ],
+      "category": "Time"
+    },
+    {
+      "clip_id": "s01_Q_cmd_02_t1",
+      "filename": "s01_Q_cmd_02_t1.wav",
+      "speaker": "s01",
+      "id": "cmd_02",
+      "section": "C",
+      "text": "Daimon, what is twenty-five plus seventy-eight",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "twenty-five",
+        "seventy-eight"
+      ],
+      "category": "Math"
+    },
+    {
+      "clip_id": "s01_Q_cmd_02_t2",
+      "filename": "s01_Q_cmd_02_t2.wav",
+      "speaker": "s01",
+      "id": "cmd_02",
+      "section": "C",
+      "text": "Daimon, what is twenty-five plus seventy-eight",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "twenty-five",
+        "seventy-eight"
+      ],
+      "category": "Math"
+    },
+    {
+      "clip_id": "s01_Q_cmd_03_t1",
+      "filename": "s01_Q_cmd_03_t1.wav",
+      "speaker": "s01",
+      "id": "cmd_03",
+      "section": "C",
+      "text": "what is fifteen percent of two thousand four hundred, Daimon",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "fifteen percent",
+        "two thousand four hundred"
+      ],
+      "category": "Tail"
+    },
+    {
+      "clip_id": "s01_Q_cmd_03_t2",
+      "filename": "s01_Q_cmd_03_t2.wav",
+      "speaker": "s01",
+      "id": "cmd_03",
+      "section": "C",
+      "text": "what is fifteen percent of two thousand four hundred, Daimon",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "fifteen percent",
+        "two thousand four hundred"
+      ],
+      "category": "Tail"
+    },
+    {
+      "clip_id": "s01_Q_cmd_04_t1",
+      "filename": "s01_Q_cmd_04_t1.wav",
+      "speaker": "s01",
+      "id": "cmd_04",
+      "section": "C",
+      "text": "convert fifty miles to kilometers, Daimon",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "fifty miles",
+        "kilometers"
+      ],
+      "category": "Tail"
+    },
+    {
+      "clip_id": "s01_Q_cmd_04_t2",
+      "filename": "s01_Q_cmd_04_t2.wav",
+      "speaker": "s01",
+      "id": "cmd_04",
+      "section": "C",
+      "text": "convert fifty miles to kilometers, Daimon",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "fifty miles",
+        "kilometers"
+      ],
+      "category": "Tail"
+    },
+    {
+      "clip_id": "s01_Q_cmd_05_t1",
+      "filename": "s01_Q_cmd_05_t1.wav",
+      "speaker": "s01",
+      "id": "cmd_05",
+      "section": "C",
+      "text": "Daimon, what's the weather in Mumbai",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Mumbai"
+      ],
+      "category": "Weather"
+    },
+    {
+      "clip_id": "s01_Q_cmd_05_t2",
+      "filename": "s01_Q_cmd_05_t2.wav",
+      "speaker": "s01",
+      "id": "cmd_05",
+      "section": "C",
+      "text": "Daimon, what's the weather in Mumbai",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Mumbai"
+      ],
+      "category": "Weather"
+    },
+    {
+      "clip_id": "s01_Q_cmd_06_t1",
+      "filename": "s01_Q_cmd_06_t1.wav",
+      "speaker": "s01",
+      "id": "cmd_06",
+      "section": "C",
+      "text": "will it rain this evening, Daimon",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "this evening"
+      ],
+      "category": "Tail"
+    },
+    {
+      "clip_id": "s01_Q_cmd_06_t2",
+      "filename": "s01_Q_cmd_06_t2.wav",
+      "speaker": "s01",
+      "id": "cmd_06",
+      "section": "C",
+      "text": "will it rain this evening, Daimon",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "this evening"
+      ],
+      "category": "Tail"
+    },
+    {
+      "clip_id": "s01_Q_cmd_07_t1",
+      "filename": "s01_Q_cmd_07_t1.wav",
+      "speaker": "s01",
+      "id": "cmd_07",
+      "section": "C",
+      "text": "Daimon, tell me a one sentence joke",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "one sentence"
+      ],
+      "category": "Conversational"
+    },
+    {
+      "clip_id": "s01_Q_cmd_07_t2",
+      "filename": "s01_Q_cmd_07_t2.wav",
+      "speaker": "s01",
+      "id": "cmd_07",
+      "section": "C",
+      "text": "Daimon, tell me a one sentence joke",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "one sentence"
+      ],
+      "category": "Conversational"
+    },
+    {
+      "clip_id": "s01_Q_cmd_08_t1",
+      "filename": "s01_Q_cmd_08_t1.wav",
+      "speaker": "s01",
+      "id": "cmd_08",
+      "section": "C",
+      "text": "Daimon, text Rahul I'm reaching in ten minutes",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Rahul",
+        "ten minutes"
+      ],
+      "category": "Entity"
+    },
+    {
+      "clip_id": "s01_Q_cmd_08_t2",
+      "filename": "s01_Q_cmd_08_t2.wav",
+      "speaker": "s01",
+      "id": "cmd_08",
+      "section": "C",
+      "text": "Daimon, text Rahul I'm reaching in ten minutes",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Rahul",
+        "ten minutes"
+      ],
+      "category": "Entity"
+    },
+    {
+      "clip_id": "s01_Q_cmd_09_t1",
+      "filename": "s01_Q_cmd_09_t1.wav",
+      "speaker": "s01",
+      "id": "cmd_09",
+      "section": "C",
+      "text": "call Rohan, Daimon",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Rohan"
+      ],
+      "category": "Entity, tail"
+    },
+    {
+      "clip_id": "s01_Q_cmd_09_t2",
+      "filename": "s01_Q_cmd_09_t2.wav",
+      "speaker": "s01",
+      "id": "cmd_09",
+      "section": "C",
+      "text": "call Rohan, Daimon",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Rohan"
+      ],
+      "category": "Entity, tail"
+    },
+    {
+      "clip_id": "s01_Q_cmd_10_t1",
+      "filename": "s01_Q_cmd_10_t1.wav",
+      "speaker": "s01",
+      "id": "cmd_10",
+      "section": "C",
+      "text": "Daimon, send an email to Priya saying the deck is ready",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Priya"
+      ],
+      "category": "Entity"
+    },
+    {
+      "clip_id": "s01_Q_cmd_10_t2",
+      "filename": "s01_Q_cmd_10_t2.wav",
+      "speaker": "s01",
+      "id": "cmd_10",
+      "section": "C",
+      "text": "Daimon, send an email to Priya saying the deck is ready",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Priya"
+      ],
+      "category": "Entity"
+    },
+    {
+      "clip_id": "s01_Q_cmd_11_t1",
+      "filename": "s01_Q_cmd_11_t1.wav",
+      "speaker": "s01",
+      "id": "cmd_11",
+      "section": "C",
+      "text": "set a timer for fifteen minutes, Daimon",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "fifteen minutes"
+      ],
+      "category": "Timer"
+    },
+    {
+      "clip_id": "s01_Q_cmd_11_t2",
+      "filename": "s01_Q_cmd_11_t2.wav",
+      "speaker": "s01",
+      "id": "cmd_11",
+      "section": "C",
+      "text": "set a timer for fifteen minutes, Daimon",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "fifteen minutes"
+      ],
+      "category": "Timer"
+    },
+    {
+      "clip_id": "s01_Q_cmd_12_t1",
+      "filename": "s01_Q_cmd_12_t1.wav",
+      "speaker": "s01",
+      "id": "cmd_12",
+      "section": "C",
+      "text": "Damon, what's on my calendar today",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "today"
+      ],
+      "category": "Alias"
+    },
+    {
+      "clip_id": "s01_Q_cmd_12_t2",
+      "filename": "s01_Q_cmd_12_t2.wav",
+      "speaker": "s01",
+      "id": "cmd_12",
+      "section": "C",
+      "text": "Damon, what's on my calendar today",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "today"
+      ],
+      "category": "Alias"
+    },
+    {
+      "clip_id": "s01_Q_cmd_13_t1",
+      "filename": "s01_Q_cmd_13_t1.wav",
+      "speaker": "s01",
+      "id": "cmd_13",
+      "section": "C",
+      "text": "Dayman, summarize my unread messages",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [],
+      "category": "Alias"
+    },
+    {
+      "clip_id": "s01_Q_cmd_13_t2",
+      "filename": "s01_Q_cmd_13_t2.wav",
+      "speaker": "s01",
+      "id": "cmd_13",
+      "section": "C",
+      "text": "Dayman, summarize my unread messages",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [],
+      "category": "Alias"
+    },
+    {
+      "clip_id": "s01_Q_cmd_14_t1",
+      "filename": "s01_Q_cmd_14_t1.wav",
+      "speaker": "s01",
+      "id": "cmd_14",
+      "section": "C",
+      "text": "Demon, check git status",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "git status"
+      ],
+      "category": "Alias"
+    },
+    {
+      "clip_id": "s01_Q_cmd_14_t2",
+      "filename": "s01_Q_cmd_14_t2.wav",
+      "speaker": "s01",
+      "id": "cmd_14",
+      "section": "C",
+      "text": "Demon, check git status",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "git status"
+      ],
+      "category": "Alias"
+    },
+    {
+      "clip_id": "s01_Q_cmd_15_t1",
+      "filename": "s01_Q_cmd_15_t1.wav",
+      "speaker": "s01",
+      "id": "cmd_15",
+      "section": "C",
+      "text": "Daimon, remind me to carry an umbrella at eight AM",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "eight AM",
+        "umbrella"
+      ],
+      "category": "Reminder"
+    },
+    {
+      "clip_id": "s01_Q_cmd_15_t2",
+      "filename": "s01_Q_cmd_15_t2.wav",
+      "speaker": "s01",
+      "id": "cmd_15",
+      "section": "C",
+      "text": "Daimon, remind me to carry an umbrella at eight AM",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "eight AM",
+        "umbrella"
+      ],
+      "category": "Reminder"
+    },
+    {
+      "clip_id": "s01_D_cmd_16_t1",
+      "filename": "s01_D_cmd_16_t1.wav",
+      "speaker": "s01",
+      "id": "cmd_16",
+      "section": "C",
+      "text": "Daimon, what time is it in Tokyo right now",
+      "env": "D",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Tokyo"
+      ],
+      "category": "Time (Distance)"
+    },
+    {
+      "clip_id": "s01_D_cmd_16_t2",
+      "filename": "s01_D_cmd_16_t2.wav",
+      "speaker": "s01",
+      "id": "cmd_16",
+      "section": "C",
+      "text": "Daimon, what time is it in Tokyo right now",
+      "env": "D",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Tokyo"
+      ],
+      "category": "Time (Distance)"
+    },
+    {
+      "clip_id": "s01_D_cmd_17_t1",
+      "filename": "s01_D_cmd_17_t1.wav",
+      "speaker": "s01",
+      "id": "cmd_17",
+      "section": "C",
+      "text": "Daimon, what is twenty-five plus seventy-eight",
+      "env": "D",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "twenty-five",
+        "seventy-eight"
+      ],
+      "category": "Math (Distance)"
+    },
+    {
+      "clip_id": "s01_D_cmd_17_t2",
+      "filename": "s01_D_cmd_17_t2.wav",
+      "speaker": "s01",
+      "id": "cmd_17",
+      "section": "C",
+      "text": "Daimon, what is twenty-five plus seventy-eight",
+      "env": "D",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "twenty-five",
+        "seventy-eight"
+      ],
+      "category": "Math (Distance)"
+    },
+    {
+      "clip_id": "s01_D_cmd_18_t1",
+      "filename": "s01_D_cmd_18_t1.wav",
+      "speaker": "s01",
+      "id": "cmd_18",
+      "section": "C",
+      "text": "what is fifteen percent of two thousand four hundred, Daimon",
+      "env": "D",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "fifteen percent",
+        "two thousand four hundred"
+      ],
+      "category": "Tail (Distance)"
+    },
+    {
+      "clip_id": "s01_D_cmd_18_t2",
+      "filename": "s01_D_cmd_18_t2.wav",
+      "speaker": "s01",
+      "id": "cmd_18",
+      "section": "C",
+      "text": "what is fifteen percent of two thousand four hundred, Daimon",
+      "env": "D",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "fifteen percent",
+        "two thousand four hundred"
+      ],
+      "category": "Tail (Distance)"
+    },
+    {
+      "clip_id": "s01_D_cmd_19_t1",
+      "filename": "s01_D_cmd_19_t1.wav",
+      "speaker": "s01",
+      "id": "cmd_19",
+      "section": "C",
+      "text": "Daimon, what's the weather in Mumbai",
+      "env": "D",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Mumbai"
+      ],
+      "category": "Weather (Distance)"
+    },
+    {
+      "clip_id": "s01_D_cmd_19_t2",
+      "filename": "s01_D_cmd_19_t2.wav",
+      "speaker": "s01",
+      "id": "cmd_19",
+      "section": "C",
+      "text": "Daimon, what's the weather in Mumbai",
+      "env": "D",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Mumbai"
+      ],
+      "category": "Weather (Distance)"
+    },
+    {
+      "clip_id": "s01_D_cmd_20_t1",
+      "filename": "s01_D_cmd_20_t1.wav",
+      "speaker": "s01",
+      "id": "cmd_20",
+      "section": "C",
+      "text": "will it rain this evening, Daimon",
+      "env": "D",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "this evening"
+      ],
+      "category": "Tail (Distance)"
+    },
+    {
+      "clip_id": "s01_D_cmd_20_t2",
+      "filename": "s01_D_cmd_20_t2.wav",
+      "speaker": "s01",
+      "id": "cmd_20",
+      "section": "C",
+      "text": "will it rain this evening, Daimon",
+      "env": "D",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "this evening"
+      ],
+      "category": "Tail (Distance)"
+    },
+    {
+      "clip_id": "s01_D_cmd_21_t1",
+      "filename": "s01_D_cmd_21_t1.wav",
+      "speaker": "s01",
+      "id": "cmd_21",
+      "section": "C",
+      "text": "Daimon, text Rahul I'm reaching in ten minutes",
+      "env": "D",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Rahul",
+        "ten minutes"
+      ],
+      "category": "Entity (Distance)"
+    },
+    {
+      "clip_id": "s01_D_cmd_21_t2",
+      "filename": "s01_D_cmd_21_t2.wav",
+      "speaker": "s01",
+      "id": "cmd_21",
+      "section": "C",
+      "text": "Daimon, text Rahul I'm reaching in ten minutes",
+      "env": "D",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Rahul",
+        "ten minutes"
+      ],
+      "category": "Entity (Distance)"
+    },
+    {
+      "clip_id": "s01_D_cmd_22_t1",
+      "filename": "s01_D_cmd_22_t1.wav",
+      "speaker": "s01",
+      "id": "cmd_22",
+      "section": "C",
+      "text": "call Rohan, Daimon",
+      "env": "D",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Rohan"
+      ],
+      "category": "Entity, tail (Distance)"
+    },
+    {
+      "clip_id": "s01_D_cmd_22_t2",
+      "filename": "s01_D_cmd_22_t2.wav",
+      "speaker": "s01",
+      "id": "cmd_22",
+      "section": "C",
+      "text": "call Rohan, Daimon",
+      "env": "D",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Rohan"
+      ],
+      "category": "Entity, tail (Distance)"
+    },
+    {
+      "clip_id": "s01_D_cmd_23_t1",
+      "filename": "s01_D_cmd_23_t1.wav",
+      "speaker": "s01",
+      "id": "cmd_23",
+      "section": "C",
+      "text": "set a timer for fifteen minutes, Daimon",
+      "env": "D",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "fifteen minutes"
+      ],
+      "category": "Timer (Distance)"
+    },
+    {
+      "clip_id": "s01_D_cmd_23_t2",
+      "filename": "s01_D_cmd_23_t2.wav",
+      "speaker": "s01",
+      "id": "cmd_23",
+      "section": "C",
+      "text": "set a timer for fifteen minutes, Daimon",
+      "env": "D",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "fifteen minutes"
+      ],
+      "category": "Timer (Distance)"
+    },
+    {
+      "clip_id": "s01_D_cmd_24_t1",
+      "filename": "s01_D_cmd_24_t1.wav",
+      "speaker": "s01",
+      "id": "cmd_24",
+      "section": "C",
+      "text": "Damon, what's on my calendar today",
+      "env": "D",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "today"
+      ],
+      "category": "Alias (Distance)"
+    },
+    {
+      "clip_id": "s01_D_cmd_24_t2",
+      "filename": "s01_D_cmd_24_t2.wav",
+      "speaker": "s01",
+      "id": "cmd_24",
+      "section": "C",
+      "text": "Damon, what's on my calendar today",
+      "env": "D",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "today"
+      ],
+      "category": "Alias (Distance)"
+    },
+    {
+      "clip_id": "s01_D_cmd_25_t1",
+      "filename": "s01_D_cmd_25_t1.wav",
+      "speaker": "s01",
+      "id": "cmd_25",
+      "section": "C",
+      "text": "Daimon, remind me to carry an umbrella at eight AM",
+      "env": "D",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "eight AM",
+        "umbrella"
+      ],
+      "category": "Reminder (Distance)"
+    },
+    {
+      "clip_id": "s01_D_cmd_25_t2",
+      "filename": "s01_D_cmd_25_t2.wav",
+      "speaker": "s01",
+      "id": "cmd_25",
+      "section": "C",
+      "text": "Daimon, remind me to carry an umbrella at eight AM",
+      "env": "D",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "eight AM",
+        "umbrella"
+      ],
+      "category": "Reminder (Distance)"
+    },
+    {
+      "clip_id": "s01_N_cmd_26_t1",
+      "filename": "s01_N_cmd_26_t1.wav",
+      "speaker": "s01",
+      "id": "cmd_26",
+      "section": "C",
+      "text": "Daimon, what time is it in Tokyo right now",
+      "env": "N",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Tokyo"
+      ],
+      "category": "Time (Noise)"
+    },
+    {
+      "clip_id": "s01_N_cmd_26_t2",
+      "filename": "s01_N_cmd_26_t2.wav",
+      "speaker": "s01",
+      "id": "cmd_26",
+      "section": "C",
+      "text": "Daimon, what time is it in Tokyo right now",
+      "env": "N",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Tokyo"
+      ],
+      "category": "Time (Noise)"
+    },
+    {
+      "clip_id": "s01_N_cmd_27_t1",
+      "filename": "s01_N_cmd_27_t1.wav",
+      "speaker": "s01",
+      "id": "cmd_27",
+      "section": "C",
+      "text": "Daimon, what is twenty-five plus seventy-eight",
+      "env": "N",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "twenty-five",
+        "seventy-eight"
+      ],
+      "category": "Math (Noise)"
+    },
+    {
+      "clip_id": "s01_N_cmd_27_t2",
+      "filename": "s01_N_cmd_27_t2.wav",
+      "speaker": "s01",
+      "id": "cmd_27",
+      "section": "C",
+      "text": "Daimon, what is twenty-five plus seventy-eight",
+      "env": "N",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "twenty-five",
+        "seventy-eight"
+      ],
+      "category": "Math (Noise)"
+    },
+    {
+      "clip_id": "s01_N_cmd_28_t1",
+      "filename": "s01_N_cmd_28_t1.wav",
+      "speaker": "s01",
+      "id": "cmd_28",
+      "section": "C",
+      "text": "what is fifteen percent of two thousand four hundred, Daimon",
+      "env": "N",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "fifteen percent",
+        "two thousand four hundred"
+      ],
+      "category": "Tail (Noise)"
+    },
+    {
+      "clip_id": "s01_N_cmd_28_t2",
+      "filename": "s01_N_cmd_28_t2.wav",
+      "speaker": "s01",
+      "id": "cmd_28",
+      "section": "C",
+      "text": "what is fifteen percent of two thousand four hundred, Daimon",
+      "env": "N",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "fifteen percent",
+        "two thousand four hundred"
+      ],
+      "category": "Tail (Noise)"
+    },
+    {
+      "clip_id": "s01_N_cmd_29_t1",
+      "filename": "s01_N_cmd_29_t1.wav",
+      "speaker": "s01",
+      "id": "cmd_29",
+      "section": "C",
+      "text": "Daimon, what's the weather in Mumbai",
+      "env": "N",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Mumbai"
+      ],
+      "category": "Weather (Noise)"
+    },
+    {
+      "clip_id": "s01_N_cmd_29_t2",
+      "filename": "s01_N_cmd_29_t2.wav",
+      "speaker": "s01",
+      "id": "cmd_29",
+      "section": "C",
+      "text": "Daimon, what's the weather in Mumbai",
+      "env": "N",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Mumbai"
+      ],
+      "category": "Weather (Noise)"
+    },
+    {
+      "clip_id": "s01_N_cmd_30_t1",
+      "filename": "s01_N_cmd_30_t1.wav",
+      "speaker": "s01",
+      "id": "cmd_30",
+      "section": "C",
+      "text": "will it rain this evening, Daimon",
+      "env": "N",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "this evening"
+      ],
+      "category": "Tail (Noise)"
+    },
+    {
+      "clip_id": "s01_N_cmd_30_t2",
+      "filename": "s01_N_cmd_30_t2.wav",
+      "speaker": "s01",
+      "id": "cmd_30",
+      "section": "C",
+      "text": "will it rain this evening, Daimon",
+      "env": "N",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "this evening"
+      ],
+      "category": "Tail (Noise)"
+    },
+    {
+      "clip_id": "s01_N_cmd_31_t1",
+      "filename": "s01_N_cmd_31_t1.wav",
+      "speaker": "s01",
+      "id": "cmd_31",
+      "section": "C",
+      "text": "Daimon, text Rahul I'm reaching in ten minutes",
+      "env": "N",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Rahul",
+        "ten minutes"
+      ],
+      "category": "Entity (Noise)"
+    },
+    {
+      "clip_id": "s01_N_cmd_31_t2",
+      "filename": "s01_N_cmd_31_t2.wav",
+      "speaker": "s01",
+      "id": "cmd_31",
+      "section": "C",
+      "text": "Daimon, text Rahul I'm reaching in ten minutes",
+      "env": "N",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Rahul",
+        "ten minutes"
+      ],
+      "category": "Entity (Noise)"
+    },
+    {
+      "clip_id": "s01_N_cmd_32_t1",
+      "filename": "s01_N_cmd_32_t1.wav",
+      "speaker": "s01",
+      "id": "cmd_32",
+      "section": "C",
+      "text": "call Rohan, Daimon",
+      "env": "N",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Rohan"
+      ],
+      "category": "Entity, tail (Noise)"
+    },
+    {
+      "clip_id": "s01_N_cmd_32_t2",
+      "filename": "s01_N_cmd_32_t2.wav",
+      "speaker": "s01",
+      "id": "cmd_32",
+      "section": "C",
+      "text": "call Rohan, Daimon",
+      "env": "N",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Rohan"
+      ],
+      "category": "Entity, tail (Noise)"
+    },
+    {
+      "clip_id": "s01_N_cmd_33_t1",
+      "filename": "s01_N_cmd_33_t1.wav",
+      "speaker": "s01",
+      "id": "cmd_33",
+      "section": "C",
+      "text": "set a timer for fifteen minutes, Daimon",
+      "env": "N",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "fifteen minutes"
+      ],
+      "category": "Timer (Noise)"
+    },
+    {
+      "clip_id": "s01_N_cmd_33_t2",
+      "filename": "s01_N_cmd_33_t2.wav",
+      "speaker": "s01",
+      "id": "cmd_33",
+      "section": "C",
+      "text": "set a timer for fifteen minutes, Daimon",
+      "env": "N",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "fifteen minutes"
+      ],
+      "category": "Timer (Noise)"
+    },
+    {
+      "clip_id": "s01_N_cmd_34_t1",
+      "filename": "s01_N_cmd_34_t1.wav",
+      "speaker": "s01",
+      "id": "cmd_34",
+      "section": "C",
+      "text": "Damon, what's on my calendar today",
+      "env": "N",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "today"
+      ],
+      "category": "Alias (Noise)"
+    },
+    {
+      "clip_id": "s01_N_cmd_34_t2",
+      "filename": "s01_N_cmd_34_t2.wav",
+      "speaker": "s01",
+      "id": "cmd_34",
+      "section": "C",
+      "text": "Damon, what's on my calendar today",
+      "env": "N",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "today"
+      ],
+      "category": "Alias (Noise)"
+    },
+    {
+      "clip_id": "s01_N_cmd_35_t1",
+      "filename": "s01_N_cmd_35_t1.wav",
+      "speaker": "s01",
+      "id": "cmd_35",
+      "section": "C",
+      "text": "Daimon, remind me to carry an umbrella at eight AM",
+      "env": "N",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "eight AM",
+        "umbrella"
+      ],
+      "category": "Reminder (Noise)"
+    },
+    {
+      "clip_id": "s01_N_cmd_35_t2",
+      "filename": "s01_N_cmd_35_t2.wav",
+      "speaker": "s01",
+      "id": "cmd_35",
+      "section": "C",
+      "text": "Daimon, remind me to carry an umbrella at eight AM",
+      "env": "N",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "eight AM",
+        "umbrella"
+      ],
+      "category": "Reminder (Noise)"
+    },
+    {
+      "clip_id": "s01_Q_name_01_t1",
+      "filename": "s01_Q_name_01_t1.wav",
+      "speaker": "s01",
+      "id": "name_01",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_01_t2",
+      "filename": "s01_Q_name_01_t2.wav",
+      "speaker": "s01",
+      "id": "name_01",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_02_t1",
+      "filename": "s01_Q_name_02_t1.wav",
+      "speaker": "s01",
+      "id": "name_02",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_02_t2",
+      "filename": "s01_Q_name_02_t2.wav",
+      "speaker": "s01",
+      "id": "name_02",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_03_t1",
+      "filename": "s01_Q_name_03_t1.wav",
+      "speaker": "s01",
+      "id": "name_03",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_03_t2",
+      "filename": "s01_Q_name_03_t2.wav",
+      "speaker": "s01",
+      "id": "name_03",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_04_t1",
+      "filename": "s01_Q_name_04_t1.wav",
+      "speaker": "s01",
+      "id": "name_04",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_04_t2",
+      "filename": "s01_Q_name_04_t2.wav",
+      "speaker": "s01",
+      "id": "name_04",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_05_t1",
+      "filename": "s01_Q_name_05_t1.wav",
+      "speaker": "s01",
+      "id": "name_05",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_05_t2",
+      "filename": "s01_Q_name_05_t2.wav",
+      "speaker": "s01",
+      "id": "name_05",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_06_t1",
+      "filename": "s01_Q_name_06_t1.wav",
+      "speaker": "s01",
+      "id": "name_06",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_06_t2",
+      "filename": "s01_Q_name_06_t2.wav",
+      "speaker": "s01",
+      "id": "name_06",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_07_t1",
+      "filename": "s01_Q_name_07_t1.wav",
+      "speaker": "s01",
+      "id": "name_07",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_07_t2",
+      "filename": "s01_Q_name_07_t2.wav",
+      "speaker": "s01",
+      "id": "name_07",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_08_t1",
+      "filename": "s01_Q_name_08_t1.wav",
+      "speaker": "s01",
+      "id": "name_08",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_08_t2",
+      "filename": "s01_Q_name_08_t2.wav",
+      "speaker": "s01",
+      "id": "name_08",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_09_t1",
+      "filename": "s01_Q_name_09_t1.wav",
+      "speaker": "s01",
+      "id": "name_09",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_09_t2",
+      "filename": "s01_Q_name_09_t2.wav",
+      "speaker": "s01",
+      "id": "name_09",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_10_t1",
+      "filename": "s01_Q_name_10_t1.wav",
+      "speaker": "s01",
+      "id": "name_10",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_10_t2",
+      "filename": "s01_Q_name_10_t2.wav",
+      "speaker": "s01",
+      "id": "name_10",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_D_name_11_t1",
+      "filename": "s01_D_name_11_t1.wav",
+      "speaker": "s01",
+      "id": "name_11",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "D",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_D_name_11_t2",
+      "filename": "s01_D_name_11_t2.wav",
+      "speaker": "s01",
+      "id": "name_11",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "D",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_D_name_12_t1",
+      "filename": "s01_D_name_12_t1.wav",
+      "speaker": "s01",
+      "id": "name_12",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "D",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_D_name_12_t2",
+      "filename": "s01_D_name_12_t2.wav",
+      "speaker": "s01",
+      "id": "name_12",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "D",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_D_name_13_t1",
+      "filename": "s01_D_name_13_t1.wav",
+      "speaker": "s01",
+      "id": "name_13",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "D",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_D_name_13_t2",
+      "filename": "s01_D_name_13_t2.wav",
+      "speaker": "s01",
+      "id": "name_13",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "D",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_D_name_14_t1",
+      "filename": "s01_D_name_14_t1.wav",
+      "speaker": "s01",
+      "id": "name_14",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "D",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_D_name_14_t2",
+      "filename": "s01_D_name_14_t2.wav",
+      "speaker": "s01",
+      "id": "name_14",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "D",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_D_name_15_t1",
+      "filename": "s01_D_name_15_t1.wav",
+      "speaker": "s01",
+      "id": "name_15",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "D",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_D_name_15_t2",
+      "filename": "s01_D_name_15_t2.wav",
+      "speaker": "s01",
+      "id": "name_15",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "D",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_D_name_16_t1",
+      "filename": "s01_D_name_16_t1.wav",
+      "speaker": "s01",
+      "id": "name_16",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "D",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_D_name_16_t2",
+      "filename": "s01_D_name_16_t2.wav",
+      "speaker": "s01",
+      "id": "name_16",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "D",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_D_name_17_t1",
+      "filename": "s01_D_name_17_t1.wav",
+      "speaker": "s01",
+      "id": "name_17",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "D",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_D_name_17_t2",
+      "filename": "s01_D_name_17_t2.wav",
+      "speaker": "s01",
+      "id": "name_17",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "D",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_D_name_18_t1",
+      "filename": "s01_D_name_18_t1.wav",
+      "speaker": "s01",
+      "id": "name_18",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "D",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_D_name_18_t2",
+      "filename": "s01_D_name_18_t2.wav",
+      "speaker": "s01",
+      "id": "name_18",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "D",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_D_name_19_t1",
+      "filename": "s01_D_name_19_t1.wav",
+      "speaker": "s01",
+      "id": "name_19",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "D",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_D_name_19_t2",
+      "filename": "s01_D_name_19_t2.wav",
+      "speaker": "s01",
+      "id": "name_19",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "D",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_D_name_20_t1",
+      "filename": "s01_D_name_20_t1.wav",
+      "speaker": "s01",
+      "id": "name_20",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "D",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_D_name_20_t2",
+      "filename": "s01_D_name_20_t2.wav",
+      "speaker": "s01",
+      "id": "name_20",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "D",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_N_name_21_t1",
+      "filename": "s01_N_name_21_t1.wav",
+      "speaker": "s01",
+      "id": "name_21",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "N",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_N_name_21_t2",
+      "filename": "s01_N_name_21_t2.wav",
+      "speaker": "s01",
+      "id": "name_21",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "N",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_N_name_22_t1",
+      "filename": "s01_N_name_22_t1.wav",
+      "speaker": "s01",
+      "id": "name_22",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "N",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_N_name_22_t2",
+      "filename": "s01_N_name_22_t2.wav",
+      "speaker": "s01",
+      "id": "name_22",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "N",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_N_name_23_t1",
+      "filename": "s01_N_name_23_t1.wav",
+      "speaker": "s01",
+      "id": "name_23",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "N",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_N_name_23_t2",
+      "filename": "s01_N_name_23_t2.wav",
+      "speaker": "s01",
+      "id": "name_23",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "N",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_N_name_24_t1",
+      "filename": "s01_N_name_24_t1.wav",
+      "speaker": "s01",
+      "id": "name_24",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "N",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_N_name_24_t2",
+      "filename": "s01_N_name_24_t2.wav",
+      "speaker": "s01",
+      "id": "name_24",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "N",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_N_name_25_t1",
+      "filename": "s01_N_name_25_t1.wav",
+      "speaker": "s01",
+      "id": "name_25",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "N",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_N_name_25_t2",
+      "filename": "s01_N_name_25_t2.wav",
+      "speaker": "s01",
+      "id": "name_25",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "N",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_N_name_26_t1",
+      "filename": "s01_N_name_26_t1.wav",
+      "speaker": "s01",
+      "id": "name_26",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "N",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_N_name_26_t2",
+      "filename": "s01_N_name_26_t2.wav",
+      "speaker": "s01",
+      "id": "name_26",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "N",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_N_name_27_t1",
+      "filename": "s01_N_name_27_t1.wav",
+      "speaker": "s01",
+      "id": "name_27",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "N",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_N_name_27_t2",
+      "filename": "s01_N_name_27_t2.wav",
+      "speaker": "s01",
+      "id": "name_27",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "N",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_N_name_28_t1",
+      "filename": "s01_N_name_28_t1.wav",
+      "speaker": "s01",
+      "id": "name_28",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "N",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_N_name_28_t2",
+      "filename": "s01_N_name_28_t2.wav",
+      "speaker": "s01",
+      "id": "name_28",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "N",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_N_name_29_t1",
+      "filename": "s01_N_name_29_t1.wav",
+      "speaker": "s01",
+      "id": "name_29",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "N",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_N_name_29_t2",
+      "filename": "s01_N_name_29_t2.wav",
+      "speaker": "s01",
+      "id": "name_29",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "N",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_N_name_30_t1",
+      "filename": "s01_N_name_30_t1.wav",
+      "speaker": "s01",
+      "id": "name_30",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "N",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_N_name_30_t2",
+      "filename": "s01_N_name_30_t2.wav",
+      "speaker": "s01",
+      "id": "name_30",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "N",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DAY-mon pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_31_t1",
+      "filename": "s01_Q_name_31_t1.wav",
+      "speaker": "s01",
+      "id": "name_31",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DY-mon variant pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_31_t2",
+      "filename": "s01_Q_name_31_t2.wav",
+      "speaker": "s01",
+      "id": "name_31",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DY-mon variant pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_32_t1",
+      "filename": "s01_Q_name_32_t1.wav",
+      "speaker": "s01",
+      "id": "name_32",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DY-mon variant pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_32_t2",
+      "filename": "s01_Q_name_32_t2.wav",
+      "speaker": "s01",
+      "id": "name_32",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DY-mon variant pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_33_t1",
+      "filename": "s01_Q_name_33_t1.wav",
+      "speaker": "s01",
+      "id": "name_33",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DY-mon variant pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_33_t2",
+      "filename": "s01_Q_name_33_t2.wav",
+      "speaker": "s01",
+      "id": "name_33",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DY-mon variant pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_34_t1",
+      "filename": "s01_Q_name_34_t1.wav",
+      "speaker": "s01",
+      "id": "name_34",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DY-mon variant pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_34_t2",
+      "filename": "s01_Q_name_34_t2.wav",
+      "speaker": "s01",
+      "id": "name_34",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DY-mon variant pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_35_t1",
+      "filename": "s01_Q_name_35_t1.wav",
+      "speaker": "s01",
+      "id": "name_35",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DY-mon variant pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_35_t2",
+      "filename": "s01_Q_name_35_t2.wav",
+      "speaker": "s01",
+      "id": "name_35",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DY-mon variant pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_36_t1",
+      "filename": "s01_Q_name_36_t1.wav",
+      "speaker": "s01",
+      "id": "name_36",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DY-mon variant pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_36_t2",
+      "filename": "s01_Q_name_36_t2.wav",
+      "speaker": "s01",
+      "id": "name_36",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DY-mon variant pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_37_t1",
+      "filename": "s01_Q_name_37_t1.wav",
+      "speaker": "s01",
+      "id": "name_37",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DY-mon variant pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_37_t2",
+      "filename": "s01_Q_name_37_t2.wav",
+      "speaker": "s01",
+      "id": "name_37",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DY-mon variant pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_38_t1",
+      "filename": "s01_Q_name_38_t1.wav",
+      "speaker": "s01",
+      "id": "name_38",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DY-mon variant pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_38_t2",
+      "filename": "s01_Q_name_38_t2.wav",
+      "speaker": "s01",
+      "id": "name_38",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DY-mon variant pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_39_t1",
+      "filename": "s01_Q_name_39_t1.wav",
+      "speaker": "s01",
+      "id": "name_39",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DY-mon variant pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_39_t2",
+      "filename": "s01_Q_name_39_t2.wav",
+      "speaker": "s01",
+      "id": "name_39",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DY-mon variant pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_40_t1",
+      "filename": "s01_Q_name_40_t1.wav",
+      "speaker": "s01",
+      "id": "name_40",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DY-mon variant pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_name_40_t2",
+      "filename": "s01_Q_name_40_t2.wav",
+      "speaker": "s01",
+      "id": "name_40",
+      "section": "E",
+      "text": "Daimon.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "attention_call",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "condition": "DY-mon variant pronunciation"
+    },
+    {
+      "clip_id": "s01_Q_sidetalk_01_t1",
+      "filename": "s01_Q_sidetalk_01_t1.wav",
+      "speaker": "s01",
+      "id": "sidetalk_01",
+      "section": "G",
+      "text": "Hey Rahul, did you order the food?",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": [
+        "Rahul"
+      ]
+    },
+    {
+      "clip_id": "s01_Q_sidetalk_01_t2",
+      "filename": "s01_Q_sidetalk_01_t2.wav",
+      "speaker": "s01",
+      "id": "sidetalk_01",
+      "section": "G",
+      "text": "Hey Rahul, did you order the food?",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": [
+        "Rahul"
+      ]
+    },
+    {
+      "clip_id": "s01_Q_sidetalk_02_t1",
+      "filename": "s01_Q_sidetalk_02_t1.wav",
+      "speaker": "s01",
+      "id": "sidetalk_02",
+      "section": "G",
+      "text": "Can you pass me the water bottle?",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "clip_id": "s01_Q_sidetalk_02_t2",
+      "filename": "s01_Q_sidetalk_02_t2.wav",
+      "speaker": "s01",
+      "id": "sidetalk_02",
+      "section": "G",
+      "text": "Can you pass me the water bottle?",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "clip_id": "s01_Q_sidetalk_03_t1",
+      "filename": "s01_Q_sidetalk_03_t1.wav",
+      "speaker": "s01",
+      "id": "sidetalk_03",
+      "section": "G",
+      "text": "Yeah, I think the meeting starts at three.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": [
+        "three"
+      ]
+    },
+    {
+      "clip_id": "s01_Q_sidetalk_03_t2",
+      "filename": "s01_Q_sidetalk_03_t2.wav",
+      "speaker": "s01",
+      "id": "sidetalk_03",
+      "section": "G",
+      "text": "Yeah, I think the meeting starts at three.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": [
+        "three"
+      ]
+    },
+    {
+      "clip_id": "s01_Q_sidetalk_04_t1",
+      "filename": "s01_Q_sidetalk_04_t1.wav",
+      "speaker": "s01",
+      "id": "sidetalk_04",
+      "section": "G",
+      "text": "Where did I leave my keys?",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "clip_id": "s01_Q_sidetalk_04_t2",
+      "filename": "s01_Q_sidetalk_04_t2.wav",
+      "speaker": "s01",
+      "id": "sidetalk_04",
+      "section": "G",
+      "text": "Where did I leave my keys?",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "clip_id": "s01_Q_sidetalk_05_t1",
+      "filename": "s01_Q_sidetalk_05_t1.wav",
+      "speaker": "s01",
+      "id": "sidetalk_05",
+      "section": "G",
+      "text": "Excuse me, what time does the shop close?",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "clip_id": "s01_Q_sidetalk_05_t2",
+      "filename": "s01_Q_sidetalk_05_t2.wav",
+      "speaker": "s01",
+      "id": "sidetalk_05",
+      "section": "G",
+      "text": "Excuse me, what time does the shop close?",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "clip_id": "s01_Q_sidetalk_06_t1",
+      "filename": "s01_Q_sidetalk_06_t1.wav",
+      "speaker": "s01",
+      "id": "sidetalk_06",
+      "section": "G",
+      "text": "Look at this new design on the screen.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "clip_id": "s01_Q_sidetalk_06_t2",
+      "filename": "s01_Q_sidetalk_06_t2.wav",
+      "speaker": "s01",
+      "id": "sidetalk_06",
+      "section": "G",
+      "text": "Look at this new design on the screen.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "clip_id": "s01_Q_sidetalk_07_t1",
+      "filename": "s01_Q_sidetalk_07_t1.wav",
+      "speaker": "s01",
+      "id": "sidetalk_07",
+      "section": "G",
+      "text": "Yes, absolutely.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "clip_id": "s01_Q_sidetalk_07_t2",
+      "filename": "s01_Q_sidetalk_07_t2.wav",
+      "speaker": "s01",
+      "id": "sidetalk_07",
+      "section": "G",
+      "text": "Yes, absolutely.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "clip_id": "s01_Q_sidetalk_08_t1",
+      "filename": "s01_Q_sidetalk_08_t1.wav",
+      "speaker": "s01",
+      "id": "sidetalk_08",
+      "section": "G",
+      "text": "Turn off the fan, please.",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "clip_id": "s01_Q_sidetalk_08_t2",
+      "filename": "s01_Q_sidetalk_08_t2.wav",
+      "speaker": "s01",
+      "id": "sidetalk_08",
+      "section": "G",
+      "text": "Turn off the fan, please.",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "clip_id": "s01_N_sidetalk_09_t1",
+      "filename": "s01_N_sidetalk_09_t1.wav",
+      "speaker": "s01",
+      "id": "sidetalk_09",
+      "section": "G",
+      "text": "Hey Rahul, did you order the food?",
+      "env": "N",
+      "take": 1,
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": [
+        "Rahul"
+      ]
+    },
+    {
+      "clip_id": "s01_N_sidetalk_09_t2",
+      "filename": "s01_N_sidetalk_09_t2.wav",
+      "speaker": "s01",
+      "id": "sidetalk_09",
+      "section": "G",
+      "text": "Hey Rahul, did you order the food?",
+      "env": "N",
+      "take": 2,
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": [
+        "Rahul"
+      ]
+    },
+    {
+      "clip_id": "s01_N_sidetalk_10_t1",
+      "filename": "s01_N_sidetalk_10_t1.wav",
+      "speaker": "s01",
+      "id": "sidetalk_10",
+      "section": "G",
+      "text": "Yeah, I think the meeting starts at three.",
+      "env": "N",
+      "take": 1,
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": [
+        "three"
+      ]
+    },
+    {
+      "clip_id": "s01_N_sidetalk_10_t2",
+      "filename": "s01_N_sidetalk_10_t2.wav",
+      "speaker": "s01",
+      "id": "sidetalk_10",
+      "section": "G",
+      "text": "Yeah, I think the meeting starts at three.",
+      "env": "N",
+      "take": 2,
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": [
+        "three"
+      ]
+    },
+    {
+      "clip_id": "s01_N_sidetalk_11_t1",
+      "filename": "s01_N_sidetalk_11_t1.wav",
+      "speaker": "s01",
+      "id": "sidetalk_11",
+      "section": "G",
+      "text": "Excuse me, what time does the shop close?",
+      "env": "N",
+      "take": 1,
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "clip_id": "s01_N_sidetalk_11_t2",
+      "filename": "s01_N_sidetalk_11_t2.wav",
+      "speaker": "s01",
+      "id": "sidetalk_11",
+      "section": "G",
+      "text": "Excuse me, what time does the shop close?",
+      "env": "N",
+      "take": 2,
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "clip_id": "s01_N_sidetalk_12_t1",
+      "filename": "s01_N_sidetalk_12_t1.wav",
+      "speaker": "s01",
+      "id": "sidetalk_12",
+      "section": "G",
+      "text": "Turn off the fan, please.",
+      "env": "N",
+      "take": 1,
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "clip_id": "s01_N_sidetalk_12_t2",
+      "filename": "s01_N_sidetalk_12_t2.wav",
+      "speaker": "s01",
+      "id": "sidetalk_12",
+      "section": "G",
+      "text": "Turn off the fan, please.",
+      "env": "N",
+      "take": 2,
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": []
+    },
+    {
+      "clip_id": "s01_Q_hi_01_t1",
+      "filename": "s01_Q_hi_01_t1.wav",
+      "speaker": "s01",
+      "id": "hi_01",
+      "section": "I",
+      "text": "Daimon, aaj ka mausam kaisa hai",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "structure": "prefix_addressed"
+    },
+    {
+      "clip_id": "s01_Q_hi_01_t2",
+      "filename": "s01_Q_hi_01_t2.wav",
+      "speaker": "s01",
+      "id": "hi_01",
+      "section": "I",
+      "text": "Daimon, aaj ka mausam kaisa hai",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "structure": "prefix_addressed"
+    },
+    {
+      "clip_id": "s01_Q_hi_02_t1",
+      "filename": "s01_Q_hi_02_t1.wav",
+      "speaker": "s01",
+      "id": "hi_02",
+      "section": "I",
+      "text": "Daimon, Rahul ko message bhejo ki main dus minute mein pahunch raha hoon",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon",
+        "Rahul",
+        "dus minute"
+      ],
+      "structure": "prefix_addressed"
+    },
+    {
+      "clip_id": "s01_Q_hi_02_t2",
+      "filename": "s01_Q_hi_02_t2.wav",
+      "speaker": "s01",
+      "id": "hi_02",
+      "section": "I",
+      "text": "Daimon, Rahul ko message bhejo ki main dus minute mein pahunch raha hoon",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon",
+        "Rahul",
+        "dus minute"
+      ],
+      "structure": "prefix_addressed"
+    },
+    {
+      "clip_id": "s01_Q_hi_03_t1",
+      "filename": "s01_Q_hi_03_t1.wav",
+      "speaker": "s01",
+      "id": "hi_03",
+      "section": "I",
+      "text": "Daimon, ek cup chai banane ka timer laga do",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon",
+        "ek cup chai",
+        "timer"
+      ],
+      "structure": "prefix_addressed"
+    },
+    {
+      "clip_id": "s01_Q_hi_03_t2",
+      "filename": "s01_Q_hi_03_t2.wav",
+      "speaker": "s01",
+      "id": "hi_03",
+      "section": "I",
+      "text": "Daimon, ek cup chai banane ka timer laga do",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon",
+        "ek cup chai",
+        "timer"
+      ],
+      "structure": "prefix_addressed"
+    },
+    {
+      "clip_id": "s01_Q_hi_04_t1",
+      "filename": "s01_Q_hi_04_t1.wav",
+      "speaker": "s01",
+      "id": "hi_04",
+      "section": "I",
+      "text": "kal barish hogi kya, Daimon",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "structure": "tail_addressed"
+    },
+    {
+      "clip_id": "s01_Q_hi_04_t2",
+      "filename": "s01_Q_hi_04_t2.wav",
+      "speaker": "s01",
+      "id": "hi_04",
+      "section": "I",
+      "text": "kal barish hogi kya, Daimon",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "structure": "tail_addressed"
+    },
+    {
+      "clip_id": "s01_Q_hi_05_t1",
+      "filename": "s01_Q_hi_05_t1.wav",
+      "speaker": "s01",
+      "id": "hi_05",
+      "section": "I",
+      "text": "Delhi ka temperature kitna hai, Daimon",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Delhi",
+        "Daimon"
+      ],
+      "structure": "tail_addressed"
+    },
+    {
+      "clip_id": "s01_Q_hi_05_t2",
+      "filename": "s01_Q_hi_05_t2.wav",
+      "speaker": "s01",
+      "id": "hi_05",
+      "section": "I",
+      "text": "Delhi ka temperature kitna hai, Daimon",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Delhi",
+        "Daimon"
+      ],
+      "structure": "tail_addressed"
+    },
+    {
+      "clip_id": "s01_Q_hi_06_t1",
+      "filename": "s01_Q_hi_06_t1.wav",
+      "speaker": "s01",
+      "id": "hi_06",
+      "section": "I",
+      "text": "meeting kab schedule hui hai, Daimon",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "structure": "tail_addressed"
+    },
+    {
+      "clip_id": "s01_Q_hi_06_t2",
+      "filename": "s01_Q_hi_06_t2.wav",
+      "speaker": "s01",
+      "id": "hi_06",
+      "section": "I",
+      "text": "meeting kab schedule hui hai, Daimon",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "route_to_llm",
+      "policy_status": "settled",
+      "entities": [
+        "Daimon"
+      ],
+      "structure": "tail_addressed"
+    },
+    {
+      "clip_id": "s01_Q_hi_07_t1",
+      "filename": "s01_Q_hi_07_t1.wav",
+      "speaker": "s01",
+      "id": "hi_07",
+      "section": "I",
+      "text": "mujhe aath baje jagana",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": [
+        "aath baje"
+      ],
+      "structure": "unaddressed"
+    },
+    {
+      "clip_id": "s01_Q_hi_07_t2",
+      "filename": "s01_Q_hi_07_t2.wav",
+      "speaker": "s01",
+      "id": "hi_07",
+      "section": "I",
+      "text": "mujhe aath baje jagana",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": [
+        "aath baje"
+      ],
+      "structure": "unaddressed"
+    },
+    {
+      "clip_id": "s01_Q_hi_08_t1",
+      "filename": "s01_Q_hi_08_t1.wav",
+      "speaker": "s01",
+      "id": "hi_08",
+      "section": "I",
+      "text": "kya tum Hindi samajhte ho",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": [
+        "Hindi"
+      ],
+      "structure": "unaddressed"
+    },
+    {
+      "clip_id": "s01_Q_hi_08_t2",
+      "filename": "s01_Q_hi_08_t2.wav",
+      "speaker": "s01",
+      "id": "hi_08",
+      "section": "I",
+      "text": "kya tum Hindi samajhte ho",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": [
+        "Hindi"
+      ],
+      "structure": "unaddressed"
+    },
+    {
+      "clip_id": "s01_Q_hi_09_t1",
+      "filename": "s01_Q_hi_09_t1.wav",
+      "speaker": "s01",
+      "id": "hi_09",
+      "section": "I",
+      "text": "aaj traffic kaisa hai",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": [],
+      "structure": "unaddressed"
+    },
+    {
+      "clip_id": "s01_Q_hi_09_t2",
+      "filename": "s01_Q_hi_09_t2.wav",
+      "speaker": "s01",
+      "id": "hi_09",
+      "section": "I",
+      "text": "aaj traffic kaisa hai",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": [],
+      "structure": "unaddressed"
+    },
+    {
+      "clip_id": "s01_Q_hi_10_t1",
+      "filename": "s01_Q_hi_10_t1.wav",
+      "speaker": "s01",
+      "id": "hi_10",
+      "section": "I",
+      "text": "gaane play karo",
+      "env": "Q",
+      "take": 1,
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": [],
+      "structure": "unaddressed"
+    },
+    {
+      "clip_id": "s01_Q_hi_10_t2",
+      "filename": "s01_Q_hi_10_t2.wav",
+      "speaker": "s01",
+      "id": "hi_10",
+      "section": "I",
+      "text": "gaane play karo",
+      "env": "Q",
+      "take": 2,
+      "expected_action": "silent_drop",
+      "policy_status": "settled",
+      "entities": [],
+      "structure": "unaddressed"
+    }
+  ]
+}

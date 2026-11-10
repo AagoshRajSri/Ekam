@@ -84,6 +84,32 @@ Empirical rate limits observed on Groq free-tier:
 - Both Orpheus audio and Whisper transcription processed fillers accurately.
 - To prevent synthetic artifacts or awkward latency pauses, **default `style.fillers = 0` (none)** until explicitly customized.
 
+### 6. Pinned Python Dependencies & License Compliance Table
+
+All runtime and development Python dependencies are strictly pinned to exact versions in `services/agent/pyproject.toml` and locked in `services/agent/uv.lock`. In accordance with project policy, all licenses have been verified; the only copyleft dependency (`piper-tts`) is strictly confined to local development and fallback use.
+
+| Package | Pinned Version | License | Classification | Purpose / Scope |
+|---|---|---|---|---|
+| `livekit-agents` | `1.8.11` | Apache-2.0 | Permissive | Core realtime agent runtime & event loop |
+| `python-dotenv` | `1.2.4` | BSD-3-Clause | Permissive | Environment variable loading (`.env`) |
+| `simpleeval` | `1.0.8` | MIT | Permissive | Safe math expression evaluation |
+| `pint` | `0.24.4` | BSD-3-Clause | Permissive | Unit & measurement conversions |
+| `structlog` | `24.4.0` | MIT / Apache-2.0 | Permissive | Structured JSON logging |
+| `livekit-plugins-silero` | `1.8.11` | Apache-2.0 | Permissive | Local Silero VAD (ONNX, CPU) |
+| `livekit-plugins-groq` | `1.8.11` | Apache-2.0 | Permissive | Groq STT (Whisper), LLM (Qwen), TTS (Orpheus) |
+| `livekit-plugins-deepgram` | `1.8.11` | Apache-2.0 | Permissive | Deepgram audio plugins |
+| `livekit-plugins-cartesia` | `1.8.11` | Apache-2.0 | Permissive | Cartesia audio plugins |
+| `livekit-plugins-google` | `1.8.11` | Apache-2.0 | Permissive | Google Gemini Flash LLM fallback |
+| `livekit-plugins-openai` | `1.8.11` | Apache-2.0 | Permissive | OpenAI compatible API adapters |
+| `kokoro-onnx` | `0.6.1` | Apache-2.0 | Permissive | Local Kokoro TTS ONNX inference |
+| `pyyaml` | `6.0.3` | MIT | Permissive | Bake-off config.yaml parser |
+| `scipy` | `1.18.1` | BSD-3-Clause | Permissive | Polyphase Kaiser FIR resampling (48 kHz -> 16 kHz) |
+| `sounddevice` | `0.5.6` | MIT | Permissive | Microphone audio capture & playback CLI |
+| `numpy` | `2.5.4` | BSD-3-Clause | Permissive | Numeric array processing & 24-bit PCM packing |
+| `piper-tts` | `1.8.0` | **GPL-3.0** | **Strong Copyleft** | **DEV & FALLBACK ONLY** (embedded espeak-ng; see §4) |
+| `pytest` (dev) | `9.2.0` | MIT | Permissive | Test execution framework |
+| `pytest-asyncio` (dev) | `1.4.1.post1` | Apache-2.0 | Permissive | Asyncio test runner plugin |
+
 ---
 
 ## Consequences

@@ -51,7 +51,7 @@ async def test_gemini_tier_responds():
         async for chunk in stream:
             if first_token_time is None:
                 first_token_time = time.monotonic()
-            content = chunk.choices[0].delta.content if chunk.choices else ""
+            content = chunk.delta.content if (chunk.delta and chunk.delta.content) else ""
             if content:
                 full_text.append(content)
 
@@ -103,7 +103,7 @@ async def test_ollama_first_token_latency():
         async for chunk in stream:
             if first_token_time is None:
                 first_token_time = time.monotonic()
-            content = chunk.choices[0].delta.content if chunk.choices else ""
+            content = chunk.delta.content if (chunk.delta and chunk.delta.content) else ""
             if content:
                 full_text.append(content)
 

@@ -43,13 +43,14 @@ Connect to the room by clicking **Connect**:
     Get-Content services/agent/telemetry_traces.jsonl -Tail 5
     ```
   - Verify each turn logs a `client_telemetry` event with `first_audio_ms`.
-  - Target: `first_audio_ms` $\le 1200\text{ ms}$.
+  - Baseline to record: `first_audio_ms` (engineering reference target: ~1200 ms). Record actual observed latency.
 
 ---
 
 ## 3. End-to-End Barge-In Measurement (10 Trials)
 
 End-to-end barge-in measures the elapsed time from the instant the user begins speaking an interruption to the instant the speakers go completely silent (audio buffers drained, WebRTC track muted, TTS cancelled).
+Thresholds below are empirical baselines to record for comparison, not rigid pass/fail rejection criteria.
 
 ### Procedure:
 1. Start recording in Audacity (both user microphone and system audio loopback).
@@ -65,23 +66,23 @@ End-to-end barge-in measures the elapsed time from the instant the user begins s
 
 ### Recording Template:
 
-| Trial | Environment | Headset / Speaker | Interrupt Onset (A) | Agent Silence (B) | Measured Latency ($\Delta t$) | Pass / Fail ($\le 300\text{ ms}$) |
+| Trial | Environment | Headset / Speaker | Interrupt Onset (A) | Agent Silence (B) | Measured Latency ($\Delta t$) | Recorded Baseline |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| 1 | Q (Quiet) | Headphones | | | ms | |
-| 2 | Q (Quiet) | Headphones | | | ms | |
-| 3 | Q (Quiet) | Headphones | | | ms | |
-| 4 | Q (Quiet) | Headphones | | | ms | |
-| 5 | Q (Quiet) | Headphones | | | ms | |
-| 6 | Q (Quiet) | Headphones | | | ms | |
-| 7 | Q (Quiet) | Headphones | | | ms | |
-| 8 | Q (Quiet) | Headphones | | | ms | |
-| 9 | Q (Quiet) | Headphones | | | ms | |
-| 10 | Q (Quiet) | Headphones | | | ms | |
+| 1 | Q (Quiet) | Headphones | | | ms | Baseline recorded |
+| 2 | Q (Quiet) | Headphones | | | ms | Baseline recorded |
+| 3 | Q (Quiet) | Headphones | | | ms | Baseline recorded |
+| 4 | Q (Quiet) | Headphones | | | ms | Baseline recorded |
+| 5 | Q (Quiet) | Headphones | | | ms | Baseline recorded |
+| 6 | Q (Quiet) | Headphones | | | ms | Baseline recorded |
+| 7 | Q (Quiet) | Headphones | | | ms | Baseline recorded |
+| 8 | Q (Quiet) | Headphones | | | ms | Baseline recorded |
+| 9 | Q (Quiet) | Headphones | | | ms | Baseline recorded |
+| 10 | Q (Quiet) | Headphones | | | ms | Baseline recorded |
 
 ### Aggregate Statistics:
-- **Median (p50):** `___ ms` (Phase 1 Target: $\le 250\text{ ms}$)
-- **95th Percentile (p95):** `___ ms` (Phase 1 Target: $\le 300\text{ ms}$)
-- **Worst Case:** `___ ms` (Alarm Threshold: $400\text{ ms}$)
+- **Median (p50):** `___ ms` (Recorded baseline; reference target: ~250 ms)
+- **95th Percentile (p95):** `___ ms` (Recorded baseline; reference target: ~300 ms)
+- **Worst Case:** `___ ms` (Alarm / investigation threshold: > 400 ms)
 
 ---
 

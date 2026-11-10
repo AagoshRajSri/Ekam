@@ -6,27 +6,31 @@ readme = "README.md"
 authors = [
     { name = "AagoshRajSri", email = "aagoshrajsrivastava10@gmail.com" }
 ]
-requires-python = ">=3.12"
+requires-python = ">=3.12,<3.13"
 dependencies = [
-    "livekit-agents>=0.8",
-    "python-dotenv>=1.0,<2.0",
-    "simpleeval>=1.0,<2.0",
-    "pint>=0.24,<0.25",
-    "structlog>=24.0,<25.0",
-    "livekit-plugins-silero>=1.8.11",
-    "livekit-plugins-groq>=1.8.11",
-    "livekit-plugins-deepgram>=1.8.11",
-    "livekit-plugins-cartesia>=1.8.11",
-    "livekit-plugins-google>=1.8.11",
-    "piper-tts>=1.8.0",
-    "livekit-plugins-openai>=1.8.11",
-    "kokoro-onnx>=0.6.1",
+    "livekit-agents==1.8.11",
+    "python-dotenv==1.2.4",
+    "simpleeval==1.0.8",
+    "pint==0.24.4",
+    "structlog==24.4.0",
+    "livekit-plugins-silero==1.8.11",
+    "livekit-plugins-groq==1.8.11",
+    "livekit-plugins-deepgram==1.8.11",
+    "livekit-plugins-cartesia==1.8.11",
+    "livekit-plugins-google==1.8.11",
+    "piper-tts==1.8.0",
+    "livekit-plugins-openai==1.8.11",
+    "kokoro-onnx==0.6.1",
+    "pyyaml==6.0.3",
+    "scipy==1.18.1",
+    "sounddevice==0.5.6",
+    "numpy==2.5.4",
 ]
 
 [dependency-groups]
 dev = [
-    "pytest>=8.0",
-    "pytest-asyncio>=0.23",
+    "pytest==9.2.0",
+    "pytest-asyncio==1.4.1.post1",
 ]
 
 [build-system]

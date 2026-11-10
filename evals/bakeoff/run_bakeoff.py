@@ -16,6 +16,9 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
+from dotenv import load_dotenv
+load_dotenv(REPO_ROOT / ".env")
+
 import time
 import yaml
 
@@ -23,8 +26,54 @@ from evals.bakeoff.cache import BakeoffCache, compute_hash
 from evals.bakeoff.metrics.compliance import check_llm_compliance
 from evals.bakeoff.metrics.latency import compute_percentiles
 from evals.bakeoff.metrics.wer import entity_accuracy, word_error_rate
+from evals.bakeoff.providers.base import LLMProvider, STTProvider, TTSProvider
 from evals.bakeoff.providers.fakes import FakeLLMProvider, FakeSTTProvider, FakeTTSProvider
+from evals.bakeoff.providers.llm import GeminiLLMProvider, GroqLLMProvider, OllamaLLMProvider
+from evals.bakeoff.providers.stt import FasterWhisperSTTProvider, GroqSTTProvider
+from evals.bakeoff.providers.tts import GroqOrpheusTTSProvider, KokoroTTSProvider, PiperTTSProvider
 from evals.bakeoff.report import generate_markdown_report
+
+
+def create_stt_provider(cand: dict[str, Any], ground_truth: dict[str, Any], is_synthetic: bool) -> STTProvider:
+    cid = cand["id"]
+    if is_synthetic:
+        return FakeSTTProvider(cid, cand, ground_truth)
+    prov = cand.get("provider")
+    if prov == "groq":
+        return GroqSTTProvider(cid, cand)
+    elif prov == "faster_whisper":
+        return FasterWhisperSTTProvider(cid, cand)
+    return FakeSTTProvider(cid, cand, ground_truth)
+
+
+def create_llm_provider(cand: dict[str, Any], is_synthetic: bool) -> LLMProvider:
+    cid = cand["id"]
+    if is_synthetic:
+        return FakeLLMProvider(cid, cand)
+    prov = cand.get("provider")
+    if prov == "groq":
+        return GroqLLMProvider(cid, cand)
+    elif prov == "google":
+        return GeminiLLMProvider(cid, cand)
+    elif prov == "ollama":
+        return OllamaLLMProvider(cid, cand)
+    return FakeLLMProvider(cid, cand)
+
+
+def create_tts_provider(cand: dict[str, Any], is_synthetic: bool, max_orpheus: int = 20) -> TTSProvider:
+    cid = cand["id"]
+    if is_synthetic:
+        return FakeTTSProvider(cid, cand)
+    prov = cand.get("provider")
+    if prov == "groq_orpheus":
+        cfg = dict(cand)
+        cfg["max_requests"] = min(cand.get("max_requests", max_orpheus), max_orpheus)
+        return GroqOrpheusTTSProvider(cid, cfg)
+    elif prov == "piper":
+        return PiperTTSProvider(cid, cand)
+    elif prov == "kokoro":
+        return KokoroTTSProvider(cid, cand)
+    return FakeTTSProvider(cid, cand)
 
 
 def load_yaml(path: Path) -> dict[str, Any]:
@@ -154,7 +203,7 @@ def main() -> int:
     for cand in stt_candidates:
         cid = cand["id"]
         print(f"\nEvaluating STT: {cid}...")
-        provider = FakeSTTProvider(cid, cand, ground_truth) if is_synthetic else FakeSTTProvider(cid, cand, ground_truth)
+        provider = create_stt_provider(cand, ground_truth, is_synthetic)
 
         wers: list[float] = []
         wers_q: list[float] = []
@@ -222,7 +271,7 @@ def main() -> int:
     for cand in llm_candidates:
         cid = cand["id"]
         print(f"\nEvaluating LLM: {cid}...")
-        provider = FakeLLMProvider(cid, cand)
+        provider = create_llm_provider(cand, is_synthetic)
 
         ttfts: list[float] = []
         totals: list[float] = []
@@ -264,7 +313,7 @@ def main() -> int:
     for cand in tts_candidates:
         cid = cand["id"]
         print(f"\nEvaluating TTS: {cid}...")
-        provider = FakeTTSProvider(cid, cand)
+        provider = create_tts_provider(cand, is_synthetic, args.max_orpheus_requests)
 
         ttfbs: list[float] = []
         rtfs: list[float] = []

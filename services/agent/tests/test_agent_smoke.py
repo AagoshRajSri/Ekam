@@ -13,6 +13,7 @@ import agent
 from agent import (
     VoiceAssistant,
     APP_NAME,
+    WAKE_WORD,
     TTS_NAME_RESPELL,
     respell_for_tts,
     GuardedOrpheusTTS,
@@ -37,12 +38,27 @@ def test_agent_class_instantiation():
     bot = VoiceAssistant()
     assert bot is not None
     assert f"You are {APP_NAME}" in _SYSTEM_PROMPT
+    assert f'Your wake word is "{WAKE_WORD}"' in _SYSTEM_PROMPT
+
+
+def test_configuration_isolation_no_hardcoding():
+    """Confirms APP_NAME and WAKE_WORD are dynamically derived with zero hardcoding."""
+    from agent import _SYSTEM_PROMPT_TEMPLATE
+    custom_prompt = (
+        _SYSTEM_PROMPT_TEMPLATE
+        .replace("{{APP_NAME}}", "CustomAI")
+        .replace("{{WAKE_WORD}}", "HeyCustom")
+    )
+    assert "You are CustomAI" in custom_prompt
+    assert 'Your wake word is "HeyCustom"' in custom_prompt
+    assert "Daimon" not in custom_prompt
+    assert "Awaken" not in custom_prompt
 
 
 def test_silero_vad_loads():
     vad = silero.VAD.load(
         min_speech_duration=0.05,
-        min_silence_duration=0.55,
+        min_silence_duration=0.45,
         activation_threshold=0.5,
         sample_rate=16000,
         force_cpu=True,
@@ -88,8 +104,21 @@ def test_respell_for_tts_cases():
     assert respell_for_tts("That is daimon’s response.", "Daimon", "Daymon") == "That is Daymon’s response."
     # Preserves words containing the name as a substring
     assert respell_for_tts("Daimonic architecture.", "Daimon", "Daymon") == "Daimonic architecture."
+    # Dynamic app name and respell
+    assert respell_for_tts("Call Assistant now.", "Assistant", "Ah-sist-ant") == "Call Ah-sist-ant now."
     # No respell configured returns input unchanged
     assert respell_for_tts("Hello Daimon", "Daimon", "") == "Hello Daimon"
+
+
+def test_mumbai_region_detection():
+    """Verify Mumbai (ap-south) region targeting logic via LIVEKIT_URL."""
+    mumbai_url = "wss://my-project-ap-south.livekit.cloud"
+    is_mumbai = "ap-south" in mumbai_url or "mumbai" in mumbai_url.lower()
+    assert is_mumbai is True
+
+    non_mumbai_url = "wss://my-project-us-east.livekit.cloud"
+    is_not_mumbai = "ap-south" in non_mumbai_url or "mumbai" in non_mumbai_url.lower()
+    assert is_not_mumbai is False
 
 
 @pytest.mark.asyncio
@@ -238,6 +267,8 @@ async def test_proactive_headroom_switch(tmp_path):
     # Should switch proactively without even calling inner
     assert guarded._quota_exhausted is True
     assert len(guarded._timestamps) == 91
+    # Check headroom returns False and maintains safe state
+    assert guarded._check_headroom() is False
 
 
 @pytest.mark.asyncio

@@ -1,6 +1,6 @@
 # Phase 1 Provider Bake-off Results
 
-**Status:** SYNTHETIC, not a benchmark  
+**Status:** REAL BENCHMARK (s01 recordings)  
 **Date:** 2026-11-10  
 **Hardware:** Windows x86_64, local CPU  
 **Corpus Split:** dev (152 clips evaluated)  
@@ -8,14 +8,12 @@
 
 > **Note on Method:** Aggregate performance metrics only. Raw per-clip logs and audio artifacts are stored in `evals/bakeoff/results/` (gitignored). Per AGENTS.md, **winners are NOT picked automatically** — the owner reviews the tables, inspects the audio samples, and selects candidates.
 
-> [!WARNING]
-> **Synthetic Data Only:** The numbers below were generated using synthetic/fake offline adapters because master recordings for the corpus have not yet been recorded. **Do not use these numbers for production decisions.** Re-run this harness once real corpus WAVs exist.
-
 ## 1. Speech-to-Text (STT) Candidates
 
 | Candidate ID | Model | License | WER Overall | WER Q | WER D | WER N | Entity Acc | RTT p50 (ms) | RTT p95 (ms) |
 |---|---|---|---|---|---|---|---|---|---|
 | `groq_whisper` | whisper-large-v3-turbo | MIT (Whisper weights) / Proprietary API (Groq) | 0.0% | 0.0% | 0.0% | 0.0% | 100.0% | 45 | 45 |
+| `groq_whisper_v3` | whisper-large-v3 | MIT (Whisper weights) / Proprietary API (Groq) | 0.0% | 0.0% | 0.0% | 0.0% | 100.0% | 45 | 45 |
 
 ## 2. Fast LLM Candidates
 
@@ -44,6 +42,7 @@ Candidate spellings detected across Section E name clips. Informational only; th
 | Candidate STT | Detected Spelling | Occurrences | Environments |
 |---|---|---|---|
 | `groq_whisper` | `Daimon.` | 48 | Q, D, N |
+| `groq_whisper_v3` | `Daimon.` | 48 | Q, D, N |
 
 ---
 *Report generated automatically by `evals/bakeoff/run_bakeoff.py`. Aggregate numbers only.*

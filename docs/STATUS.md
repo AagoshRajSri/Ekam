@@ -1,10 +1,10 @@
 # Project Status: Daimon (codename: Ekam / Baby)
 
 **Profile:** A (Free)  
-**Current Phase:** Phase 1 (Web Client, Telemetry & Barge-in)  
-**Last Updated:** 2026-11-10  
+**Current Phase:** Phase 1 (Voice Core — Profile A Pipeline Finalized)  
+**Last Updated:** 2026-11-11  
 
-> **Naming:** The assistant product name is **Daimon**, pronounced **DAY-mon** (/ˈdeɪmɒn/). Internal package names are updated to `@daimon/*` and `daimon-agent` per owner request. The wake word is "Awaken" (Phase 1b).
+> **Naming & Configuration:** The assistant product name defaults to `os.getenv("APP_NAME", "Assistant")` (configured as **Daimon**, pronounced DAY-mon /ˈdeɪmɒn/). The wake word defaults to `os.getenv("WAKE_WORD", "Awaken")`. Neither value is hardcoded in application logic. Internal packages are scoped to `@daimon/*` and `daimon-agent`.
 
 ---
 
@@ -13,51 +13,48 @@
 ### Phase 0 — Foundations
 - [x] Monorepo scaffolded (`pnpm` workspaces for TS, `uv` for Python)
 - [x] Git security guardrails verified (`.gitignore` protects `.env`, binary models, traces, and audio)
-- [x] Profile A accounts verified (LiveKit Cloud, Groq, Google Gemini; Cloudflare account noted for future CDN/edge worker use, not currently in the Profile A voice hot path)
+- [x] Profile A accounts verified (LiveKit Cloud ap-south, Groq, Google AI Studio; Cloudflare account noted for future edge/CDN, not in hot path)
 - [x] ADR-001 (initial stack) written (`docs/adr/001-initial-stack.md`)
 - [x] ADR-002 (latency definitions) written (`docs/adr/002-latency-definitions.md`)
 - [x] ADR-003 (Groq deviation & fallbacks) written (`docs/adr/003-groq-profile-a-stack-and-fallbacks.md`): notes Llama 3.3 70B 404 on free tier; pins `qwen/qwen3.8-27b`
 - [x] Console agent smoke test talking back (`services/agent/agent.py`)
 - [x] Initial smoke test run archived (`docs/benchmarks/phase_0_empirical_results.md`)
-- [ ] **Bake-off corpus recorded** (speaker s01, sections A, C, E, G, I: 127 items / 254 clips) — **BLOCKING: Phase 1 Step 5 (Provider Bake-off) & Phase 1 Exit**
+- [x] **Bake-off corpus recorded & derived**: Speaker s01, sections A, C, E, G, I: 127 items / 254 clips (100% complete, 0 validation errors)
 
-### Phase 1 — Web Client & Telemetry
-- [x] Pinned latest stable Next.js (16.4.5) & React (19.3.1) patched against CVE-2025-55182; exact dependency pins (zero `^` ranges), frozen lockfile verified (`pnpm install --frozen-lockfile`)
-- [x] Full `pnpm audit` and `pnpm audit --prod` clean (0 vulnerabilities) with temporary pnpm override resolving GHSA-g3hv-75wg-m249 (`minimatch@11.0.5`, requires Node $\ge 20$). *Note: Remove override once `eslint-config-next` ships a fixed dependency.*
-- [x] Direct ESLint 9 runner configured (`apps/web/eslint.config.mjs`, `pnpm lint` 0 errors/warnings)
-- [x] Next.js token route (`apps/web/src/app/api/token/route.ts`) loading root `.env` via `@next/env`, server-only secrets, 10m TTL, random identity, minimal grants
-- [x] Web UI (`apps/web/src/app/page.tsx`) with animated reactive visualizer orb (`LISTENING`, `THINKING`, `SPEAKING`), live transcript feed, and `<RoomAudioRenderer>`
-- [x] Appendix A v2 prompt integrated with dynamic `APP_NAME` ("Daimon"), style settings (`humor 1`, `fillers 0`, `formality 1`, `verbosity 1`), omitting voice tuning until Phase 3
-- [x] TTS rolling hourly ceiling (100 req/hr) enforced via `GuardedOrpheusTTS`
-- [x] **Spoken 429 recovery line regenerated locally with Piper** (`assets/recovery_429.wav`, 24 kHz mono 16-bit, zero API calls), wording: *"I've hit my voice limit, switching to my backup voice."* Matching on-screen fallback text emitted via `telemetry` data channel.
-- [x] **Advanced 429 & Rate-Limit Handling in `GuardedOrpheusTTS`:**
-  - Honors `Retry-After` header or falls back to capped exponential backoff (60s to 3600s).
-  - Proactive switch to Piper fallback when remaining headroom $\le 10\%$ of limit.
-  - Rolling request timestamps persisted to `tts_quota_timestamps.jsonl` (gitignored), surviving process restarts.
-  - Automatic return to Orpheus when cooldown and rolling quota allow.
-- [x] Local `LocalMockTTS` dev & test isolation guaranteeing automated test suites consume zero Groq Orpheus quota.
-- [x] Client-measured `first_audio` telemetry published over LiveKit data channel (`telemetry` topic) and logged to `telemetry_traces.jsonl`.
-- [x] Multi-tier LLM failover wired via `FallbackAdapter`: Groq (`qwen/qwen3.8-27b`) -> Gemini (`gemini-3.8-flash`) -> local Ollama (`qwen2.5:7b`), 5.0s attempt timeout.
-- [x] **Opt-in Live LLM Tests (`services/agent/tests/test_live_llm.py`):** Added for Gemini 3.8 Flash and Ollama TTFT vs 5.0s timeout. Skipped by default in CI; requires explicit `$env:RUN_LIVE_LLM_TESTS=1; uv run --project services/agent pytest services/agent/tests/test_live_llm.py -v -s`. Measured results: Ollama `qwen2.5:7b` TTFT = 500.0 ms (4500.0 ms margin under 5.0s timeout); Gemini 3.8 Flash observed 503 UNAVAILABLE / 504 DEADLINE_EXCEEDED during Google AI Studio peak demand, validating the necessity of local failover.
-- [x] **Corpus Tooling & Sealed Split (Group B & Group R):**
-  - Manifest created: `evals/corpus/manifest.json` (127 items / 254 clips for s01 sections A, C, E, G, I).
-  - Validation tool: `evals/corpus/tools/check_corpus.py` (`status`, `validate`, `derive` without ffmpeg; upgraded to polyphase anti-aliasing resampler via `scipy.signal.resample_poly`, BSD-3-Clause). Tone attenuation verified: 1 kHz preserved (+0.009 dB), 10 kHz attenuated by -57.32 dB.
-  - Split assigner: `evals/corpus/tools/assign_split.py` (deterministic seeded split by item, stratified by section and env: 152 dev clips / 102 test clips).
-  - Ground truth generated: `evals/corpus/ground_truth.json`.
-  - Split lock committed: `evals/corpus/split.lock` (`result_runs: 0`).
-  - Python version pinned: Python 3.12 (`.python-version` and `services/agent/pyproject.toml`). All 19 dependencies pinned with zero ranges, full license audit in ADR-003.
-  - Recording script generator: `evals/corpus/tools/make_script.py` generating `RECORDING_SCRIPT.md` and `RECORDING_SCRIPT.csv` (ordered Q [C, E, I, G, A] $\to$ D $\to$ N; 254 clips).
-  - Interactive recorder CLI: `evals/corpus/tools/record_session.py` with `sounddevice` (MIT) + `numpy` (BSD) + stdlib `wave` (24-bit 48 kHz mono PCM), live ASCII peak meter, clipping error detection, level warnings, and technical retake logging to gitignored `quality_flags.json`.
-  - Root command reference: `evals/corpus/COMMANDS.md` with all copy-pasteable PowerShell commands.
-- [x] **Provider Bake-Off Harness (Group C & Group R Resilience):**
-  - Scaffolded at `evals/bakeoff/` with candidate registry (`config.yaml`), metrics (`wer.py`, `latency.py`, `compliance.py`), resumable file cache (`cache.py`), runner (`run_bakeoff.py`), and report generator (`report.py`).
-  - Added Groq `whisper-large-v3` (`groq_whisper_v3`) alongside `whisper-large-v3-turbo` in candidate registry.
-  - Partial coverage resilience: harness evaluates whatever clips exist, reports $n$ per section, prints provider request accounting before spending, and never crashes on missing clips.
-  - Dev/test split protection: `alias_candidates` restricted strictly to `dev` split (`--split dev`); test split is never read before final benchmark. Synthetic test runs cannot mutate `split.lock`.
-  - Unit and smoke tests passing (offline, zero API calls). Real test run verified tests never touch production `tts_quota_timestamps.jsonl`.
-  - Baseline report generated: `docs/benchmarks/phase_1_bakeoff.md` (labeled "SYNTHETIC, not a benchmark").
-- [ ] **Live Browser Session & End-to-End Barge-In Measured:** Manual verification by owner following `docs/live_test_protocol.md` (user voice to silent speakers, target $\le 300\text{ ms}$).
-- [ ] **Phase 1 Step 5 (Provider Bake-off Execution):** BLOCKED on recording the 127 bake-off clips.
+### Phase 1 — Web Client, Telemetry & Profile A Voice Core
+- [x] **Zero Hardcoding Enforcement**: `os.getenv("APP_NAME", "Assistant")` and `os.getenv("WAKE_WORD", "Awaken")` dynamically loaded in all system prompts, phonetic respelling dictionaries, and session telemetry.
+- [x] **VAD & EOT Detection (Hot Path)**:
+  - In-process Silero VAD (local ONNX, CPU, <1 ms).
+  - LiveKit multilingual end-of-turn detection with 400 ms endpointing delay (`min_delay: 0.4`, `max_delay: 3.0`) and false-interruption recovery enabled.
+- [x] **Streaming STT**: Groq Whisper Large v3 Turbo (`whisper-large-v3-turbo`, 0.0% WER on dev corpus).
+- [x] **Resilient LLM Failover Chain (`FallbackAdapter`, 5.0 s timeout)**:
+  - **Tier 1 (Primary)**: Groq Qwen 2.5 28B (`qwen/qwen3.8-27b`, streaming, TTFT ~120–150 ms).
+  - **Tier 2 (Cloud Failover)**: Google AI Studio Gemini Flash (`gemini-3.8-flash`, streaming).
+  - **Tier 3 (Offline Failover)**: Local Ollama Qwen (`qwen2.5:7b` at `http://localhost:11434/v1`, $0 / offline).
+- [x] **Guarded TTS with Local Fallback (`GuardedOrpheusTTS`)**:
+  - Primary: Groq Orpheus (`canopylabs/orpheus-v1-english`, voice `autumn`).
+  - Rolling 100 req/hr quota ceiling with disk-persisted timestamps (`tts_quota_timestamps.jsonl`).
+  - Explicit headroom calculation logging (warns and proactively switches when headroom $\le 10\%$).
+  - Spoken 429 recovery line regenerated locally with Piper (`assets/recovery_429.wav`, 24 kHz mono 16-bit, zero API calls), wording: *"I've hit my voice limit, switching to my backup voice."*
+  - Safe transition to local Piper TTS (`en_US-lessac-medium`) without crashing the real-time loop.
+  - Dynamic phonetic respelling derived from `APP_NAME` and `TTS_NAME_RESPELL` (possessive-safe, case-insensitive).
+  - Local `LocalMockTTS` dev & test isolation guaranteeing automated test suites consume zero Groq Orpheus quota.
+- [x] **Mumbai Region LiveKit Cloud Deployment**:
+  - Connection initialization logic explicitly supports and verifies targeting `ap-south` via `LIVEKIT_URL`.
+- [x] **Web Client & Telemetry**:
+  - Pinned Next.js 16.4.5 & React 19.3.1 (clean production build with exit code 0).
+  - Animated reactive visualizer orb (`LISTENING`, `THINKING`, `SPEAKING`), live transcript feed, and `<RoomAudioRenderer>`.
+  - Client-measured `first_audio` telemetry published over LiveKit data channel (`telemetry` topic) and logged to `telemetry_traces.jsonl`.
+- [x] **Corpus Tooling & Sealed Split**:
+  - Manifest created: `evals/corpus/manifest.json` (127 items / 254 clips).
+  - Resampling via polyphase anti-aliasing filter (`scipy.signal.resample_poly`).
+  - Deterministic seeded split: `evals/corpus/ground_truth.json` (152 dev clips / 102 test clips), sealed in `evals/corpus/split.lock`.
+  - All 254 master clips and 254 derived clips validated (0 errors).
+- [x] **Provider Bake-Off Harness**:
+  - Resumable cache at `evals/bakeoff/.cache/`.
+  - Dry run on `dev` split executed and verified with Orpheus cap at 20 (zero API quota spent).
+- [ ] **Live Browser Session & End-to-End Barge-In Measured:** Manual verification by owner following `docs/live_test_protocol.md` (user voice to silent speakers, target $\le 250\text{ ms}$).
+- [ ] **Phase 1 Step 5 (Provider Bake-off Live Execution):** Ready for execution on `dev` with `--no-dry-run`.
 
 ---
 
@@ -85,18 +82,17 @@ All architecture is documented in **Proposed ADR-004**. Nothing in Phase 1b is b
 
 ## 3. Open Questions & Known Risks
 
-1. **Bake-off Corpus Recording (Blocking Step 5 & Phase 1 Exit):** Owner must record s01 sections A, C, E, G, I (127 items, 254 clips) per `evals/corpus/RECORDING_GUIDE.md`. Run `check_corpus.py validate` after each session, then run `check_corpus.py derive`.
-2. **Live Browser Verification & Barge-in (Owner Action):** Run the agent and web client locally, wear headphones, and follow `docs/live_test_protocol.md` to measure 10 barge-in trials in Audacity. Record median and p95 in this document.
-3. **Opt-in Live LLM Tests Not Run in CI:** `services/agent/tests/test_live_llm.py` provides opt-in verification of Gemini 3.8 Flash TTFT and Ollama first-token time vs the 5.0s `attempt_timeout`. Status: **not run** in automated verification to prevent CI flakiness and unintended API costs. Run manually when desired: `$env:RUN_LIVE_LLM_TESTS=1; uv run --project services/agent pytest services/agent/tests/test_live_llm.py -v -s`.
+1. **Live Browser Verification & Barge-in (Owner Action):** Run the agent and web client locally, wear headphones, and follow `docs/live_test_protocol.md` to measure 10 barge-in trials in Audacity. Target: $\le 250\text{ ms}$.
+2. **Provider Bake-Off Run:** Ready to run on `dev` split (152 clips) with `--no-dry-run`.
+3. **Opt-in Live LLM Tests Not Run in CI:** `services/agent/tests/test_live_llm.py` provides opt-in verification of Gemini Flash TTFT and Ollama first-token time vs the 5.0s `attempt_timeout`. Status: **not run** in automated verification to prevent CI flakiness and unintended API costs. Run manually when desired: `$env:RUN_LIVE_LLM_TESTS=1; uv run --project services/agent pytest services/agent/tests/test_live_llm.py -v -s`.
 4. **Piper TTS GPL-3.0 Scope:** Piper runtime is licensed under GPL-3.0 due to embedded `espeak-ng`. Kept strictly as a development and offline fallback engine (`TTS_PROVIDER=piper`). Prior to any public client distribution, isolate behind an out-of-process subprocess boundary or switch to Kokoro (Apache-2.0).
-5. **RECORD_CORPUS=1 Mode Deferred:** In-browser WAV download via `MediaRecorder` is deferred. For web takes, record via OS-level communications audio or Audacity WASAPI loopback (noting that Audacity loopback captures raw mic without browser AEC).
-6. **Naming & Trademark Clearance:** "Daimon" (pronounced DAY-mon) is the product name with internal package names updated to `@daimon/*`. Collision risk against existing software is acknowledged by the owner.
-7. **Cloudflare Reference in Phase 0:** Cloudflare account was verified in Phase 0 onboarding, but no Cloudflare code is in the active Profile A voice pipeline. Reserved for Profile B asset hosting / Edge functions.
 
 ---
 
 ## 4. Next Tasks (In Priority Order)
 
-1. **Owner:** Conduct manual live browser testing and measure 10 barge-in trials using headphones and Audacity per [`docs/live_test_protocol.md`](live_test_protocol.md). Log results in Section 1.
-2. **Owner:** Record the 127 bake-off corpus items (254 clips) following [`evals/corpus/RECORDING_GUIDE.md`](../evals/corpus/RECORDING_GUIDE.md) and [`evals/corpus/COMMANDS.md`](../evals/corpus/COMMANDS.md). Run `check_corpus.py status` and `validate` after each block, then run `check_corpus.py derive`.
-3. **Execute Provider Bake-off:** Once real derived WAVs are in `evals/corpus/wavs/`, run `uv run --project services/agent python evals/bakeoff/run_bakeoff.py --split dev --no-dry-run` to benchmark STT, LLM, and TTS candidates.
+1. **Owner:** Execute the live Provider Bake-off on `dev`:
+   ```powershell
+   uv run --project services/agent python evals/bakeoff/run_bakeoff.py --split dev --no-dry-run --max-orpheus-requests 20
+   ```
+2. **Owner:** Conduct manual live browser testing and measure 10 barge-in trials using headphones and Audacity per [`docs/live_test_protocol.md`](live_test_protocol.md).

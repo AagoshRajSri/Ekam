@@ -146,6 +146,13 @@ def check_room_tone(raw_bytes: bytes, framerate: int, sampwidth: int, duration: 
 # ── Subcommand: validate ─────────────────────────────────────────────────────
 
 def run_validate(args: argparse.Namespace) -> int:
+    # Convenience shortcuts: --masters or --mode master automatically defaults target dir
+    if getattr(args, "masters", False):
+        args.mode = "master"
+        args.dir = "evals/corpus/masters"
+    elif args.mode == "master" and args.dir == "evals/corpus/wavs":
+        args.dir = "evals/corpus/masters"
+
     manifest_path = Path(args.manifest)
     if not manifest_path.exists():
         print(f"ERROR: Manifest not found at {manifest_path}", file=sys.stderr)
@@ -376,8 +383,9 @@ def main() -> int:
 
     # validate
     p_val = subparsers.add_parser("validate", help="Validate WAV format, levels, clipping, room tone")
-    p_val.add_argument("--dir", default="evals/corpus/wavs", help="Directory with WAV files")
-    p_val.add_argument("--mode", choices=["master", "derived"], default="derived", help="Validation mode")
+    p_val.add_argument("--dir", default="evals/corpus/wavs", help="Directory with WAV files (default: evals/corpus/wavs)")
+    p_val.add_argument("--mode", choices=["master", "derived"], default="derived", help="Validation mode (default: derived)")
+    p_val.add_argument("--masters", action="store_true", help="Shortcut for --dir evals/corpus/masters --mode master")
     p_val.add_argument("--manifest", default="evals/corpus/manifest.json", help="Path to manifest.json")
 
     # derive

@@ -315,6 +315,24 @@ def run_session(
         sec = clip.get("section", "")
         env = clip.get("env", "")
         take = clip.get("take", 1)
+        cid = clip.get("id", "")
+
+        pronounce_tip = ""
+        if cid in ("cmd_12", "conf_01", "conf_02"):
+            pronounce_tip = "[Pronounce 'Damon' as DAY-mun]"
+        elif cid in ("cmd_13", "conf_08"):
+            pronounce_tip = "[Pronounce 'Dayman' as DAY-man]"
+        elif cid in ("cmd_14", "conf_07", "conf_09"):
+            pronounce_tip = "[Pronounce 'Demon' as DEE-mon]"
+        elif sec == "E" and cid.startswith("name_") and cid[5:].isdigit() and int(cid[5:]) >= 31:
+            pronounce_tip = "[Pronounce 'Daimon' as DY-mon variant]"
+        elif "daimon" in text.lower():
+            pronounce_tip = "[Pronounce 'Daimon' as DAY-mon]"
+
+        if sec == "G":
+            delivery_note = f"{delivery_note} (Speak to imaginary person nearby, turned slightly away)"
+        if pronounce_tip:
+            delivery_note = f"{delivery_note} {pronounce_tip}".strip()
 
         while True:
             print("\n" + "=" * 70)
@@ -444,3 +462,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+

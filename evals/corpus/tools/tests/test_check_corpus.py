@@ -231,3 +231,32 @@ def test_assign_split_behavior(tmp_path):
         seed=42,
     )
     assert rc_refuse == 1
+
+
+def test_validate_masters_flag(tmp_path):
+    manifest_path = tmp_path / "manifest.json"
+    manifest_path.write_text(json.dumps({
+        "items": [{"id": "wake_01"}],
+        "clips": [{"filename": "s01_Q_wake_01_t1.wav", "id": "wake_01"}]
+    }))
+
+    masters_dir = tmp_path / "masters"
+    create_synthetic_wav(
+        masters_dir / "s01_Q_wake_01_t1.wav",
+        framerate=48000,
+        sampwidth=3,  # 24-bit
+        duration_s=2.0,
+    )
+
+    # Calling with --masters flag
+    args = Args(
+        masters=True,
+        mode="derived",
+        dir=str(tmp_path / "wavs"),
+        manifest=str(manifest_path),
+    )
+    # run_validate should override dir to masters and mode to master
+    rc = check_corpus.run_validate(args)
+    assert rc == 0
+    assert args.mode == "master"
+    assert args.dir == "evals/corpus/masters" or "masters" in args.dir

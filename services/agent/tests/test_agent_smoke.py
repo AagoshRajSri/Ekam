@@ -106,14 +106,17 @@ async def test_orpheus_fallback_wiring():
     # 1st call within limit
     s1 = guarded.synthesize("Turn 1")
     assert s1 is not None
+    await s1.aclose()
 
     # 2nd call exceeds limit -> recovery line played
     s2 = guarded.synthesize("Turn 2")
     assert guarded._recovery_played is True
+    await s2.aclose()
 
     # 3rd call -> delegates to fallback_tts (Piper / Mock)
     s3 = guarded.synthesize("Turn 3")
     assert s3 is not None
+    await s3.aclose()
 
 
 @pytest.mark.asyncio
@@ -140,6 +143,7 @@ async def test_orpheus_quota_auto_resets_after_hour():
     assert stream is not None
     assert guarded._quota_exhausted is False, "quota_exhausted must be cleared after window reset"
     assert guarded._recovery_played is False, "recovery_played must be cleared after window reset"
+    await stream.aclose()
 
 
 def test_recovery_wav_format_and_wording():
@@ -182,6 +186,7 @@ async def test_429_retry_after_handling(tmp_path):
     assert guarded._quota_exhausted is True
     # Cooldown should be approximately 120 seconds in future
     assert guarded._retry_after_until > time.time() + 100
+    await stream.aclose()
 
 
 @pytest.mark.asyncio
@@ -202,14 +207,16 @@ async def test_429_exponential_backoff_without_header(tmp_path):
     guarded._inner.synthesize = fake_failing_synth
 
     # 1st failure: 60s backoff
-    guarded.synthesize("test 1")
+    s1 = guarded.synthesize("test 1")
     assert guarded._backoff_seconds == 120.0  # doubled for next failure
+    await s1.aclose()
 
     # Force reset cooldown to trigger 2nd failure
     guarded._retry_after_until = 0.0
     guarded._quota_exhausted = False
-    guarded.synthesize("test 2")
+    s2 = guarded.synthesize("test 2")
     assert guarded._backoff_seconds == 240.0  # doubled again
+    await s2.aclose()
 
 
 @pytest.mark.asyncio

@@ -87,6 +87,8 @@ uv run --project services/agent python evals/corpus/tools/check_corpus.py status
 Checks 48 kHz sample rate, mono channel, clipping errors, levels within -18 to -3 dBFS, and ~1s room tone:
 ```powershell
 uv run --project services/agent python evals/corpus/tools/check_corpus.py validate --dir evals/corpus/masters --mode master
+# Shortcut:
+uv run --project services/agent python evals/corpus/tools/check_corpus.py validate --masters
 ```
 
 ### Derive 16 kHz Mono 16-bit WAVs for Pipeline
@@ -155,3 +157,4 @@ $env:RUN_LIVE_LLM_TESTS="1"; uv run --project services/agent pytest services/age
 ```powershell
 $env:RUN_LIVE_TTS_TESTS="1"; uv run --project services/agent pytest services/agent/tests/test_orpheus_pronunciation.py -v -s
 ```
+

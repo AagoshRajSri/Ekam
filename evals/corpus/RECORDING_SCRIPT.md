@@ -4,15 +4,26 @@ Total Clips: **254** (exact 127 items × 2 takes = 254 clips).
 
 ## Recording Rules & Checklist
 - **Format**: 48 kHz, mono, 24-bit PCM master WAVs (`evals/corpus/masters/`).
+- **Name Pronunciations**:
+  - **Daimon**: Pronounce as **DAY-mon** (/ˈdeɪmɒn/) in all lines except `name_31–40`.
+  - **name_31–40**: Deliberately pronounce as **DY-mon** (/ˈdaɪmɒn/) variant.
+  - **Damon** (cmd_12): Pronounce as **DAY-mun** (/ˈdeɪmən/).
+  - **Dayman** (cmd_13): Pronounce as **DAY-man** (/ˈdeɪmæn/).
+  - **Demon** (cmd_14): Pronounce as **DEE-mon** (/ˈdiːmən/).
+- **Side-talk (Section G)**: Speak to an imaginary person sitting nearby in the room, turning slightly away from the mic.
+- **Microphone Selection**:
+  - Use one consistent microphone for all of Block Q (wired headset or close USB/XLR mic).
+  - Use the laptop's built-in microphone for Block D (you sit 1–2 m away from the laptop).
+  - Note the exact device names used for ground-truth metadata logging.
+- **Noise Consistency (Block N)**: Keep background fan, TV, or noise source at a fixed, constant volume for the entire N block.
 - **Environment checklist**:
   - Windows Sound Settings: Set default recording device to **48000 Hz (24-bit or 16-bit Studio Quality)**.
-  - Turn **OFF** Audio Enhancements, Noise Suppression, and Automatic Gain Control (AGC) in Windows Sound Properties and in headset software (e.g. Logitech G HUB, SteelSeries GG, Realtek Audio Console).
+  - Turn **OFF** Audio Enhancements, Noise Suppression, and Automatic Gain Control (AGC) in Windows Sound Properties and in OEM software (Realtek, Dell Optimizer, Waves MaxxAudio, etc.).
   - **NO Bluetooth microphones** (Bluetooth drops to 8/16 kHz mono telephony profiles; use wired USB or analog XLR/3.5mm).
   - Close any apps that use or process mic audio (Teams, Zoom, Discord, Slack, browser tabs).
-  - Keep stable microphone distance throughout each recording block.
 - **Lead / Trail room tone**: Leave ~1 second of ambient silence before speaking and after speaking each line.
 - **Levels**: Peaks between -18 and -3 dBFS; **zero clipping** (clipping requires retake).
-- **Order**: Complete Block Q first, then Block D, then Block N.
+- **Order**: Complete Block Q first (Sections C, E, I, G, A), then Block D, then Block N.
 
 ## Block Q: Quiet room, headset or close mic (natural pace, ~1s room tone lead/trail)
 

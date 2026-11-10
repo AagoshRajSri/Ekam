@@ -1,6 +1,7 @@
-Daimon Benchmark Corpus Recording Guide (v2)
+# Daimon Benchmark Corpus Recording Guide (v2)
 
-This is a revised version of your guide with the fixes folded in.
+Comprehensive operational guide and protocol for capturing, validating, and deriving the Daimon voice benchmark corpus across quiet (Q), desk distance (D), and noisy (N) environments.
+
 - **Copy-paste Command Reference:** All execution commands are documented in [`evals/corpus/COMMANDS.md`](COMMANDS.md). Every command is runnable copy-paste from the repository root.
 - **Recording Script:** Pre-ordered interactive checklist scripts are generated at [`RECORDING_SCRIPT.md`](RECORDING_SCRIPT.md) and [`RECORDING_SCRIPT.csv`](RECORDING_SCRIPT.csv).
 
@@ -11,25 +12,43 @@ AWAKE	“Daimon” (aliases: Damon, Dayman, Demon) at the start or end of an utt
 Abort (stays AWAKE)	“stop” (during TTS), “cancel that”, “never mind”, “Daimon, stop”	Cancels the current request or speech only
 Sleep (to ASLEEP)	“dismissed”, “that’s all”, “go to sleep”, “Daimon, sleep”, and tail or combined forms	Gentle descending chime
 
-Decision made in this version: in your previous guide, “stop”, “cancel that” and “never mind” all closed the session. I split them out as abort-only, because those phrases mean “drop this request”, not “go to sleep”. Change this if you disagree, but fix it before recording, since the expected results depend on it.
+Decision note: “Stop”, “cancel that”, and “never mind” are classified as abort-only (stays AWAKE) rather than closing the session, because those phrases convey "drop this request" or "interrupt current speech", not "go to sleep".
 
-Policy items still open. The corpus records them, but the expected action is TBD and the result is informational until you decide:
+Policy items still open. The corpus records them, but the expected action is TBD and the result is informational until resolved:
 
 “Awaken” followed directly by a command in one breath
 “Hey Daimon, ...” (a carrier prefix)
 “Awaken” with a short pause or right after other speech
+
 2. Recording specifications
 Capture: 48 kHz, 24-bit or 16-bit mono WAV, with AGC, noise suppression and echo cancellation turned OFF. Keep these masters in `evals/corpus/masters/`.
 Derive: 16 kHz, 16-bit mono WAV for the pipeline (`evals/corpus/wavs/`). Derived automatically using the polyphase resampler in `check_corpus.py derive`. Keep originals intact.
 Levels: peaks between about -18 and -3 dBFS (nominal target -12 to -6 dBFS), zero digital clipping. Record about 1 s of lead and trail room tone before and after each clip.
 Environments (code in the filename):
 Code	Setup
-Q	Quiet room, headset or close mic (15-20 cm)
-D	Desk: laptop built-in mic, speaker 1-2 m away
-N	Noisy: fan, background music or TV running at a realistic volume
+Q	Quiet room: wired headset or close microphone (15–20 cm)
+D	Desk: laptop built-in mic, you sit 1–2 m away from the laptop (distance speech; not a loudspeaker)
+N	Noisy: fan, background music, or TV running at a realistic, fixed volume level
 Takes: 2 takes per item. Don’t delete “bad” takes. Mark technical faults in `evals/corpus/quality_flags.json`.
 Filename: {speaker}_{env}_{id}_t{take}.wav, for example `s01_Q_cmd_01_t1.wav`.
 Dev/test split: sealed in `evals/corpus/split.lock` (152 dev clips / 102 test clips). Deterministic split by item.
+
+### Name Pronunciation & Delivery Rules
+- **"Daimon" (primary assistant name):** Pronounced **DAY-mon** (/ˈdeɪmɒn/) across all lines in the catalog, **except** items `name_31–40`.
+- **`name_31–40` (phonetic variant):** Deliberately pronounced **DY-mon** (/ˈdaɪmɒn/) to benchmark variant STT transcription.
+- **"Damon" (cmd_12, conf_01, conf_02):** Pronounced **DAY-mun** (/ˈdeɪmən/).
+- **"Dayman" (cmd_13, conf_08):** Pronounced **DAY-man** (/ˈdeɪmæn/).
+- **"Demon" (cmd_14, conf_07, conf_09):** Pronounced **DEE-mon** (/ˈdiːmən/).
+  *(Ensures the alias recordings sound distinctly different from the primary name).*
+- **Section G (Side-talk while AWAKE):** Speak each line to an imaginary person next to you in the room, turning slightly away rather than projecting directly into the microphone.
+
+### Hardware & Acoustic Consistency
+- **Microphone Selection:**
+  - Use one consistent microphone for the entire **Block Q** (wired headset or close USB/XLR mic).
+  - Switch to the laptop's built-in microphone for **Block D** (Distance).
+  - Note the exact device names used, as the ground-truth metadata records the `device` field.
+- **Noise Consistency (Block N):**
+  - Keep the background noise source (fan, radio, TV) at a constant, fixed volume level throughout the entire N block.
 
 ### Windows 48 kHz Recording Setup Checklist
 Before starting a recording session on Windows:
@@ -60,7 +79,7 @@ Follow the pre-generated interactive scripts in [`RECORDING_SCRIPT.md`](RECORDIN
    - Re-record with fan / background media running: Section C items 26–35 (20 clips), Section E items 21–30 (20 clips), Section G items 09–12 (8 clips), and wake_11–15 (10 clips).
 
 3. Speakers
-s01 (you): records everything in sections A-G (178 items, about 356 clips at 2 takes).
+s01 (you): records everything in sections A–I (178 items, about 356 clips at 2 takes). Note that Phase 1 focuses on the 127 bake-off items (254 clips) across sections A, C, E, G, I.
 s02-s05 (at least 3, ideally 4 others): each records the speaker subset (45 items): wake_01-10, wake_neg_01-05, cmd_01-15, name_01-10, sleep_01-05. Include different genders, ages and accents, and at least two with strongly Indian-English speech patterns. Record their metadata (self-described accent or L1, device) with consent.
 If you can’t recruit others, label every result “single-speaker baseline” and don’t generalize.
 
@@ -157,6 +176,9 @@ conf_08	“Dayman, Dayman, Dayman”	Known risk
 conf_09	“Demon Slayer is on tonight”	Ignore
 conf_10	“the daemon process is running”	Ignore
 G. Side-talk while AWAKE (12 items)
+
+> **Delivery note:** Say these lines speaking to an imaginary person sitting next to you in the room, turning slightly away rather than talking straight into the microphone. These measure whether unaddressed conversation while AWAKE is silently dropped without invoking the LLM.
+
 ID	Spoken	Condition	Expected
 sidetalk_01	“Hey Rahul, did you order the food?”	Q	Silent drop
 sidetalk_02	“Can you pass me the water bottle?”	Q	Silent drop
@@ -202,8 +224,9 @@ hi_08	“kya tum Hindi samajhte ho”	Unaddressed	Q	Silent drop
 hi_09	“aaj traffic kaisa hai”	Unaddressed	Q	Silent drop
 hi_10	“gaane play karo”	Unaddressed	Q	Silent drop
 
-Web Client AEC Recording Takes:
-In addition to direct mic/headset recordings, record dedicated takes of this section (e.g. labeled _webaec_t1, etc.) through the real web client UI (http://localhost:3000) while connected to the active LiveKit room:
+Web Client AEC Recording Takes (Optional / Pending):
+In addition to the 254 direct mic/headset master recordings, optional dedicated takes of this section through the real web client UI (http://localhost:3000) are planned once automated in-browser capture (`NEXT_PUBLIC_RECORD_CORPUS=1`) is implemented:
+- **These takes are OPTIONAL and NOT part of the 254 bake-off clips; skip them for initial corpus recording.**
 - Browser microphone settings must have Echo Cancellation (AEC) and Noise Suppression active (echoCancellation: true, noiseSuppression: true).
 - Validates the browser audio pipeline, WebRTC jitter buffer, and acoustic echo cancellation settling on regional accents and code-mixed phrasing.
 
@@ -270,7 +293,7 @@ Allowed expected_action values: open_session, ignore, route_to_llm, silent_drop,
 7. Metrics to report
 Metric	Computed from	Starting target (you set the final number before testing)
 Wake true-positive rate	Section A (settled items only), per environment and per speaker	Set by you
-Wake false accepts per hour	Section I (continuous audio) plus Section B	Under 0.1 per hour (see the statistics note)
+Wake false accepts per hour	Section 5 continuous audio plus Section B	Under 0.1 per hour (see the statistics note)
 Name-gate pass rate	Sections C, E, I	Set by you
 Name-gate false accepts	Sections D, F, G	Report counts; Damon/Dayman/demon cases listed separately
 Sleep/abort accuracy	Section H, including near-misses	Set by you
@@ -313,20 +336,22 @@ After recording each block, run:
 # Check missing clips count
 uv run --project services/agent python evals/corpus/tools/check_corpus.py status
 
-# Validate master WAVs for clipping and room tone
-uv run --project services/agent python evals/corpus/tools/check_corpus.py validate --masters
+# Validate master WAVs for clipping, levels, and room tone (48 kHz mono 24/16-bit)
+uv run --project services/agent python evals/corpus/tools/check_corpus.py validate --dir evals/corpus/masters --mode master
+# (Convenience shortcut: uv run --project services/agent python evals/corpus/tools/check_corpus.py validate --masters)
 
 # Derive 16 kHz 16-bit mono pipeline WAVs (polyphase resampler)
 uv run --project services/agent python evals/corpus/tools/check_corpus.py derive
 
-# Validate derived pipeline WAVs
+# Validate derived pipeline WAVs (16 kHz mono 16-bit)
 uv run --project services/agent python evals/corpus/tools/check_corpus.py validate
 ```
-9. What changed from your previous guide
-Fixed sleep/abort semantics, and added near-miss controls for them.
-Added speaker spread (s02-s05) and the dev/test split.
-Added continuous negative audio with a honest statistics note.
-Added name edge cases, a name capture set (for the alias map) and confusables.
-Expanded “Awaken” variants and boundary tests, and marked open policies as informational.
-Added environment, distance, speaker and accent fields to the schema.
-Made Hindi scoring explicit.
+
+9. Changelog and Design Evolution
+- Refined sleep/abort semantics and added near-miss negative controls.
+- Added speaker spread (s02-s05) and seeded dev/test split locked by item.
+- Added continuous negative audio specification with confidence statistical rationale.
+- Added name edge cases, name capture set (for STT alias mapping), and phonetic confusable controls.
+- Expanded “Awaken” variant set and boundary tests; marked open policies as informational.
+- Added environment (Q/D/N), distance, speaker, and accent fields to metadata schema.
+- Explicitly defined Hindi / Hinglish scoring (addressed vs unaddressed controls).

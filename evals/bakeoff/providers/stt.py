@@ -72,7 +72,13 @@ class FasterWhisperSTTProvider(STTProvider):
 
     def _get_model(self) -> Any:
         if self._model is None:
-            from faster_whisper import WhisperModel
+            try:
+                from faster_whisper import WhisperModel
+            except ImportError as err:
+                raise ImportError(
+                    "Optional candidate 'faster-whisper' is not installed. "
+                    "Install it in services/agent with: uv add --project services/agent faster-whisper"
+                ) from err
             self._model = WhisperModel(self.model_size, device="cpu", compute_type="int8")
         return self._model
 

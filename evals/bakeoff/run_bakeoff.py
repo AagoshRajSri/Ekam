@@ -91,6 +91,7 @@ def main() -> int:
     parser.add_argument("--final", action="store_true", help="Required to evaluate the locked test split")
     parser.add_argument("--no-dry-run", dest="dry_run", action="store_false", default=True, help="Execute calls (disables dry-run)")
     parser.add_argument("--use-fakes", action="store_true", help="Use offline fake adapters (zero API calls)")
+    parser.add_argument("--layer", choices=["stt", "llm", "tts", "all"], default="all", help="Evaluate specific layer (default: all)")
     parser.add_argument("--max-orpheus-requests", type=int, default=20, help="Hard ceiling on Orpheus requests (default: 20)")
     parser.add_argument("--output-report", default=str(REPO_ROOT / "docs" / "benchmarks" / "phase_1_bakeoff.md"))
 
@@ -148,9 +149,10 @@ def main() -> int:
         print(f"  Section {sec}: n = {n_avail}/{n_total} clips ({pct:5.1f}%)")
 
     # Dry-run request count accounting
-    stt_candidates = [c for c in config.get("stt", {}).get("candidates", []) if c.get("enabled")]
-    llm_candidates = [c for c in config.get("llm", {}).get("candidates", []) if c.get("enabled")]
-    tts_candidates = [c for c in config.get("tts", {}).get("candidates", []) if c.get("enabled")]
+    layer = getattr(args, "layer", "all")
+    stt_candidates = [c for c in config.get("stt", {}).get("candidates", []) if c.get("enabled")] if layer in ("stt", "all") else []
+    llm_candidates = [c for c in config.get("llm", {}).get("candidates", []) if c.get("enabled")] if layer in ("llm", "all") else []
+    tts_candidates = [c for c in config.get("tts", {}).get("candidates", []) if c.get("enabled")] if layer in ("tts", "all") else []
 
     stt_reqs = len(stt_candidates) * len(eval_clips)
     # LLM evaluated on fixed Section C prompt items (subset)

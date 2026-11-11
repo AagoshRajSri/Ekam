@@ -25,8 +25,12 @@ class GroqLLMProvider(LLMProvider):
 
     def _get_client(self) -> Any:
         if self._client is None:
-            from groq import Groq
-            self._client = Groq(api_key=self.api_key)
+            try:
+                from groq import Groq
+                self._client = Groq(api_key=self.api_key)
+            except ImportError:
+                from openai import OpenAI
+                self._client = OpenAI(base_url="https://api.groq.com/openai/v1", api_key=self.api_key)
         return self._client
 
     def generate(self, user_prompt: str, system_prompt: str) -> dict[str, Any]:

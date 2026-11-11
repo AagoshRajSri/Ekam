@@ -10,11 +10,19 @@ stt:
       license: MIT (Whisper weights) / Proprietary API (Groq)
       enabled: true
       language: en
+      # Baseline (without domain prompt)
+    - id: groq_whisper_prompted
+      provider: groq
+      model: whisper-large-v3-turbo
+      license: MIT (Whisper weights) / Proprietary API (Groq)
+      enabled: true
+      language: en
+      prompt: "Daimon, helpful assistant, natural spoken conversational English."
     - id: groq_whisper_v3
       provider: groq
       model: whisper-large-v3
       license: MIT (Whisper weights) / Proprietary API (Groq)
-      enabled: true
+      enabled: false
       language: en
     - id: faster_whisper_small
       provider: faster_whisper

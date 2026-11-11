@@ -22,21 +22,40 @@ class GroqSTTProvider(STTProvider):
 
     def _get_client(self) -> Any:
         if self._client is None:
-            from groq import Groq
-            self._client = Groq(api_key=self.api_key)
+            try:
+                from groq import Groq
+                self._client = Groq(api_key=self.api_key)
+            except ImportError:
+                from openai import OpenAI
+                self._client = OpenAI(base_url="https://api.groq.com/openai/v1", api_key=self.api_key)
         return self._client
 
     def transcribe(self, wav_path: Path) -> dict[str, Any]:
         client = self._get_client()
+        prompt = self.config.get("prompt")
         t0 = time.monotonic()
-        with open(wav_path, "rb") as f:
-            transcription = client.audio.transcriptions.create(
-                file=(wav_path.name, f, "audio/wav"),
-                model=self.model,
-                language=self.language,
-                response_format="json",
-            )
+        for attempt in range(5):
+            try:
+                with open(wav_path, "rb") as f:
+                    kwargs: dict[str, Any] = {
+                        "file": (wav_path.name, f, "audio/wav"),
+                        "model": self.model,
+                        "language": self.language,
+                        "response_format": "json",
+                    }
+                    if prompt:
+                        kwargs["prompt"] = prompt
+                    transcription = client.audio.transcriptions.create(**kwargs)
+                break
+            except Exception as e:
+                err_str = str(e).lower()
+                if ("429" in err_str or "connection" in err_str or "getaddrinfo" in err_str or "timeout" in err_str) and attempt < 4:
+                    time.sleep(3.0 * (attempt + 1))
+                    continue
+                raise
+
         rtt_ms = (time.monotonic() - t0) * 1000.0
+        time.sleep(0.2)  # Avoid rate burst
         text = getattr(transcription, "text", str(transcription))
         return {
             "text": text.strip(),

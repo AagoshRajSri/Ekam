@@ -1,149 +1,157 @@
-# Ekam / BABY — Real-Time Voice-First Personal AI
+# Daimon — Real-Time Voice-First Personal AI (Codename: Ekam / Baby)
 
 > **"You speak, interrupt, correct yourself, and change topics; it answers, computes, retrieves, and performs real actions — and tells the truth about what actually happened."**
 
-Baby is a voice-native personal AI designed from the ground up for sub-second, interruptible conversational interaction. It sits as a low-latency layer between you and your digital environment, prioritizing safety, truthfulness, and extreme speed.
+Daimon is a voice-native personal AI designed from the ground up for sub-second, interruptible conversational interaction. It operates as a low-latency layer between the user and their computing environment, strictly adhering to the priority order: **User Safety & Consent → Truthfulness about Facts and Actions → Latency → Cost → Feature Breadth**.
+
+> ⚙️ **Dynamic Configuration & Zero Hardcoding:** The product name defaults to `os.getenv("APP_NAME", "Assistant")` (configured as **Daimon**, pronounced DAY-mon /ˈdeɪmɒn/), the wake word to `os.getenv("WAKE_WORD", "Awaken")`, and the phonetic respelling to `TTS_NAME_RESPELL=DAY-mon`. All prompts, phonetic normalization logic, and session telemetries derive these values at runtime with zero hardcoded strings. Monorepo packages are scoped under `@daimon/*` and `daimon-agent`.
 
 ---
 
-## 📊 Phase 0 Milestone: Verification & Empirical Hardproof
+## 📊 Empirical Benchmarks & Verification (No Fake Claims)
 
-As of **Phase 0 (Foundations)**, the real-time voice pipeline has been built, tested, and validated in live multi-turn conversations.
+All performance figures below are derived from real execution telemetry and empirical test runs. In adherence to the **Truth Over Fluency** principle, mock tests and unverified lab figures are explicitly labeled.
 
-> 📖 **Full Telemetry Log & Analysis:** See [docs/benchmarks/phase_0_empirical_results.md](docs/benchmarks/phase_0_empirical_results.md) for the complete turn-by-turn records, timestamps, and architectural takeaways.
+---
 
-### Live Benchmark Results (Empirically Measured)
+### Phase 0: Foundations & Live Console Telemetry
 
-Measurements taken on local hardware connecting to LiveKit Cloud in **Mumbai (`ap-south`)**:
+* **LiveKit Cloud Region:** `ap-south` (India South / Mumbai — physical edge node `NM_OHYDERABAD1A`)
+* **Transport:** WebRTC (UDP)
+* **Date:** 2026-11-07
+* **Detailed Report:** [docs/benchmarks/phase_0_empirical_results.md](docs/benchmarks/phase_0_empirical_results.md)
 
-| Pipeline Stage | Provider / Tech | Measured Latency | Spec Budget (p50) | Status |
+| Pipeline Stage | Provider / Component | Measured Latency | Spec Target | Status |
 |---|---|---|---|---|
 | **VAD (Voice Activity Detection)** | Silero VAD (Local ONNX, CPU) | **< 1 ms** (in-process) | Local | 🟢 Operational |
-| **STT (Speech-to-Text)** | Groq Whisper Large v3 Turbo | **0.78 s – 1.00 s** | Streaming | 🟢 100% Transcription Accuracy |
-| **End-of-Turn (EOT) Detection** | LiveKit Multilingual Model | **~400 ms** delay | 450 ms | 🟢 Zero cutoffs |
-| **LLM TTFT (Time-to-First-Token)** | Groq `qwen/qwen3.8-27b` | **129 ms – 181 ms** | ≤ 350 ms | ⚡ **>2x Faster than Budget** |
-| **TTS TTFB (Time-to-First-Byte)** | Groq Orpheus (`autumn`) | **194 ms – 338 ms** | ≤ 300 ms | 🟢 Crisp Audio Output |
-| **Barge-In / Interruption** | WebRTC AEC + LiveKit detector | **≤ 250 ms** to silence | ≤ 250 ms | 🟢 Verified |
+| **STT Transcript Delay** | Groq Whisper Large v3 Turbo | **0.78 s – 2.57 s** (median ~1.50 s) | Streaming | 🟢 100% Word Accuracy |
+| **End-of-Turn Endpointing** | LiveKit Turn Detector v1 | **400 ms** (fixed commit) | ≤ 700 ms | 🟢 Zero cutoffs |
+| **LLM TTFT (Time-to-First-Token)** | Groq `qwen/qwen3.8-27b` | **129 ms – 190 ms** (median ~152 ms) | ≤ 350 ms | ⚡ **>2x Faster than Budget** |
+| **TTS TTFB (Time-to-First-Byte)** | Groq Orpheus (`autumn`) | **194 ms – 338 ms** (median ~233 ms) | ≤ 300 ms | 🟢 Crisp Audio Output |
+| **Truthfulness Enforcement** | Appendix A Spec Prompt | **100% Pass** | Strict | 🟢 Refused hallucinating time / complex math without tools |
 
-### Real Multi-Turn Verification Log (Excerpt)
+---
 
-```text
-User:       "Who is there?"
-Baby:       "I'm Baby, your voice assistant."
-Telemetry:  llm_ttft: 147ms · tts_ttfb: 230ms
+### Phase 1: Voice Core, STT Bake-off & Web Telemetry
 
-User:       "Hey, what is the time right now?"
-Baby:       "I can't check the time in this test session."  [Truthfulness: Refused hallucination without datetime tool]
-Telemetry:  llm_ttft: 129ms · tts_ttfb: 236ms
+* **Corpus Evaluated:** 152 dev audio clips (Speaker s01: Quiet [Q], Desk [D], Noise [N] environments)
+* **Date:** 2026-11-11
+* **Detailed Reports:** [docs/benchmarks/phase_1_bakeoff.md](docs/benchmarks/phase_1_bakeoff.md) & [docs/STATUS.md](docs/STATUS.md)
 
-User:       "What is two plus two?"
-Baby:       "Four."
-Telemetry:  llm_ttft: 145ms · tts_ttfb: 236ms
+#### 1. Empirical STT Bake-off (Prompted vs. Unprompted)
+We evaluated Groq Whisper Large v3 Turbo across 152 single-speaker baseline audio clips to test whether domain prompt injection improved wake/name recognition:
 
-User:       "What is the square root of 1,578?"
-Baby:       "I can't calculate that in this test session."  [Truthfulness: Refused calculation pending Phase 2 Tier-0 math]
-Telemetry:  llm_ttft: 181ms · tts_ttfb: 203ms
-```
+| Candidate ID | Model | Overall WER | WER (Quiet) | WER (Desk) | WER (Noise) | Entity Accuracy | Name Capture (`Daimon.`) |
+|---|---|---|---|---|---|---|---|
+| **`groq_whisper` (Unprompted)** | `whisper-large-v3-turbo` | **0.0%** | **0.0%** | **0.0%** | **0.0%** | **100.0%** | **48 / 48 (100%)** |
+| `groq_whisper_prompted` | `whisper-large-v3-turbo` | 77.3% | 68.0% | 85.7% | 93.7% | 73.5% | 15 / 48 (Hallucinated/Echoed) |
+
+> ⚠️ **Bake-off Finding (Prompt Leakage):** Under desk (D) and noise (N) acoustic conditions, Whisper's autoregressive decoder echoed words from the injected domain prompt directly into the output transcription. The unprompted configuration achieved **0.0% WER** and captured the assistant name with 100% precision. The domain prompt was permanently removed from the baseline pipeline.
+
+#### 2. Latency Composition & Endpointing Share
+Analyzing live WebRTC turn traces ([`telemetry_traces.jsonl`](services/agent/telemetry_traces.jsonl)) revealed the true bottleneck of user-perceived conversational latency:
+* **Endpointing Delay Share:** At the 400 ms endpointing delay (`min_delay: 0.4s`), endpointing accounts for **68.3%** of total user-perceived time-to-first-audio (586 ms round trip). At 800 ms (`min_delay: 0.8s`), endpointing accounts for **~81%** of total latency.
+* **Per-Turn Telemetry:** Every turn now calculates and broadcasts `stt_requests`, `llm_requests`, `tts_requests`, and rolling `tts_requests_hourly` over the `telemetry` WebRTC data channel.
+
+#### 3. Quota Protection & Failover Chain
+* **Guarded Orpheus TTS:** Rolling 100 req/hour limit with disk-persisted timestamps (`tts_quota_timestamps.jsonl`). Proactively transitions to local Piper TTS (`en_US-lessac-medium`) when headroom drops to $\le 10\%$.
+* **Local 429 Spoken Recovery:** Pre-rendered local audio (`assets/recovery_429.wav`, 24 kHz mono 16-bit): *"I've hit my voice limit, switching to my backup voice."* (Zero API calls).
+* **Idle Auto-Disconnect Watchdog:** Closes both the LiveKit room and agent session after `IDLE_DISCONNECT_SECONDS` (default: 300s) of inactivity.
+
+#### 4. Open Phase 1 Verification Items (Audit Status)
+* **Acoustic Barge-in:** In-memory software task cancellation latency was measured at `< 1 ms` (mock test), but physical human-voice-to-silent-speaker acoustic barge-in latency remains **UNVERIFIED** until the 10-trial Audacity test protocol ([docs/live_test_protocol.md](docs/live_test_protocol.md)) is executed with headphones (target: $\le 250\text{ ms}$, ceiling: $\le 300\text{ ms}$).
+* **Cloud & Local LLM Failovers:** Secondary cloud failover (`gemini-3.8-flash`) and offline failover (`qwen2.5:7b` via local Ollama) are verified via unit mock tests; live failover API calls are marked **UNVERIFIED LIVE** in CI to prevent flakiness and unintended spend.
+* **Continuous Stability:** 30-minute uninterrupted session stability test is pending live browser execution.
+
+---
+
+### Phase 2: Router & Deterministic Tools (Upcoming)
+
+* **Status:** ⏳ **Pending Implementation — No Fabricated Numbers**
+* **Scope:**
+  * Sub-500 ms Tier-0 regex and grammar evaluator for deterministic queries: arithmetic (`simpleeval` / `sympy`), unit conversions, and datetime.
+  * Direct tool execution for real-time weather via Open-Meteo API (zero credentials required).
+  * Strict truthfulness verification: tool results must be verified before the model claims an action succeeded.
+* **Target Budget:** $\le 500\text{ ms}$ round-trip for deterministic tools; zero LLM calls on pure math/unit questions.
 
 ---
 
 ## 🏛️ System Architecture
 
 ```text
- Client (Web / Android companion)
+ Client (Web Next.js / Android Companion)
         │
-        │ WebRTC (UDP)
+        │ WebRTC (UDP audio + data channel)
         ▼
- LiveKit Cloud (ap-south / Mumbai)
+ LiveKit Cloud (ap-south / Mumbai — node NM_OHYDERABAD1A)
         │
         ▼
- VOICE AGENT (Python / livekit-agents 1.8.11)
-  ├── Silero VAD (local in-process)
-  ├── Groq Whisper STT (streaming)
-  ├── Router: Tier 0 (Rules) → Tier 1 (Fast LLM) → Tier 2 (Reasoning)
-  └── Groq Orpheus TTS (streaming)
+ VOICE AGENT (Python 3.12 / livekit-agents 1.8.11)
+  ├── VAD & EOT: Silero VAD (local ONNX, <1 ms) + Multilingual Turn Detector
+  ├── STT: Groq Whisper Large v3 Turbo (unprompted, 0.0% WER)
+  ├── LLM Failover Chain (5.0s timeout):
+  │     ├── Tier 1 (Primary): Groq Qwen 3.8 27B (TTFT ~130–180 ms)
+  │     ├── Tier 2 (Cloud Failover): Google Gemini Flash
+  │     └── Tier 3 (Offline Failover): Local Ollama Qwen 2.5 7B
+  └── Guarded TTS (100 req/hr ceiling):
+        ├── Primary: Groq Orpheus (autumn)
+        ├── Quota / 429 Recovery: Local Piper WAV ("switching to my backup voice")
+        └── Fallback: Local Piper TTS (en_US-lessac-medium)
         │
         │ HTTP/2 persistent (Phase 3)
         ▼
- GATEWAY (Node.js / Fastify / TypeScript)
+ GATEWAY (Node.js / Fastify / TypeScript — Phase 3)
   ├── Auth, Permissions & Audit Logging
   ├── Tool Registry & Verification Engine
-  └── BullMQ Background Workers
-        ├── Redis (session state & queues)
-        └── PostgreSQL + pgvector (long-term memory)
+  └── BullMQ Background Workers (Redis + PostgreSQL pgvector)
 ```
 
 ---
 
-## 📁 Repository Structure & Verified File Inventory
+## 📁 Repository Structure
 
 ```text
 Ekam/
 ├── apps/
-│   ├── web/                    # Next.js client & real-time telemetry dashboard (Phase 1)
-│   │   └── package.json        # Verified valid JSON workspace package
+│   ├── web/                    # Next.js 16.4.5 client, reactive visual orb & telemetry bar
 │   └── gateway/                # Fastify Node API, tool registry & workers (Phase 3)
-│       └── package.json        # Verified valid JSON workspace package
 ├── services/
-│   └── agent/                  # Python voice agent service (livekit-agents)
-│       ├── src/daimon_agent/   # Core package root
-│       ├── tests/              # Unit & smoke test suite (6/6 passing)
-│       ├── agent.py            # LiveKit entrypoint & session definition
-│       └── pyproject.toml      # uv configuration with pinned dependencies
+│   └── agent/                  # Python voice agent service (livekit-agents 1.8.11)
+│       ├── assets/             # Pre-recorded recovery audio (recovery_429.wav)
+│       ├── models/piper/       # Local Piper ONNX voice models & JSON configs
+│       ├── tests/              # 19 passing unit tests (smoke, telemetry, idle, quota)
+│       ├── agent.py            # LiveKit entrypoint, GuardedOrpheusTTS, and watchdog
+│       └── pyproject.toml      # Pinned dependencies (uv managed)
 ├── packages/
-│   ├── tool-schemas/           # Single source of truth: Zod -> JSON Schema
-│   │   └── package.json        # Verified valid JSON workspace package
-│   └── shared-types/           # Shared TypeScript interfaces
-│       └── package.json        # Verified valid JSON workspace package
-├── docs/
-│   └── adr/                    # Architectural Decision Records
-│       ├── 001-initial-stack.md          # Profile A stack & justifications
-│       └── 002-latency-definitions.md    # Latency timelines & hot-path invariant
+│   ├── tool-schemas/           # Zod schemas -> JSON Schema single source of truth
+│   └── shared-types/           # Shared TypeScript interfaces across web & gateway
 ├── evals/
-│   └── corpus/                 # Evaluation dataset & recording guides
-│       └── RECORDING_GUIDE.md  # 50–100 benchmark utterance specification
-├── prompts/                    # Core specs and system prompt definitions
-│   ├── BABY_PROMPT_v2.md       # Primary 500-line engineering specification
-│   ├── BABY_FREE_TO_PREMIUM.md # Profile A (Free) to Profile B (Premium) guide
-│   └── ROADMAP.md              # 9-phase step-by-step master roadmap
+│   ├── bakeoff/                # Multi-provider STT/LLM/TTS bake-off harness & cache
+│   └── corpus/                 # Audio benchmark corpus, manifests, and split.lock
+├── docs/
+│   ├── adr/                    # Architecture Decision Records (001 through 004)
+│   ├── benchmarks/             # Empirical benchmark logs (Phase 0, Phase 1 bake-off)
+│   ├── STATUS.md               # Source of truth project status and open exit criteria
+│   └── live_test_protocol.md   # Audacity barge-in and live testing instructions
 ├── .env.example                # Clean environment template (zero secrets)
-├── .gitignore                  # Strict guardrails (protects .env, node_modules, .venv)
-├── package.json                # Root monorepo workspace configuration
-├── pnpm-workspace.yaml         # pnpm monorepo package mapping
-└── README.md                   # Project overview, stats, and documentation
+├── pnpm-workspace.yaml         # pnpm monorepo workspace configuration
+└── README.md                   # Project overview, empirical benchmarks, and guides
 ```
-
-### Complete File Verification Matrix
-
-| File Path | Purpose | Automated Verification Check | Status |
-|---|---|---|---|
-| `.env.example` | Template for environment variables | Confirmed no credentials leaked | ✅ Verified |
-| `.gitignore` | Security rule to protect `.env` and artifacts | Verified `.env` untracked by Git | ✅ Verified |
-| `package.json` | Root monorepo script configuration | Syntax validated by Node engine | ✅ Verified |
-| `pnpm-workspace.yaml` | Monorepo package registry | Resolved all 5 workspace projects | ✅ Verified |
-| `apps/web/package.json` | Web frontend project configuration | JSON parse validation | ✅ Verified |
-| `apps/gateway/package.json` | Backend gateway project configuration | JSON parse validation | ✅ Verified |
-| `packages/tool-schemas/package.json` | Schema package configuration | JSON parse validation | ✅ Verified |
-| `packages/shared-types/package.json` | Shared types package configuration | JSON parse validation | ✅ Verified |
-| `services/agent/pyproject.toml` | Python project specification (uv) | Verified dependencies lock cleanly | ✅ Verified |
-| `services/agent/agent.py` | Real-time LiveKit Agent implementation | Compiled & verified via LiveKit Cloud | ✅ Verified |
-| `services/agent/tests/test_agent_smoke.py` | Automated smoke test suite | `pytest` 6/6 tests passing (5.24s) | ✅ Verified |
-| `docs/adr/001-initial-stack.md` | ADR-001: Architecture Decision Record | Spec consistency review | ✅ Verified |
-| `docs/adr/002-latency-definitions.md` | ADR-002: Latency Contract & Invariants | Formula and budget alignment | ✅ Verified |
-| `evals/corpus/RECORDING_GUIDE.md` | Benchmark corpus creation protocol | Formatted test corpus guide | ✅ Verified |
 
 ---
 
-## 🚦 Roadmap & Progress
+## 🚦 Roadmap & Phase Progress
 
-- [x] **Phase 0 — Foundations:** Monorepo scaffolding, credentials verification, ADRs, Python agent implementation, and live console verification.
-- [ ] **Phase 1 — Voice Core (Next):** WebRTC client (`apps/web`), token minting API, visual audio orb, and real-time per-turn latency waterfall.
-- [ ] **Phase 2 — Router & Deterministic Tools:** Sub-500ms Tier-0 regex/grammar evaluator (arithmetic, units, time) and Open-Meteo weather.
-- [ ] **Phase 3 — Gateway, Data & Memory:** Fastify gateway, PostgreSQL + pgvector, Redis session state, and write-behind workers.
+- [x] **Phase 0 — Foundations:** Monorepo scaffolding, credentials verification, ADRs, Python agent implementation, and live console WebRTC verification ([`phase_0_empirical_results.md`](docs/benchmarks/phase_0_empirical_results.md)).
+- [x] **Phase 1 — Voice Core & Web Client (Development Prototype):** Next.js client (`apps/web`), reactive visualizer orb, telemetry data channel, Guarded Orpheus TTS (100 req/hr), Silero VAD, STT bake-off, and idle auto-disconnect.
+  - *Exit criteria remaining:* Live Audacity acoustic barge-in measurement ($\le 250\text{ ms}$) and 30-min continuous stability test.
+- [ ] **Phase 1b — Wake Word & Session Gate (Proposed):** On-device WASM pre-gating keyword engine, "Awaken" acoustic model evaluation, and Section E name alias gating (see [`docs/adr/004-wake-word-and-session-architecture.md`](docs/adr/004-wake-word-and-session-architecture.md)).
+- [ ] **Phase 2 — Router & Deterministic Tools:** Sub-500 ms Tier-0 regex/grammar evaluator (arithmetic, units, time conversions) and Open-Meteo weather integration.
+- [ ] **Phase 3 — Gateway, Data & Memory:** Fastify gateway, PostgreSQL + pgvector long-term memory, Redis session state, and write-behind workers.
 - [ ] **Phase 4 — Tool Ecosystem & Permissions:** Verified tool contracts, human-in-the-loop confirmation policies, and prompt-injection taint tracking.
-- [ ] **Phase 5 — Android Device Companion:** Jetpack Compose companion app, deep-link handoffs, and honest action reporting.
+- [ ] **Phase 5 — Android Companion:** Jetpack Compose companion app, deep-link handoffs, and honest action reporting.
 - [ ] **Phase 6 — Background Research & Proactive RAG:** BullMQ research pipelines, cited summaries, and quiet-hours proactive notifications.
-- [ ] **Phase 7 — Optimization & Local AI:** Tail latency tuning, semantic caching, and specialized on-device models.
+- [ ] **Phase 7 — Optimization & Local AI:** Tail latency tuning, semantic caching, and on-device SLM execution.
 - [ ] **Phase 8 — Hardening & Launch:** Security review, failover drills, privacy compliance (DPDP), and multi-user isolation.
 
 ---
@@ -151,47 +159,52 @@ Ekam/
 ## ⚡ Quickstart
 
 ### Prerequisites
-- Node.js LTS (>= 20) & `pnpm` (>= 10)
-- Python 3.12 & `uv` package manager
-- LiveKit Cloud account & Groq API key
+* Node.js LTS (>= 20) & `pnpm` (>= 10)
+* Python 3.12 & `uv` package manager
+* LiveKit Cloud account & Groq API key
 
-### Installation
+### 1. Installation
+```bash
+# Clone the repository
+git clone https://github.com/AagoshRajSri/Ekam.git
+cd Ekam
 
-1. **Clone the repository:**
-   ```bash
-   git clone <repo-url>
-   cd Ekam
-   ```
+# Set up environment variables
+cp .env.example .env
+# Configure LIVEKIT_URL, LIVEKIT_API_KEY, LIVEKIT_API_SECRET, and GROQ_API_KEY in .env
 
-2. **Configure environment:**
-   ```bash
-   cp .env.example .env
-   # Add your LIVEKIT_URL, LIVEKIT_API_KEY, LIVEKIT_API_SECRET, and GROQ_API_KEY
-   ```
+# Install monorepo web & gateway dependencies
+pnpm install
 
-3. **Install workspace dependencies:**
-   ```bash
-   pnpm install
-   ```
+# Set up Python agent virtualenv
+cd services/agent
+uv sync
+```
 
-4. **Set up the Python voice agent:**
-   ```bash
-   cd services/agent
-   uv sync
-   ```
+### 2. Run Test Suites
+```bash
+# Run unit & smoke tests (all offline / zero quota used)
+uv run pytest tests/test_agent_smoke.py tests/test_telemetry_and_idle.py -v
 
-5. **Run the smoke test suite:**
-   ```bash
-   uv run pytest tests/
-   ```
+# Verify web client build
+pnpm --filter @daimon/web build
+```
 
-6. **Talk to Baby via terminal console:**
-   ```bash
-   uv run python agent.py console
-   ```
+### 3. Launch Live Development Stack
+Open two terminal windows:
+
+```bash
+# Terminal 1: Web Client (Next.js)
+pnpm --filter @daimon/web dev
+
+# Terminal 2: Voice Agent (LiveKit worker)
+cd services/agent
+uv run python agent.py dev
+```
+
+Navigate to `http://localhost:3000` to interact with Daimon, observe the real-time latency waterfall, and monitor per-turn telemetry counters.
 
 ---
 
 ## 📄 License
-ISC © 2026 Ekam Contributors
-
+ISC © 2026 Ekam / Daimon Contributors

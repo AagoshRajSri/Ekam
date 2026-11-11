@@ -8,6 +8,7 @@ import {
   useDataChannel,
   useRoomContext,
   useTrackToggle,
+  useLocalParticipant,
 } from '@livekit/components-react';
 import { Track } from 'livekit-client';
 import { Mic, MicOff, PhoneOff, Radio, RefreshCw } from 'lucide-react';
@@ -24,17 +25,29 @@ interface VoiceSessionProps {
 
 function ActiveVoiceRoom({ onDisconnect }: { onDisconnect: () => void }) {
   const room = useRoomContext();
+  const { localParticipant } = useLocalParticipant();
   const { state: agentState, audioTrack, agentTranscriptions } = useVoiceAssistant();
   const [telemetryPoints, setTelemetryPoints] = useState<TelemetryPoint[]>([]);
   const [currentTurnMs, setCurrentTurnMs] = useState<number | null>(null);
   const [dataChannelTranscripts, setDataChannelTranscripts] = useState<TranscriptEntry[]>([]);
   const [quotaAlert, setQuotaAlert] = useState<boolean>(false);
   const [audioLevel, setAudioLevel] = useState<number>(0);
+  const [bargeInTrials, setBargeInTrials] = useState<number[]>([]);
+  const [latestBargeInMs, setLatestBargeInMs] = useState<number | null>(null);
 
-  // Turn timing tracking
+  // Turn timing & barge-in probe tracking
   const userSpeechEndRef = useRef<number | null>(null);
   const currentTurnIdRef = useRef<number>(1);
   const isAgentSpeakingRef = useRef<boolean>(false);
+  const probeStateRef = useRef<{
+    trialActive: boolean;
+    speechStartTime: number | null;
+    trialCount: number;
+  }>({
+    trialActive: false,
+    speechStartTime: null,
+    trialCount: 1,
+  });
 
   // Data channel for custom messages (telemetry, on-screen text fallbacks)
   const { send } = useDataChannel('telemetry', (msg) => {
@@ -46,7 +59,7 @@ function ActiveVoiceRoom({ onDisconnect }: { onDisconnect: () => void }) {
         setDataChannelTranscripts((prev) => [
           ...prev,
           {
-            id: `server-${Date.now()}`,
+            id: `server-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
             role: data.role || 'assistant',
             text: data.text,
             timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
@@ -58,7 +71,7 @@ function ActiveVoiceRoom({ onDisconnect }: { onDisconnect: () => void }) {
         setDataChannelTranscripts((prev) => [
           ...prev,
           {
-            id: `server-${Date.now()}`,
+            id: `server-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
             role: 'system',
             text: data.reason || 'Session closed due to inactivity.',
             timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
@@ -142,40 +155,95 @@ function ActiveVoiceRoom({ onDisconnect }: { onDisconnect: () => void }) {
   }, [agentState, send]);
 
 
-  // Audio level monitoring when agent is speaking
+  // Audio level monitoring and Client-Side Barge-In Probe
   useEffect(() => {
-    if (!audioTrack?.publication?.track) return;
-    const track = audioTrack.publication.track;
-    const mediaStreamTrack = track.mediaStreamTrack;
-    if (!mediaStreamTrack) return;
+    const remoteTrack = audioTrack?.publication?.track?.mediaStreamTrack;
+    const micPub = localParticipant?.getTrackPublication(Track.Source.Microphone);
+    const micTrack = micPub?.track?.mediaStreamTrack;
+    if (!remoteTrack) return;
 
     let animId: number;
     let audioCtx: AudioContext | null = null;
     try {
       const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
       audioCtx = new AudioCtx();
-      const src = audioCtx.createMediaStreamSource(new MediaStream([mediaStreamTrack]));
-      const analyser = audioCtx.createAnalyser();
-      analyser.fftSize = 64;
-      src.connect(analyser);
-      const dataArray = new Uint8Array(analyser.frequencyBinCount);
+
+      // Remote agent audio stream & analyser
+      const remoteSrc = audioCtx.createMediaStreamSource(new MediaStream([remoteTrack]));
+      const remoteAnalyser = audioCtx.createAnalyser();
+      remoteAnalyser.fftSize = 64;
+      remoteSrc.connect(remoteAnalyser);
+      const remoteData = new Uint8Array(new ArrayBuffer(remoteAnalyser.frequencyBinCount));
+
+      // Local microphone stream & analyser (for barge-in speech onset detection)
+      let micAnalyser: AnalyserNode | null = null;
+      let micData: Uint8Array<ArrayBuffer> | null = null;
+      if (micTrack) {
+        try {
+          const micSrc = audioCtx.createMediaStreamSource(new MediaStream([micTrack]));
+          micAnalyser = audioCtx.createAnalyser();
+          micAnalyser.fftSize = 64;
+          micSrc.connect(micAnalyser);
+          micData = new Uint8Array(new ArrayBuffer(micAnalyser.frequencyBinCount));
+        } catch {
+          // Mic track media stream creation error
+        }
+      }
 
       const update = () => {
-        analyser.getByteFrequencyData(dataArray);
-        const avg = dataArray.reduce((acc, v) => acc + v, 0) / dataArray.length;
-        setAudioLevel(avg / 255);
+        remoteAnalyser.getByteFrequencyData(remoteData);
+        const remoteAvg = remoteData.reduce((acc, v) => acc + v, 0) / remoteData.length;
+        setAudioLevel(remoteAvg / 255);
+
+        if (micAnalyser && micData) {
+          micAnalyser.getByteFrequencyData(micData);
+          const micAvg = micData.reduce((acc, v) => acc + v, 0) / micData.length;
+
+          // Agent is actively speaking when remote audio energy is non-trivial (> 8)
+          const agentIsProducingAudio = remoteAvg > 8;
+
+          // Detect user speech onset during agent playout (mic energy > 16)
+          if (agentIsProducingAudio && micAvg > 16 && !probeStateRef.current.trialActive) {
+            probeStateRef.current.trialActive = true;
+            probeStateRef.current.speechStartTime = performance.now();
+          }
+
+          // If trial is active, wait for remote agent audio to cease (<= 3)
+          if (probeStateRef.current.trialActive && probeStateRef.current.speechStartTime) {
+            if (remoteAvg <= 3) {
+              const deltaMs = Math.round(performance.now() - probeStateRef.current.speechStartTime);
+              if (deltaMs >= 25 && deltaMs <= 3000) {
+                setLatestBargeInMs(deltaMs);
+                setBargeInTrials((prev) => [...prev, deltaMs]);
+
+                if (send) {
+                  const payload = JSON.stringify({
+                    type: 'client_barge_in_telemetry',
+                    barge_in_ms: deltaMs,
+                    trial_id: probeStateRef.current.trialCount++,
+                    timestamp: new Date().toISOString(),
+                  });
+                  send(new TextEncoder().encode(payload), { reliable: true }).catch(() => {});
+                }
+              }
+              probeStateRef.current.trialActive = false;
+              probeStateRef.current.speechStartTime = null;
+            }
+          }
+        }
+
         animId = requestAnimationFrame(update);
       };
       update();
     } catch {
-      // AudioContext not allowed without user interaction fallback
+      // AudioContext fallback
     }
 
     return () => {
       if (animId) cancelAnimationFrame(animId);
       if (audioCtx) audioCtx.close().catch(() => {});
     };
-  }, [audioTrack]);
+  }, [audioTrack, localParticipant, send]);
 
   // Record user speech end when state moves from listening/user speaking to thinking
   useEffect(() => {
@@ -237,6 +305,8 @@ function ActiveVoiceRoom({ onDisconnect }: { onDisconnect: () => void }) {
         points={telemetryPoints}
         currentTurnMs={currentTurnMs}
         agentState={agentState}
+        latestBargeInMs={latestBargeInMs}
+        bargeInTrials={bargeInTrials}
       />
 
       {/* Live Transcript Feed */}

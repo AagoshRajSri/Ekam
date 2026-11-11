@@ -96,6 +96,38 @@ def respell_for_tts(text: str, app_name: str = APP_NAME, respell: str = TTS_NAME
 
     return pattern.sub(_replace, text)
 
+
+# ── Stop-Word Interruption & Adaptive Endpointing Helpers ────────────────────
+STOP_WORDS_PATTERN = re.compile(
+    r"\b(stop|cancel|never\s*mind|nevermind|shut\s*up|hold\s*on|quiet|hush)\b",
+    re.IGNORECASE,
+)
+
+
+def is_stop_command(text: str) -> bool:
+    """True if text contains an explicit stop or cancel command word."""
+    if not text:
+        return False
+    return bool(STOP_WORDS_PATTERN.search(text.strip()))
+
+
+def calculate_adaptive_endpointing(
+    text: str, base_min: float = 0.5, base_max: float = 1.8
+) -> tuple[float, float]:
+    """Dynamically scales endpointing pause based on utterance length.
+    Short commands: fast response (min: 0.35s, max: 1.2s).
+    Medium queries: standard response (min: 0.5s, base_max).
+    Long multi-clause queries: longer pause (min: 0.8s, max: 2.0s) to prevent splitting.
+    """
+    words = len(text.strip().split())
+    if words <= 3:
+        return max(0.35, round(base_min * 0.7, 2)), min(1.3, round(base_max * 0.7, 2))
+    elif words <= 8:
+        return base_min, base_max
+    else:
+        return min(0.9, round(base_min * 1.5, 2)), min(2.2, round(base_max * 1.2, 2))
+
+
 # ── System Prompt (Spec Appendix A v2) ──────────────────────────────────────
 # {{APP_NAME}} and {{WAKE_WORD}} substituted dynamically (prompt contains literal braces).
 # Pre-Phase 3: TUNING THE VOICE block omitted.
@@ -689,6 +721,16 @@ async def entrypoint(ctx: JobContext) -> None:
                             update_msg, reliable=True, topic=TELEMETRY_TOPIC
                         )
                     )
+            elif payload.get("type") == "client_barge_in_telemetry":
+                barge_in_ms = payload.get("barge_in_ms")
+                trial_id = payload.get("trial_id")
+                log.info(
+                    "client_barge_in_telemetry_received",
+                    barge_in_ms=barge_in_ms,
+                    trial_id=trial_id,
+                )
+                with open(_TELEMETRY_JSONL, "a", encoding="utf-8") as f:
+                    f.write(json.dumps(payload) + "\n")
         except Exception as ex:
             log.debug("data_received_parse_error", error=str(ex))
 
@@ -730,8 +772,8 @@ async def entrypoint(ctx: JobContext) -> None:
 
     active_llm = FallbackAdapter(llm=llm_chain, attempt_timeout=5.0)
 
-    endpointing_min_delay = float(os.getenv("ENDPOINTING_MIN_DELAY", "0.8"))
-    endpointing_max_delay = float(os.getenv("ENDPOINTING_MAX_DELAY", "3.0"))
+    endpointing_min_delay = float(os.getenv("ENDPOINTING_MIN_DELAY", "0.5"))
+    endpointing_max_delay = float(os.getenv("ENDPOINTING_MAX_DELAY", "1.8"))
     aec_warmup = float(os.getenv("AEC_WARMUP_DURATION", "0.5"))
 
     session = AgentSession(
@@ -776,10 +818,44 @@ async def entrypoint(ctx: JobContext) -> None:
         last_activity[0] = time.monotonic()
         text = getattr(ev, "transcript", "")
         is_final = getattr(ev, "is_final", True)
-        if text and is_final:
-            turn_counters["stt_requests"] = turn_counters.get("stt_requests", 0) + 1
-            log.info("user_transcript_received", text=text, stt_requests=turn_counters["stt_requests"])
-            asyncio.create_task(_publish_transcript("user", text))
+        if text:
+            # 1. Definite interruption on stop words
+            if is_stop_command(text):
+                log.info(
+                    "definite_interruption_stop_word_matched",
+                    text=text,
+                    is_final=is_final,
+                    action="cancelling_false_interruption_and_interrupting",
+                )
+                try:
+                    if hasattr(session, "_activity") and session._activity is not None:
+                        session._activity._cancel_false_interruption_timer()
+                    session.interrupt(force=True)
+                    session.commit_user_turn()
+                except Exception as ex:
+                    log.debug("stop_word_interruption_error", error=str(ex))
+
+            # 2. Adaptive endpointing scaling for short vs long sentences
+            adaptive_min, adaptive_max = calculate_adaptive_endpointing(
+                text, base_min=endpointing_min_delay, base_max=endpointing_max_delay
+            )
+            try:
+                session.update_options(
+                    endpointing_opts={"min_delay": adaptive_min, "max_delay": adaptive_max}
+                )
+            except Exception as ex:
+                log.debug("endpointing_update_error", error=str(ex))
+
+            if is_final:
+                turn_counters["stt_requests"] = turn_counters.get("stt_requests", 0) + 1
+                log.info(
+                    "user_transcript_received",
+                    text=text,
+                    stt_requests=turn_counters["stt_requests"],
+                    adaptive_min_delay=adaptive_min,
+                    adaptive_max_delay=adaptive_max,
+                )
+                asyncio.create_task(_publish_transcript("user", text))
 
     @session.on("conversation_item_added")
     def _on_conversation_item_added(ev: Any) -> None:

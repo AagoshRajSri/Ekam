@@ -17,9 +17,17 @@ interface TelemetryBarProps {
   points: TelemetryPoint[];
   currentTurnMs: number | null;
   agentState: string;
+  latestBargeInMs?: number | null;
+  bargeInTrials?: number[];
 }
 
-export function TelemetryBar({ points, currentTurnMs, agentState }: TelemetryBarProps) {
+export function TelemetryBar({
+  points,
+  currentTurnMs,
+  agentState,
+  latestBargeInMs,
+  bargeInTrials,
+}: TelemetryBarProps) {
   const latestMs = currentTurnMs ?? (points.length > 0 ? points[points.length - 1].firstAudioMs : null);
   const avgMs =
     points.length > 0
@@ -99,6 +107,22 @@ export function TelemetryBar({ points, currentTurnMs, agentState }: TelemetryBar
                 {points[points.length - 1].ttsRequestsHourly} / 100 req/hr
               </span>
             </div>
+          )}
+        </div>
+      )}
+
+      {latestBargeInMs !== undefined && latestBargeInMs !== null && (
+        <div className="mt-2.5 pt-2 border-t border-neutral-800/60 flex items-center justify-between text-[11px] text-neutral-400">
+          <div className="flex items-center gap-1.5 font-mono">
+            <span className="text-neutral-400">Client Barge-In (Interruption):</span>
+            <span className="text-amber-400 font-bold bg-neutral-950 px-1.5 py-0.5 rounded border border-neutral-800">
+              {latestBargeInMs} ms
+            </span>
+          </div>
+          {bargeInTrials && bargeInTrials.length > 0 && (
+            <span className="font-mono text-neutral-500">
+              {bargeInTrials.length} {bargeInTrials.length === 1 ? 'trial' : 'trials'} recorded
+            </span>
           )}
         </div>
       )}

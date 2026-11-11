@@ -56,15 +56,22 @@ function ActiveVoiceRoom({ onDisconnect }: { onDisconnect: () => void }) {
       const data = JSON.parse(decoded);
 
       if (data.type === 'transcript') {
-        setDataChannelTranscripts((prev) => [
-          ...prev,
-          {
-            id: `server-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
-            role: data.role || 'assistant',
-            text: data.text,
-            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
-          },
-        ]);
+        setDataChannelTranscripts((prev) => {
+          const last = prev[prev.length - 1];
+          if (last && last.role === (data.role || 'assistant') && last.text === data.text) {
+            return prev;
+          }
+          return [
+            ...prev,
+            {
+              id: `server-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
+              role: data.role || 'assistant',
+              text: data.text,
+              timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+            },
+          ];
+        });
+      }
       } else if (data.type === 'quota_exceeded' || data.type === 'fallback_429') {
         setQuotaAlert(true);
       } else if (data.type === 'session_closed') {

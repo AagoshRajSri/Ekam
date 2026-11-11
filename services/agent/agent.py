@@ -875,7 +875,9 @@ async def entrypoint(ctx: JobContext) -> None:
         if item is not None:
             role = getattr(item, "role", "")
             text = getattr(item, "text_content", "") or ""
-            if text and role in ("user", "assistant"):
+            # Only broadcast assistant transcripts here; user transcripts are already
+            # broadcast in _on_user_input_transcribed to prevent duplicate UI bubbles.
+            if text and role == "assistant":
                 asyncio.create_task(_publish_transcript(role, text))
             if role == "user":
                 turn_counters["turn_id"] = turn_counters.get("turn_id", 1) + 1

@@ -216,6 +216,10 @@ class LocalMockTTS(tts.TTS):
             conn_options=conn_options or DEFAULT_API_CONNECT_OPTIONS,
         )
 
+    @property
+    def hourly_request_count(self) -> int:
+        return 0
+
 
 # ── Pre-Recorded Recovery Audio Stream (Local, 0 API Calls) ──────────────────
 class PreRecordedRecoveryStream(tts.ChunkedStream):
@@ -353,6 +357,12 @@ class GuardedOrpheusTTS(tts.TTS):
                     f.write(json.dumps({"ts": now}) + "\n")
             except Exception as e:
                 log.warning("tts_timestamp_append_failed", error=str(e))
+
+    @property
+    def hourly_request_count(self) -> int:
+        now = time.time()
+        self._purge_old_timestamps(now)
+        return len(self._timestamps)
 
     def _purge_old_timestamps(self, now: float) -> None:
         purged = False
@@ -613,24 +623,72 @@ async def entrypoint(ctx: JobContext) -> None:
         log.info("tts_provider", selected="LocalMockTTS (Zero-API Dev/Test Provider)")
         active_tts = LocalMockTTS(sample_rate=24000)
 
+    idle_disconnect_seconds = float(os.getenv("IDLE_DISCONNECT_SECONDS", "300.0"))
+    last_activity = [time.monotonic()]
+    turn_counters = {
+        "turn_id": 1,
+        "stt_requests": 0,
+        "llm_requests": 0,
+        "tts_requests": 0,
+    }
+
     # Telemetry data-channel listener
     @ctx.room.on("data_received")
     def on_data_received(dp: rtc.DataPacket) -> None:
         try:
+            last_activity[0] = time.monotonic()
             payload = json.loads(dp.data.decode("utf-8"))
             if payload.get("type") == "client_telemetry":
-                turn_id = payload.get("turn_id")
+                turn_id = payload.get("turn_id", turn_counters["turn_id"])
                 first_audio_ms = payload.get("first_audio_ms")
+
+                hourly_tts = getattr(active_tts, "hourly_request_count", 0)
+                stt_reqs = max(1, turn_counters.get("stt_requests", 1))
+                llm_reqs = max(1, turn_counters.get("llm_requests", 1))
+                tts_reqs = max(1, turn_counters.get("tts_requests", 1))
+
+                enriched_payload = {
+                    "type": "client_turn_telemetry",
+                    "turn_id": turn_id,
+                    "first_audio_ms": first_audio_ms,
+                    "stt_requests": stt_reqs,
+                    "llm_requests": llm_reqs,
+                    "tts_requests": tts_reqs,
+                    "tts_requests_hourly": hourly_tts,
+                    "timestamp": payload.get("timestamp") or time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+                }
+
                 log.info(
                     "client_turn_telemetry",
                     turn_id=turn_id,
                     client_first_audio_ms=first_audio_ms,
+                    stt_requests=stt_reqs,
+                    llm_requests=llm_reqs,
+                    tts_requests=tts_reqs,
+                    tts_requests_hourly=hourly_tts,
                     target_ms=1200,
                     status="PASS" if (first_audio_ms or 0) <= 1200 else "ELEVATED",
                 )
-                # Append to JSONL trace log
+                # Append enriched record to JSONL trace log
                 with open(_TELEMETRY_JSONL, "a", encoding="utf-8") as f:
-                    f.write(json.dumps(payload) + "\n")
+                    f.write(json.dumps(enriched_payload) + "\n")
+
+                # Broadcast update back to client UI over telemetry topic
+                if ctx.room and ctx.room.local_participant:
+                    update_msg = json.dumps({
+                        "type": "telemetry_update",
+                        "turn_id": turn_id,
+                        "first_audio_ms": first_audio_ms,
+                        "stt_requests": stt_reqs,
+                        "llm_requests": llm_reqs,
+                        "tts_requests": tts_reqs,
+                        "tts_requests_hourly": hourly_tts,
+                    }).encode("utf-8")
+                    asyncio.create_task(
+                        ctx.room.local_participant.publish_data(
+                            update_msg, reliable=True, topic=TELEMETRY_TOPIC
+                        )
+                    )
         except Exception as ex:
             log.debug("data_received_parse_error", error=str(ex))
 
@@ -715,20 +773,64 @@ async def entrypoint(ctx: JobContext) -> None:
 
     @session.on("user_input_transcribed")
     def _on_user_input_transcribed(ev: Any) -> None:
+        last_activity[0] = time.monotonic()
         text = getattr(ev, "transcript", "")
         is_final = getattr(ev, "is_final", True)
         if text and is_final:
-            log.info("user_transcript_received", text=text)
+            turn_counters["stt_requests"] = turn_counters.get("stt_requests", 0) + 1
+            log.info("user_transcript_received", text=text, stt_requests=turn_counters["stt_requests"])
             asyncio.create_task(_publish_transcript("user", text))
 
     @session.on("conversation_item_added")
     def _on_conversation_item_added(ev: Any) -> None:
+        last_activity[0] = time.monotonic()
         item = getattr(ev, "item", None)
         if item is not None:
             role = getattr(item, "role", "")
             text = getattr(item, "text_content", "") or ""
             if text and role in ("user", "assistant"):
                 asyncio.create_task(_publish_transcript(role, text))
+            if role == "user":
+                turn_counters["turn_id"] = turn_counters.get("turn_id", 1) + 1
+                turn_counters["stt_requests"] = 1
+                turn_counters["llm_requests"] = 1
+                turn_counters["tts_requests"] = 0
+            elif role == "assistant":
+                turn_counters["llm_requests"] = max(1, turn_counters.get("llm_requests", 1))
+                turn_counters["tts_requests"] = max(1, turn_counters.get("tts_requests", 1))
+
+    # ── Idle Auto-Disconnect Watchdog ────────────────────────────────────────
+    async def _idle_watchdog() -> None:
+        while True:
+            await asyncio.sleep(2.0)
+            idle_seconds = time.monotonic() - last_activity[0]
+            if idle_seconds >= idle_disconnect_seconds:
+                log.info(
+                    "session_idle_disconnect",
+                    idle_seconds=round(idle_seconds, 1),
+                    timeout_seconds=idle_disconnect_seconds,
+                    status="closing_session_and_room",
+                )
+                try:
+                    if ctx.room and ctx.room.local_participant:
+                        msg = json.dumps({
+                            "type": "session_closed",
+                            "reason": f"Disconnected due to {int(idle_disconnect_seconds)}s of inactivity.",
+                        }).encode("utf-8")
+                        await ctx.room.local_participant.publish_data(msg, reliable=True, topic=TELEMETRY_TOPIC)
+                except Exception:
+                    pass
+                try:
+                    await session.aclose()
+                except Exception as ex:
+                    log.debug("session_aclose_error", error=str(ex))
+                try:
+                    await ctx.room.disconnect()
+                except Exception as ex:
+                    log.debug("room_disconnect_error", error=str(ex))
+                break
+
+    watchdog_task = asyncio.create_task(_idle_watchdog())
 
     await session.start(VoiceAssistant(), room=ctx.room)
     log.info(
@@ -737,6 +839,7 @@ async def entrypoint(ctx: JobContext) -> None:
         app_name=APP_NAME,
         wake_word=WAKE_WORD,
         mumbai_region=is_mumbai_region,
+        idle_disconnect_seconds=idle_disconnect_seconds,
     )
 
 

@@ -54,6 +54,31 @@ function ActiveVoiceRoom({ onDisconnect }: { onDisconnect: () => void }) {
         ]);
       } else if (data.type === 'quota_exceeded' || data.type === 'fallback_429') {
         setQuotaAlert(true);
+      } else if (data.type === 'session_closed') {
+        setDataChannelTranscripts((prev) => [
+          ...prev,
+          {
+            id: `server-${Date.now()}`,
+            role: 'system',
+            text: data.reason || 'Session closed due to inactivity.',
+            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+          },
+        ]);
+        setTimeout(() => onDisconnect(), 1500);
+      } else if (data.type === 'telemetry_update') {
+        setTelemetryPoints((prev) => {
+          if (prev.length === 0) return prev;
+          const updated = [...prev];
+          const lastIndex = updated.length - 1;
+          updated[lastIndex] = {
+            ...updated[lastIndex],
+            sttRequests: data.stt_requests,
+            llmRequests: data.llm_requests,
+            ttsRequests: data.tts_requests,
+            ttsRequestsHourly: data.tts_requests_hourly,
+          };
+          return updated;
+        });
       }
     } catch {
       // ignore non-json messages

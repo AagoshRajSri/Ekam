@@ -7,6 +7,10 @@ export interface TelemetryPoint {
   turnId: number;
   firstAudioMs: number;
   timestamp: string;
+  sttRequests?: number;
+  llmRequests?: number;
+  ttsRequests?: number;
+  ttsRequestsHourly?: number;
 }
 
 interface TelemetryBarProps {
@@ -73,6 +77,31 @@ export function TelemetryBar({ points, currentTurnMs, agentState }: TelemetryBar
           <div className="text-lg font-bold text-neutral-200 font-mono">{points.length}</div>
         </div>
       </div>
+
+      {points.length > 0 && points[points.length - 1].sttRequests !== undefined && (
+        <div className="mt-3 pt-2.5 border-t border-neutral-800/80 flex flex-wrap items-center justify-between gap-2 text-[11px] text-neutral-400">
+          <div className="flex items-center gap-2">
+            <span>Per-Turn Requests:</span>
+            <span className="font-mono bg-neutral-950 px-1.5 py-0.5 rounded border border-neutral-800 text-neutral-200">
+              STT: {points[points.length - 1].sttRequests}
+            </span>
+            <span className="font-mono bg-neutral-950 px-1.5 py-0.5 rounded border border-neutral-800 text-neutral-200">
+              LLM: {points[points.length - 1].llmRequests}
+            </span>
+            <span className="font-mono bg-neutral-950 px-1.5 py-0.5 rounded border border-neutral-800 text-neutral-200">
+              TTS: {points[points.length - 1].ttsRequests}
+            </span>
+          </div>
+          {points[points.length - 1].ttsRequestsHourly !== undefined && (
+            <div className="flex items-center gap-1.5 font-mono text-neutral-300">
+              <span className="text-neutral-400">TTS Hourly:</span>
+              <span className={points[points.length - 1].ttsRequestsHourly! >= 90 ? "text-red-400 font-semibold" : "text-emerald-400"}>
+                {points[points.length - 1].ttsRequestsHourly} / 100 req/hr
+              </span>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

@@ -92,6 +92,7 @@ def main() -> int:
     parser.add_argument("--no-dry-run", dest="dry_run", action="store_false", default=True, help="Execute calls (disables dry-run)")
     parser.add_argument("--use-fakes", action="store_true", help="Use offline fake adapters (zero API calls)")
     parser.add_argument("--layer", choices=["stt", "llm", "tts", "all"], default="all", help="Evaluate specific layer (default: all)")
+    parser.add_argument("--max-stt-clips", type=int, default=0, help="Cap clips evaluated per STT candidate (0 = all clips)")
     parser.add_argument("--max-orpheus-requests", type=int, default=20, help="Hard ceiling on Orpheus requests (default: 20)")
     parser.add_argument("--output-report", default=str(REPO_ROOT / "docs" / "benchmarks" / "phase_1_bakeoff.md"))
 
@@ -182,8 +183,9 @@ def main() -> int:
 
     # Initialize Cache
     cache_dir = REPO_ROOT / config.get("safety", {}).get("cache_dir", "evals/bakeoff/.cache")
-    cache = BakeoffCache(cache_dir)
-    print(f"\nResumable cache initialized at {cache_dir} ({cache.count()} entries cached).")
+    cache_mode = "fake" if is_synthetic else "real"
+    cache = BakeoffCache(cache_dir, mode=cache_mode)
+    print(f"\nResumable cache initialized at {cache.cache_dir} in '{cache_mode}' mode ({cache.count()} entries cached).")
 
     # If --final was passed on test split with real recordings, update split.lock
     if args.final and not is_synthetic and lock_path.exists():
@@ -213,8 +215,15 @@ def main() -> int:
         wers_n: list[float] = []
         ent_accs: list[float] = []
         rtts: list[float] = []
+        sample_pairs: list[dict[str, Any]] = []
+        cache_hits = 0
+        real_calls = 0
 
-        for fname, clip in eval_clips.items():
+        target_eval_items = list(eval_clips.items())
+        if args.max_stt_clips > 0:
+            target_eval_items = target_eval_items[:args.max_stt_clips]
+
+        for fname, clip in target_eval_items:
             wav_file = Path(args.wavs_dir) / fname
             if not is_synthetic and not wav_file.exists():
                 continue
@@ -227,9 +236,11 @@ def main() -> int:
             cached = cache.get(cid, inp_hash)
             if cached:
                 res = cached
+                cache_hits += 1
             else:
                 res = provider.transcribe(wav_file)
                 cache.set(cid, inp_hash, res)
+                real_calls += 1
 
             hyp_text = res.get("text", "")
             rtt = res.get("rtt_ms", 0.0)
@@ -248,10 +259,25 @@ def main() -> int:
             ent_accs.append(ea)
             rtts.append(rtt)
 
+            if len(sample_pairs) < 15:
+                sample_pairs.append({
+                    "file": fname,
+                    "env": env,
+                    "ref": ref_text,
+                    "hyp": hyp_text,
+                    "wer": wer,
+                    "rtt_ms": rtt,
+                })
+
             # Collect alias candidates for Section E ONLY from dev split (F3)
             if clip.get("section") == "E" and args.split == "dev":
                 alias_map = alias_candidates.setdefault(cid, {})
                 alias_map[hyp_text] = alias_map.get(hyp_text, 0) + 1
+
+        print(f"[{cid}] Execution Accounting: Cache Hits = {cache_hits}, Real Calls = {real_calls} (Total: {len(wers)})")
+        print(f"[{cid}] Sample Hypothesis vs Reference (First {len(sample_pairs)}):")
+        for idx, sp in enumerate(sample_pairs, 1):
+            print(f"  {idx:2d}. [{sp['env']}] {sp['file']} | REF: '{sp['ref']}' -> HYP: '{sp['hyp']}' (WER: {sp['wer']:.1%}, {sp['rtt_ms']} ms)")
 
         rtt_stats = compute_percentiles(rtts)
         stt_results[cid] = {

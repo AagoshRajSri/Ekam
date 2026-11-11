@@ -1,86 +1,83 @@
-import asyncio
-import json
-import wave
+import wave, json
 from pathlib import Path
 import numpy as np
-from livekit.plugins import silero
-from livekit import rtc
+from livekit.plugins.silero.onnx_model import OnnxModel, new_inference_session
 
 
-async def evaluate_sentence_splitting():
-    vad = silero.VAD.load(
-        min_speech_duration=0.05,
-        min_silence_duration=0.5,
-        activation_threshold=0.4,
-        sample_rate=16000,
-        force_cpu=True,
-    )
+def evaluate_sentence_splitting():
+    session = new_inference_session(force_cpu=True)
+    model = OnnxModel(onnx_session=session, sample_rate=16000)
 
+    gt = json.load(open("evals/corpus/ground_truth.json", "r", encoding="utf-8"))
     corpus_dir = Path("evals/corpus/wavs")
-    gt = json.load(open("evals/corpus/ground_truth.json"))
 
-    test_clips = [
-        "s01_Q_cmd_01_t1.wav",
-        "s01_Q_cmd_02_t1.wav",
+    # 10 confirmed DEV split clips from Section C
+    dev_clips = [
         "s01_Q_cmd_03_t1.wav",
+        "s01_Q_cmd_03_t2.wav",
         "s01_Q_cmd_04_t1.wav",
+        "s01_Q_cmd_04_t2.wav",
         "s01_Q_cmd_05_t1.wav",
+        "s01_Q_cmd_05_t2.wav",
         "s01_Q_cmd_06_t1.wav",
+        "s01_Q_cmd_06_t2.wav",
         "s01_Q_cmd_07_t1.wav",
-        "s01_Q_cmd_08_t1.wav",
-        "s01_Q_cmd_09_t1.wav",
         "s01_Q_cmd_10_t1.wav",
     ]
 
     results = []
-    frame_size = 320  # 20ms at 16kHz
 
-    for clip in test_clips:
+    for clip in dev_clips:
         wav_path = corpus_dir / clip
         with wave.open(str(wav_path), "rb") as wf:
             n_frames = wf.getnframes()
             data = wf.readframes(n_frames)
-            samples = np.frombuffer(data, dtype=np.int16)
+            samples = np.frombuffer(data, dtype=np.int16).astype(np.float32) / 32768.0
 
-        stream = vad.stream()
-        total_chunks = len(samples) // frame_size
-        events = []
+        model.reset()
+        win_size = model.window_size_samples  # 512 samples = 32ms
 
-        async def read_events():
-            async for ev in stream:
-                events.append((ev.type.name, round(ev.timestamp, 3) if hasattr(ev, "timestamp") else None))
+        speaking = False
+        speech_segments = 0
+        silence_frames = 0
+        silence_threshold = int(0.5 / (win_size / 16000))  # ~15.6 frames (0.5s pause)
 
-        read_task = asyncio.create_task(read_events())
+        for i in range(len(samples) // win_size):
+            chunk = samples[i * win_size : (i + 1) * win_size]
+            prob = model(chunk)
 
-        for i in range(total_chunks):
-            chunk = samples[i * frame_size : (i + 1) * frame_size]
-            frame = rtc.AudioFrame(
-                data=chunk.tobytes(),
-                sample_rate=16000,
-                num_channels=1,
-                samples_per_channel=frame_size,
-            )
-            stream.push_frame(frame)
-            await asyncio.sleep(0.001)
+            if prob > 0.40:
+                if not speaking:
+                    speaking = True
+                    speech_segments += 1
+                silence_frames = 0
+            else:
+                if speaking:
+                    silence_frames += 1
+                    if silence_frames >= silence_threshold:
+                        speaking = False
 
-        stream.end_input()
-        await stream.aclose()
-        await read_task
-
-        start_events = [e for e in events if e[0] == "START_OF_SPEECH"]
-        end_events = [e for e in events if e[0] == "END_OF_SPEECH"]
-        is_split = len(start_events) > 1
-
+        ref_text = gt.get(clip, {}).get("text", "")
+        is_split = speech_segments > 1
         results.append({
             "clip": clip,
-            "text": gt.get(clip, {}).get("text", ""),
-            "speech_starts": len(start_events),
-            "speech_ends": len(end_events),
+            "segments": speech_segments,
             "is_split": is_split,
+            "text": ref_text,
         })
 
-    print(json.dumps(results, indent=2))
+    return results
+
+
+def test_vad_pause_evaluation():
+    results = evaluate_sentence_splitting()
+    assert len(results) == 10
+    # Exactly 1 clip (cmd_10_t1 with 540ms internal breath pause) is split at 0.5s pause threshold
+    split_count = sum(1 for r in results if r["is_split"])
+    assert split_count == 1
+    assert any(r["clip"] == "s01_Q_cmd_10_t1.wav" and r["is_split"] for r in results)
 
 
 if __name__ == "__main__":
-    asyncio.run(evaluate_sentence_splitting())
+    res = evaluate_sentence_splitting()
+    print(json.dumps(res, indent=2))

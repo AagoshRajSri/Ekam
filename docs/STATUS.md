@@ -53,8 +53,9 @@
   - Resampling via polyphase anti-aliasing filter (`scipy.signal.resample_poly`).
   - Deterministic seeded split: `evals/corpus/ground_truth.json` (152 dev clips / 102 test clips), sealed in `evals/corpus/split.lock`.
   - All 254 master clips and 254 derived clips validated (0 errors).
+  - **Cache Provenance & Split Audit (2026-11-11)**: Audited all 816 cache records in `evals/bakeoff/.cache/`. Identified 610 fake records (`FakeSTTProvider`) which have been purged into `.cache/fake/`. Confirmed **0 test-split clips were ever sent to a real API** (`real_test = 0`). The 102 test clips remain completely uncompromised.
 - [x] **Provider Bake-Off Harness**:
-  - Resumable cache at `evals/bakeoff/.cache/`.
+  - Resumable cache at `evals/bakeoff/.cache/` with strict mode isolation (`real/` vs `fake/`). Fake cache entries are rejected in real benchmark runs.
   - Supports `--layer {stt,llm,tts,all}` execution with prompt comparison and Orpheus quota ceiling.
 
 ### Phase 1 Exit Criteria — Still Open:

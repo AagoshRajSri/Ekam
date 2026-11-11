@@ -11,5 +11,8 @@
   "dev_clips": 152,
   "test_clips": 102,
   "result_runs": 0,
+  "cache_audit_date": "2026-11-11",
+  "test_clips_sent_to_real_api": 0,
+  "status": "Test split uncompromised. Zero test clips sent to real APIs.",
   "note": "Dev/test split is locked. result_runs will increment when --final (test split) runs. Split changes are rejected if result_runs > 0."
 }

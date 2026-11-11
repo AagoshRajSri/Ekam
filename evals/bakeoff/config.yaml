@@ -22,7 +22,7 @@ stt:
       provider: groq
       model: whisper-large-v3
       license: MIT (Whisper weights) / Proprietary API (Groq)
-      enabled: false
+      enabled: true
       language: en
     - id: faster_whisper_small
       provider: faster_whisper

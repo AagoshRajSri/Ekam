@@ -16,6 +16,10 @@ class GroqSTTProvider(STTProvider):
     def __init__(self, candidate_id: str, config: dict[str, Any]) -> None:
         super().__init__(candidate_id, config)
         self.api_key = os.environ.get("GROQ_API_KEY", "")
+        if not self.api_key:
+            from dotenv import load_dotenv
+            load_dotenv()
+            self.api_key = os.environ.get("GROQ_API_KEY", "")
         self.model = config.get("model", "whisper-large-v3-turbo")
         self.language = config.get("language", "en")
         self._client: Any = None

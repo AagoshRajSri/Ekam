@@ -98,17 +98,20 @@ def respell_for_tts(text: str, app_name: str = APP_NAME, respell: str = TTS_NAME
 
 
 # ── Stop-Word Interruption & Adaptive Endpointing Helpers ────────────────────
+# Whole-utterance match only: optional leading "Daimon", core stop verb, optional trailing please/now/that
 STOP_WORDS_PATTERN = re.compile(
-    r"\b(stop|cancel|never\s*mind|nevermind|shut\s*up|hold\s*on|quiet|hush)\b",
+    r"^\s*(?:daimon[,\s]+)?(?:stop|cancel|never\s*mind|nevermind|shut\s*up|hold\s*on|quiet|hush|abort)(?:\s+(?:please|now|that))?[.!?\s]*$",
     re.IGNORECASE,
 )
 
 
 def is_stop_command(text: str) -> bool:
-    """True if text contains an explicit stop or cancel command word."""
+    """True if whole utterance is an explicit stop or cancel command word.
+    Rejects embedded command phrases like 'stop by the shop' or 'cancel my 3 pm meeting'.
+    """
     if not text:
         return False
-    return bool(STOP_WORDS_PATTERN.search(text.strip()))
+    return bool(STOP_WORDS_PATTERN.match(text.strip()))
 
 
 def calculate_adaptive_endpointing(
@@ -819,32 +822,40 @@ async def entrypoint(ctx: JobContext) -> None:
         text = getattr(ev, "transcript", "")
         is_final = getattr(ev, "is_final", True)
         if text:
-            # 1. Definite interruption on stop words
+            # 1. Definite interruption on whole-utterance stop words (only while agent is actively speaking)
             if is_stop_command(text):
+                is_speaking = getattr(session, "agent_state", None) == "speaking"
                 log.info(
-                    "definite_interruption_stop_word_matched",
+                    "stop_word_matched",
                     text=text,
                     is_final=is_final,
-                    action="cancelling_false_interruption_and_interrupting",
+                    agent_speaking=is_speaking,
                 )
-                try:
-                    if hasattr(session, "_activity") and session._activity is not None:
-                        session._activity._cancel_false_interruption_timer()
-                    session.interrupt(force=True)
-                    session.commit_user_turn()
-                except Exception as ex:
-                    log.debug("stop_word_interruption_error", error=str(ex))
+                if is_speaking:
+                    log.info(
+                        "definite_interruption_stop_word_executing",
+                        text=text,
+                        action="cancelling_false_interruption_and_force_interrupting",
+                    )
+                    try:
+                        if hasattr(session, "_activity") and session._activity is not None:
+                            session._activity._cancel_false_interruption_timer()
+                        session.interrupt(force=True)
+                        session.commit_user_turn()
+                    except Exception as ex:
+                        log.debug("stop_word_interruption_error", error=str(ex))
 
-            # 2. Adaptive endpointing scaling for short vs long sentences
-            adaptive_min, adaptive_max = calculate_adaptive_endpointing(
-                text, base_min=endpointing_min_delay, base_max=endpointing_max_delay
+            # Architectural Note on Non-Streaming STT:
+            # Word count is only available AFTER the utterance has been sent to Groq Whisper and transcribed.
+            # VAD endpointing for the active turn occurs PRIOR to transcription purely on raw audio silence duration.
+            # Logging the endpointing delay parameters chosen for this session/turn:
+            log.info(
+                "turn_endpointing_delay_applied",
+                turn_id=turn_counters.get("turn_id", 0),
+                min_delay_s=endpointing_min_delay,
+                max_delay_s=endpointing_max_delay,
+                words_transcribed_post_hoc=len(text.split()),
             )
-            try:
-                session.update_options(
-                    endpointing_opts={"min_delay": adaptive_min, "max_delay": adaptive_max}
-                )
-            except Exception as ex:
-                log.debug("endpointing_update_error", error=str(ex))
 
             if is_final:
                 turn_counters["stt_requests"] = turn_counters.get("stt_requests", 0) + 1

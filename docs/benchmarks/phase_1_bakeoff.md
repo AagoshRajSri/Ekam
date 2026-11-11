@@ -12,8 +12,9 @@
 
 | Candidate ID | Model | License | WER Overall | WER Q | WER D | WER N | Entity Acc | RTT p50 (ms) | RTT p95 (ms) |
 |---|---|---|---|---|---|---|---|---|---|
-| `groq_whisper` | whisper-large-v3-turbo | MIT (Whisper weights) / Proprietary API (Groq) | 0.0% | 0.0% | 0.0% | 0.0% | 100.0% | 45 | 45 |
-| `groq_whisper_prompted` | whisper-large-v3-turbo | MIT (Whisper weights) / Proprietary API (Groq) | 77.3% | 68.0% | 85.7% | 93.7% | 73.5% | 3469 | 12893 |
+| `groq_whisper` | whisper-large-v3-turbo | MIT (Whisper weights) / Proprietary API (Groq) | 200.0% | 0.0% | 300.0% | 200.0% | 100.0% | 3375 | 13565 |
+| `groq_whisper_prompted` | whisper-large-v3-turbo | MIT (Whisper weights) / Proprietary API (Groq) | 153.3% | 33.3% | 166.7% | 200.0% | 100.0% | 2891 | 7783 |
+| `groq_whisper_v3` | whisper-large-v3 | MIT (Whisper weights) / Proprietary API (Groq) | 193.3% | 66.7% | 216.7% | 233.3% | 100.0% | 594 | 1600 |
 
 ## 2. Fast LLM Candidates
 
@@ -35,21 +36,7 @@ Candidate spellings detected across Section E name clips. Informational only; th
 
 | Candidate STT | Detected Spelling | Occurrences | Environments |
 |---|---|---|---|
-| `groq_whisper` | `Daimon.` | 48 | Q, D, N |
-| `groq_whisper_prompted` | `Damon,` | 1 | Q, D, N |
-| `groq_whisper_prompted` | `Daman, the human being, is a human being.` | 1 | Q, D, N |
-| `groq_whisper_prompted` | `Daimon,` | 14 | Q, D, N |
-| `groq_whisper_prompted` | `Daman,` | 1 | Q, D, N |
-| `groq_whisper_prompted` | `Daimon.` | 15 | Q, D, N |
-| `groq_whisper_prompted` | `David.` | 3 | Q, D, N |
-| `groq_whisper_prompted` | `Daimon, helpful, and helpful.` | 3 | Q, D, N |
-| `groq_whisper_prompted` | `Daimon here.` | 1 | Q, D, N |
-| `groq_whisper_prompted` | `Demos.` | 1 | Q, D, N |
-| `groq_whisper_prompted` | `Daimon, helpful.` | 1 | Q, D, N |
-| `groq_whisper_prompted` | `Daimon, helpful, assistant, and a teacher.` | 1 | Q, D, N |
-| `groq_whisper_prompted` | `Daimon, helpful assistant, natural spoken conversational English.` | 1 | Q, D, N |
-| `groq_whisper_prompted` | `Diamond,` | 4 | Q, D, N |
-| `groq_whisper_prompted` | `Diamond` | 1 | Q, D, N |
+| (pending real recordings) | — | — | — |
 
 ---
 *Report generated automatically by `evals/bakeoff/run_bakeoff.py`. Aggregate numbers only.*

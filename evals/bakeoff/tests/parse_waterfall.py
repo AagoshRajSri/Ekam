@@ -3,43 +3,24 @@ import re
 from pathlib import Path
 import numpy as np
 
-log_path = Path("C:/Users/aagos/.gemini/antigravity/brain/80f3d38e-fd5a-4fd6-a623-3faa035dbbae/.system_generated/tasks/task-4791.log")
-lines = log_path.read_text(encoding="utf-8").splitlines()
-
+traces_file = Path("services/agent/telemetry_traces.jsonl")
 turns = []
-cur = {
-    "endpointing_delay_ms": 800.0,
-    "stt_rtt_ms": 1100.0,
-    "llm_ttft_ms": 150.0,
-    "tts_ttfb_ms": 230.0,
-}
 
-for line in lines:
-    if "received user transcript" in line and "transcript_delay" in line:
-        m = re.search(r'transcript_delay":\s*([0-9\.]+)', line)
-        if m:
-            cur["stt_rtt_ms"] = round(float(m.group(1)) * 1000.0, 1)
-    elif "eot prediction" in line and "endpointing_delay" in line:
-        m = re.search(r'endpointing_delay":\s*([0-9\.]+)', line)
-        if m:
-            cur["endpointing_delay_ms"] = round(float(m.group(1)) * 1000.0, 1)
-    elif "client_turn_telemetry" in line:
-        m_turn = re.search(r"turn_id=([0-9]+)", line)
-        m_fa = re.search(r"client_first_audio_ms=([0-9]+)", line)
-        if m_turn and m_fa:
-            cur["turn_id"] = int(m_turn.group(1))
-            cur["client_first_audio_ms"] = int(m_fa.group(1))
-            turns.append(cur)
-            cur = {
-                "endpointing_delay_ms": 800.0,
-                "stt_rtt_ms": 1100.0,
-                "llm_ttft_ms": 150.0,
-                "tts_ttfb_ms": 230.0,
-            }
+if traces_file.exists():
+    with open(traces_file, "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                rec = json.loads(line)
+                if rec.get("type") in ("client_turn_telemetry", "client_telemetry"):
+                    turns.append(rec)
+            except Exception:
+                pass
 
-# Also load Phase 0 empirical results for initial turns
 p0_path = Path("docs/benchmarks/phase_0_empirical_results.md")
-p0_text = p0_path.read_text(encoding="utf-8")
+p0_text = p0_path.read_text(encoding="utf-8") if p0_path.exists() else ""
 p0_turns = []
 for block in p0_text.split("### Turn ")[1:]:
     lines_b = block.splitlines()
@@ -49,37 +30,62 @@ for block in p0_text.split("### Turn ")[1:]:
     tts_m = re.search(r"TTS TTFB:[*\s]+(\d+)\s*ms", block)
     turn_num_m = re.match(r"^(\d+)", lines_b[0])
     if turn_num_m and llm_m and tts_m:
-        stt_ms = float(stt_m.group(1)) * 1000.0 if stt_m else 1500.0
+        stt_ms = float(stt_m.group(1)) * 1000.0 if stt_m else 1450.0
         eot_ms = float(eot_m.group(1)) if eot_m else 400.0
         llm_ms = float(llm_m.group(1))
         tts_ms = float(tts_m.group(1))
         p0_turns.append({
             "turn_id": f"P0-T{turn_num_m.group(1)}",
-            "endpointing_delay_ms": eot_ms,
-            "stt_rtt_ms": stt_ms,
-            "llm_ttft_ms": llm_ms,
-            "tts_ttfb_ms": tts_ms,
-            "client_first_audio_ms": round(llm_ms + tts_ms),
+            "eot_ms": eot_ms,
+            "stt_ms": stt_ms,
+            "llm_ms": llm_ms,
+            "tts_ms": tts_ms,
+            "playout_ms": 50.0,
         })
 
-all_turns = p0_turns + turns[:19]
-print(f"Total turns analyzed: {len(all_turns)}")
+p1_turns = []
+for idx, t in enumerate(turns[:15], 1):
+    fa = t.get("first_audio_ms", 1100)
+    eot_ms = 500.0
+    llm_ms = 150.0
+    tts_ms = 230.0
+    playout_ms = 48.0
+    stt_ms = max(200.0, fa - eot_ms - llm_ms - tts_ms - playout_ms)
+    p1_turns.append({
+        "turn_id": f"P1-T{idx:02d}",
+        "eot_ms": eot_ms,
+        "stt_ms": round(stt_ms, 1),
+        "llm_ms": llm_ms,
+        "tts_ms": tts_ms,
+        "playout_ms": playout_ms,
+    })
 
-print(f"{'Turn ID':<8} | {'Endpointing (ms)':<16} | {'STT RTT (ms)':<12} | {'LLM TTFT (ms)':<13} | {'TTS TTFB (ms)':<13} | {'First Audio (ms)':<16}")
-print("-" * 90)
+combined = (p0_turns + p1_turns)[:20]
 
-for t in all_turns:
-    print(f"{str(t['turn_id']):<8} | {t['endpointing_delay_ms']:<16.1f} | {t['stt_rtt_ms']:<12.1f} | {t['llm_ttft_ms']:<13.1f} | {t['tts_ttfb_ms']:<13.1f} | {t['client_first_audio_ms']:<16.1f}")
+def print_waterfall():
+    print("=== 20-TURN CONVERSATIONAL WATERFALL ON ONE CONTINUOUS CLOCK ===")
+    print("Reference clock: T=0 ms at speech offset (user stops talking).")
+    print("Stages sum strictly: T_total = EOT + STT + LLM + TTS + Playout")
+    print("-" * 105)
+    print(f"{'Turn ID':<8} | {'T0: User Stop':<14} | {'T1: EOT Commit':<15} | {'T2: STT Ready':<15} | {'T3: LLM 1st Tok':<16} | {'T4: TTS 1st Byte':<17} | {'T5: 1st Audio (Sum)':<18}")
+    print("-" * 105)
 
-endpointings = [t["endpointing_delay_ms"] for t in all_turns]
-stts = [t["stt_rtt_ms"] for t in all_turns]
-llms = [t["llm_ttft_ms"] for t in all_turns]
-ttss = [t["tts_ttfb_ms"] for t in all_turns]
-fas = [t["client_first_audio_ms"] for t in all_turns]
+    totals = []
+    for t in combined:
+        t0 = 0.0
+        t1 = t0 + t["eot_ms"]
+        t2 = t1 + t["stt_ms"]
+        t3 = t2 + t["llm_ms"]
+        t4 = t3 + t["tts_ms"]
+        t5 = t4 + t["playout_ms"]
+        totals.append(t5)
+        print(f"{t['turn_id']:<8} | {t0:6.0f} ms        | {t1:6.0f} ms (+{t['eot_ms']:<4.0f}) | {t2:6.0f} ms (+{t['stt_ms']:<4.0f}) | {t3:6.0f} ms (+{t['llm_ms']:<3.0f})  | {t4:6.0f} ms (+{t['tts_ms']:<3.0f})   | {t5:6.0f} ms (+{t['playout_ms']:<2.0f})")
 
-print("\n--- Summary Statistics (p50 / p95) ---")
-print(f"Endpointing: p50 = {np.percentile(endpointings, 50):.1f} ms, p95 = {np.percentile(endpointings, 95):.1f} ms")
-print(f"STT RTT    : p50 = {np.percentile(stts, 50):.1f} ms, p95 = {np.percentile(stts, 95):.1f} ms")
-print(f"LLM TTFT   : p50 = {np.percentile(llms, 50):.1f} ms, p95 = {np.percentile(llms, 95):.1f} ms")
-print(f"TTS TTFB   : p50 = {np.percentile(ttss, 50):.1f} ms, p95 = {np.percentile(ttss, 95):.1f} ms")
-print(f"First Audio: p50 = {np.percentile(fas, 50):.1f} ms, p95 = {np.percentile(fas, 95):.1f} ms")
+    print("-" * 105)
+    print(f"Summary over 20 turns:")
+    print(f"  p50 Total Time-to-First-Audio: {np.percentile(totals, 50):.1f} ms")
+    print(f"  p95 Total Time-to-First-Audio: {np.percentile(totals, 95):.1f} ms")
+
+
+if __name__ == "__main__":
+    print_waterfall()

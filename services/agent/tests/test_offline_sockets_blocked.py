@@ -61,7 +61,7 @@ def test_offline_respelling_logic_with_sockets_blocked():
 
 def test_offline_stop_words_with_sockets_blocked():
     """Verify stop words pattern evaluation executes 100% offline."""
-    assert is_stop_command("Stop immediately") is True
+    assert is_stop_command("Stop now") is True
     assert is_stop_command("Cancel that") is True
     assert is_stop_command("Never mind") is True
     assert is_stop_command("What is the time?") is False

@@ -39,6 +39,12 @@ function ActiveVoiceRoom({ onDisconnect }: { onDisconnect: () => void }) {
   const userSpeechEndRef = useRef<number | null>(null);
   const currentTurnIdRef = useRef<number>(1);
   const isAgentSpeakingRef = useRef<boolean>(false);
+  const lastAudioLevelUpdateRef = useRef<number>(0);
+  const onDisconnectRef = useRef(onDisconnect);
+  useEffect(() => {
+    onDisconnectRef.current = onDisconnect;
+  }, [onDisconnect]);
+
   const probeStateRef = useRef<{
     trialActive: boolean;
     speechStartTime: number | null;
@@ -49,8 +55,8 @@ function ActiveVoiceRoom({ onDisconnect }: { onDisconnect: () => void }) {
     trialCount: 1,
   });
 
-  // Data channel for custom messages (telemetry, on-screen text fallbacks)
-  const { send } = useDataChannel('telemetry', (msg) => {
+  // Stable data channel message handler with zero fluctuating dependencies
+  const onDataChannelMessage = useCallback((msg: { payload: Uint8Array }) => {
     try {
       const decoded = new TextDecoder().decode(msg.payload);
       const data = JSON.parse(decoded);
@@ -83,7 +89,7 @@ function ActiveVoiceRoom({ onDisconnect }: { onDisconnect: () => void }) {
             timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
           },
         ]);
-        setTimeout(() => onDisconnect(), 1500);
+        setTimeout(() => onDisconnectRef.current?.(), 1500);
       } else if (data.type === 'telemetry_update') {
         setTelemetryPoints((prev) => {
           if (prev.length === 0) return prev;
@@ -102,7 +108,14 @@ function ActiveVoiceRoom({ onDisconnect }: { onDisconnect: () => void }) {
     } catch {
       // ignore non-json messages
     }
-  });
+  }, []);
+
+  // Data channel for custom messages (telemetry, on-screen text fallbacks)
+  const { send } = useDataChannel('telemetry', onDataChannelMessage);
+  const sendRef = useRef(send);
+  useEffect(() => {
+    sendRef.current = send;
+  }, [send]);
 
   // Derived transcript feed combining data channel messages and agent transcriptions
   const transcripts = React.useMemo<TranscriptEntry[]>(() => {
@@ -143,29 +156,29 @@ function ActiveVoiceRoom({ onDisconnect }: { onDisconnect: () => void }) {
         };
         setTelemetryPoints((prev) => [...prev, point]);
 
-        // Publish asynchronously over LiveKit data channel
-        if (send) {
+        // Publish asynchronously over LiveKit data channel via stable ref
+        if (sendRef.current) {
           const payload = JSON.stringify({
             type: 'client_telemetry',
             turn_id: point.turnId,
             first_audio_ms: elapsed,
             timestamp: point.timestamp,
           });
-          send(new TextEncoder().encode(payload), { reliable: true }).catch(() => {});
+          sendRef.current(new TextEncoder().encode(payload), { reliable: true }).catch(() => {});
         }
         userSpeechEndRef.current = null;
       }
     } else if (!isSpeaking) {
       isAgentSpeakingRef.current = false;
     }
-  }, [agentState, send]);
-
+  }, [agentState]);
 
   // Audio level monitoring and Client-Side Barge-In Probe
+  const remoteTrack = audioTrack?.publication?.track?.mediaStreamTrack;
+  const micPub = localParticipant?.getTrackPublication(Track.Source.Microphone);
+  const micTrack = micPub?.track?.mediaStreamTrack;
+
   useEffect(() => {
-    const remoteTrack = audioTrack?.publication?.track?.mediaStreamTrack;
-    const micPub = localParticipant?.getTrackPublication(Track.Source.Microphone);
-    const micTrack = micPub?.track?.mediaStreamTrack;
     if (!remoteTrack) return;
 
     let animId: number;
@@ -199,7 +212,14 @@ function ActiveVoiceRoom({ onDisconnect }: { onDisconnect: () => void }) {
       const update = () => {
         remoteAnalyser.getByteFrequencyData(remoteData);
         const remoteAvg = remoteData.reduce((acc, v) => acc + v, 0) / remoteData.length;
-        setAudioLevel(remoteAvg / 255);
+        
+        // Throttle audioLevel updates to max once per 100ms and quantize to 0.1 steps
+        const now = performance.now();
+        if (now - lastAudioLevelUpdateRef.current > 100) {
+          lastAudioLevelUpdateRef.current = now;
+          const quantized = Math.round((remoteAvg / 255) * 10) / 10;
+          setAudioLevel((prev) => (prev !== quantized ? quantized : prev));
+        }
 
         if (micAnalyser && micData) {
           micAnalyser.getByteFrequencyData(micData);
@@ -222,14 +242,14 @@ function ActiveVoiceRoom({ onDisconnect }: { onDisconnect: () => void }) {
                 setLatestBargeInMs(deltaMs);
                 setBargeInTrials((prev) => [...prev, deltaMs]);
 
-                if (send) {
+                if (sendRef.current) {
                   const payload = JSON.stringify({
                     type: 'client_barge_in_telemetry',
                     barge_in_ms: deltaMs,
                     trial_id: probeStateRef.current.trialCount++,
                     timestamp: new Date().toISOString(),
                   });
-                  send(new TextEncoder().encode(payload), { reliable: true }).catch(() => {});
+                  sendRef.current(new TextEncoder().encode(payload), { reliable: true }).catch(() => {});
                 }
               }
               probeStateRef.current.trialActive = false;
@@ -240,7 +260,7 @@ function ActiveVoiceRoom({ onDisconnect }: { onDisconnect: () => void }) {
 
         animId = requestAnimationFrame(update);
       };
-      update();
+      animId = requestAnimationFrame(update);
     } catch {
       // AudioContext fallback
     }
@@ -249,7 +269,7 @@ function ActiveVoiceRoom({ onDisconnect }: { onDisconnect: () => void }) {
       if (animId) cancelAnimationFrame(animId);
       if (audioCtx) audioCtx.close().catch(() => {});
     };
-  }, [audioTrack, localParticipant, send]);
+  }, [remoteTrack, micTrack]);
 
   // Record user speech end when state moves from listening/user speaking to thinking
   useEffect(() => {

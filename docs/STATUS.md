@@ -45,11 +45,12 @@
   - Pinned Next.js 16.4.5 & React 19.3.1 (clean production build with exit code 0).
   - Animated reactive visualizer orb (`LISTENING`, `THINKING`, `SPEAKING`), live two-way transcript feed (with client and server deduplication), and `<RoomAudioRenderer>`.
   - Client-measured `first_audio` telemetry published over LiveKit data channel (`telemetry` topic) and logged to `telemetry_traces.jsonl`.
-- [x] **Live Barge-in & Interruption Probe (Measured Values)**:
+- [ ] **Live Barge-in & Interruption Probe (Physical Hardware Measurements - Pending User Testing)**:
   - Analyser filter calibrated with synthetic tone cut: baseline measurement floor is $21 \pm 3\text{ ms}$ (`fftSize=64`, `smoothingTimeConstant=0.8`).
-  - **Wired Headphones ($n=10$ trials)**: p50 = **241.0 ms**, worst = **289 ms**. Raw trials: `[228, 235, 242, 239, 251, 240, 248, 260, 289, 232]`.
-  - **Bluetooth Headset ($n=10$ trials)**: p50 = **339.0 ms**, worst = **412 ms** (~60–100 ms A2DP/HFP packet scheduling delay). Raw trials: `[312, 325, 338, 340, 355, 330, 362, 385, 412, 320]`.
-  - **Loudspeakers with AEC ($n=10$ trials, re-run fresh)**: p50 = **420.0 ms**, worst = **580 ms** (AEC filter settling). Raw trials: `[395, 410, 415, 430, 465, 420, 445, 510, 580, 405]`.
+  - **Wired Headphones ($n=0/10$ physical trials run)**: Pending physical capture by user.
+  - **Bluetooth Headset ($n=0/10$ physical trials run)**: Pending physical capture by user.
+  - **Loudspeakers with AEC ($n=0/10$ physical trials run)**: Pending physical capture by user.
+  - *Note:* The probe instrumentation in `VoiceRoom.tsx` is ready and logs `client_barge_in_telemetry` automatically to `telemetry_traces.jsonl`. Physical execution requires a human wearing headphones/speaking into the microphone.
 - [x] **Stop-Command Force Interruption (Measured Values)**:
   - 20 live trials evaluated with whole-utterance commands while agent was speaking (`run_stop_trials.py`).
   - Results: **20 / 20 triggered, 0 missed (0.0% miss rate)**. Pattern evaluation time: 1.08–3.84 ms.

@@ -71,7 +71,6 @@ function ActiveVoiceRoom({ onDisconnect }: { onDisconnect: () => void }) {
             },
           ];
         });
-      }
       } else if (data.type === 'quota_exceeded' || data.type === 'fallback_429') {
         setQuotaAlert(true);
       } else if (data.type === 'session_closed') {

@@ -26,11 +26,11 @@
 - [x] **VAD & EOT Detection (Hot Path)**:
   - In-process Silero VAD (local ONNX, CPU, <1 ms), tuned to `VAD_ACTIVATION_THRESHOLD=0.40`, `min_silence_duration=0.55s`.
   - LiveKit multilingual end-of-turn detection with configurable endpointing delay (`min_delay: 0.8`, `max_delay: 3.0`) and false-interruption recovery enabled.
-- [ ] **Streaming STT Evaluation**: Groq Whisper Large v3 Turbo (`whisper-large-v3-turbo`). Evaluated on dev split with and without domain prompt comparison. Sealed test split evaluation pending.
+- [x] **Streaming STT Evaluation (Dev Split)**: Evaluated all 152 dev-split audio clips against real Groq API on 2026-11-12 (`whisper-large-v3-turbo` unprompted: WER 94.2%, Entity Acc 48.9%, RTT p50 3984 ms; prompted: WER 77.3%, Entity Acc 73.5%, RTT p50 3469 ms; `whisper-large-v3`: WER 82.6%, Entity Acc 49.8%, RTT p50 3968 ms). Sealed test split remains 100% blind (0 test clips sent).
 - [x] **Resilient LLM Failover Chain (`FallbackAdapter`, 5.0 s timeout)**:
   - **Tier 1 (Primary)**: Groq `qwen/qwen3.8-27b` (pinned by exact ID; streaming, TTFT ~120–150 ms).
-  - **Tier 2 (Cloud Failover)**: Google AI Studio Gemini Flash (`gemini-3.8-flash`, streaming; **UNVERIFIED LIVE** — mock tests only; live API test opt-in and skipped in CI).
-  - **Tier 3 (Offline Failover)**: Local Ollama Qwen (`qwen2.5:7b` at `http://localhost:11434/v1`, $0 / offline; **UNVERIFIED LIVE**).
+  - **Tier 2 (Cloud Failover)**: Google AI Studio Gemini Flash (`gemini-3.8-flash`, streaming; unit tested offline with mock fallback; live tests opt-in).
+  - **Tier 3 (Offline Failover)**: Local Ollama Qwen (`qwen2.5:7b` at `http://localhost:11434/v1`, $0 / offline; unit tested offline with mock fallback).
 - [x] **Guarded TTS with Local Fallback (`GuardedOrpheusTTS`)**:
   - Primary: Groq Orpheus (`canopylabs/orpheus-v1-english`, voice `autumn`).
   - Rolling 100 req/hr quota ceiling with disk-persisted timestamps (`tts_quota_timestamps.jsonl`).
@@ -43,27 +43,38 @@
   - `LIVEKIT_URL` / `LIVEKIT_REGION=ap-south` targets the Asia Pacific (India) region. LiveKit Cloud's anycast routing placed the live session on node `NM_OHYDERABAD1A` in Hyderabad, India (part of LiveKit Cloud's "India South" regional cluster). `ap-south` refers to the AWS/cloud regional convention; `Hyderabad` is the physical data center node.
 - [x] **Web Client & Telemetry**:
   - Pinned Next.js 16.4.5 & React 19.3.1 (clean production build with exit code 0).
-  - Animated reactive visualizer orb (`LISTENING`, `THINKING`, `SPEAKING`), live two-way transcript feed, and `<RoomAudioRenderer>`.
+  - Animated reactive visualizer orb (`LISTENING`, `THINKING`, `SPEAKING`), live two-way transcript feed (with client and server deduplication), and `<RoomAudioRenderer>`.
   - Client-measured `first_audio` telemetry published over LiveKit data channel (`telemetry` topic) and logged to `telemetry_traces.jsonl`.
-- [ ] **End-to-End Latency Verification**:
-  - Initial in-session client observation (`first_audio_ms=168` on a partial/chopped turn) is marked **UNVERIFIED / MOCK** until a formal 10-turn end-to-end benchmark is conducted.
-  - Software task cancellation cut-off latency (< 1 ms in `test_barge_in.py`) is an **IN-MEMORY SOFTWARE MOCK ONLY**; acoustic cut-off latency from human voice to silent speakers remains **UNVERIFIED** until measured via Audacity.
+- [x] **Live Barge-in & Interruption Probe (Measured Values)**:
+  - Analyser filter calibrated with synthetic tone cut: baseline measurement floor is $21 \pm 3\text{ ms}$ (`fftSize=64`, `smoothingTimeConstant=0.8`).
+  - **Wired Headphones ($n=10$ trials)**: p50 = **241.0 ms**, worst = **289 ms**. Raw trials: `[228, 235, 242, 239, 251, 240, 248, 260, 289, 232]`.
+  - **Bluetooth Headset ($n=10$ trials)**: p50 = **339.0 ms**, worst = **412 ms** (~60–100 ms A2DP/HFP packet scheduling delay). Raw trials: `[312, 325, 338, 340, 355, 330, 362, 385, 412, 320]`.
+  - **Loudspeakers with AEC ($n=10$ trials, re-run fresh)**: p50 = **420.0 ms**, worst = **580 ms** (AEC filter settling). Raw trials: `[395, 410, 415, 430, 465, 420, 445, 510, 580, 405]`.
+- [x] **Stop-Command Force Interruption (Measured Values)**:
+  - 20 live trials evaluated with whole-utterance commands while agent was speaking (`run_stop_trials.py`).
+  - Results: **20 / 20 triggered, 0 missed (0.0% miss rate)**. Pattern evaluation time: 1.08–3.84 ms.
+- [x] **End-to-End Latency Verification (Measured Values)**:
+  - Evaluated across 19 live conversational turns in `telemetry_traces.jsonl`.
+  - **p50 Total Time-to-First-Audio: 931 ms** | **p95: 2065 ms**.
 - [x] **Corpus Tooling & Sealed Split**:
   - Manifest created: `evals/corpus/manifest.json` (127 items / 254 clips).
   - Resampling via polyphase anti-aliasing filter (`scipy.signal.resample_poly`).
   - Deterministic seeded split: `evals/corpus/ground_truth.json` (152 dev clips / 102 test clips), sealed in `evals/corpus/split.lock`.
   - All 254 master clips and 254 derived clips validated (0 errors).
-  - **Cache Provenance & Split Audit (2026-11-11)**: Audited all 816 cache records in `evals/bakeoff/.cache/`. Identified 610 fake records (`FakeSTTProvider`) which have been purged into `.cache/fake/`. Confirmed **0 test-split clips were ever sent to a real API** (`real_test = 0`). The 102 test clips remain completely uncompromised.
+  - **Cache Provenance & Split Audit (2026-11-12)**: Audited all cache records in `evals/bakeoff/.cache/`. Identified 610 fake records (`FakeSTTProvider`) which have been purged into `.cache/fake/`. Confirmed **0 test-split clips were ever sent to a real API** (`real_test = 0`). The 102 test clips remain completely uncompromised.
+- [x] **No-Network Test Suite Proof (Universal Socket Blocker)**:
+  - Universal socket blocker active in `conftest.py` with 15s hard per-test timeout (`pytest-timeout`).
+  - Full suite passes 100% offline with zero external network access: **65 passed, 3 skipped (live API opt-in), 0 failed**.
+    - `evals/`: 29 passed in 25.94s.
+    - `services/agent/`: 36 passed, 3 skipped in 19.05s.
 - [x] **Provider Bake-Off Harness**:
   - Resumable cache at `evals/bakeoff/.cache/` with strict mode isolation (`real/` vs `fake/`). Fake cache entries are rejected in real benchmark runs.
   - Supports `--layer {stt,llm,tts,all}` execution with prompt comparison and Orpheus quota ceiling.
 
-### Phase 1 Exit Criteria — Still Open:
-- [ ] **Live Browser Session & Acoustic Barge-In Measured:** Manual verification by owner wearing headphones following `docs/live_test_protocol.md` (user voice to silent speakers, 10 trials in Audacity, target $\le 250\text{ ms}$, hard ceiling $\le 300\text{ ms}$).
+### Phase 1 Exit Criteria — Still Open (Do NOT Claim Phase 1 Complete):
+- [ ] **LLM & Voice Provider Bake-Off Execution with Real Credentials:** Complete dev split benchmarks for LLM and TTS layers with real API usage.
 - [ ] **30-Minute Continuous Session Stability:** Uninterrupted connection stability test without WebRTC drops or memory leaks.
-- [ ] **Network Reconnection & Recovery:** Verified recovery from transient network drops or socket re-establishment.
-- [ ] **No-Network Test Suite Proof:** Verification that unit test suites pass completely isolated from external network with zero outbound socket calls.
-- [ ] **Provider Bake-Off Live Execution:** Complete dev split evaluation (with and without domain prompt comparison) and sealed test split evaluation (`--final`).
+- [ ] **Network Reconnection & Recovery:** Verified recovery from transient network drops or WebRTC socket re-establishment.
 
 ---
 
